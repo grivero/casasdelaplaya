@@ -3,13 +3,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Casas de la Playa</title>
-	<link href="css/reset.css" rel="stylesheet" type="text/css" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="images/deco/favicon.gif" />
-    <link rel="shortcut icon" href="images/deco/favicon.ico" />
+	<link href="css/oldweb_css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="css/oldweb_css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="img/deco/favicon.gif" />
+    <link rel="shortcut icon" href="img/deco/favicon.ico" />
 	<script type="text/javascript" src="js/jQuery/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="js/jQuery/jquery-ui-1.8.13.custom.min.js"></script>
-	<link href="js/jQuery/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+	<link href="js/oldweb_js/jQuery/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
 	
 	<script type="text/javascript">
 			$(function() {
@@ -36,7 +36,7 @@
     	<li><a href="alojamientos.html">Alojamientos</a></li>
     	<li><a href="ubicacion.php">Ubicación</a></li>
     </ul>
-    <img src="images/logo/logo.png" width="163" height="68" title="Casas de la playa" name="Casas de la playa"/>
+    <img src="img/logo/logo.png" width="163" height="68" title="Casas de la playa" name="Casas de la playa"/>
     <ul id="right">
     	<li><a href="servicios.html">Servicios</a></li>
     	<li><a href="galeria.html">Galería de fotos</a></li>

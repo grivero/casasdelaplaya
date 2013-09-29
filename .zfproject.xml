@@ -10,6 +10,12 @@
       <controllersDirectory>
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="contacto"/>
+          <actionMethod actionName="default"/>
+          <actionMethod actionName="galeria"/>
+          <actionMethod actionName="servicios"/>
+          <actionMethod actionName="ubicacion"/>
+          <actionMethod actionName="alojamientos"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="User">
@@ -52,6 +58,24 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Authentication">
             <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="contacto"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="default"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="galeria"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="servicios"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="ubicacion"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="alojamientos"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

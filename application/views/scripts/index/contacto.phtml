@@ -1,0 +1,128 @@
+	<script type="text/javascript" src="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.13.custom.min.js"></script>
+	<link href="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript">
+			$(function() {
+				$( "#fI" ).datepicker();
+				$( "#fE" ).datepicker();
+			});
+	</script>
+
+	<?php if ($_GET['sent']=='ok') { ?>
+		<script type="text/javascript">
+			$(function() {
+				$( "#dialog" ).dialog();
+			});
+		</script>
+	<? } ?>
+	
+	
+	<div id="cont_left">
+            <h1>Contacto</h1>
+            <p><span>Tel:</span><br />Desde Uruguay: 098 805 930<br />Internacional: (00598) 98 805 930</p>           
+		<p><span>Tel:</span><br />Desde Uruguay: 099 343 490<br />Internacional: (00598) 99 343 490</p> 
+		
+		<br/><br/><br/><br/><br/><br/>						
+		
+		<h1 style="margin-bottom: 10px; font-size: 20px;">Cancelaci&oacute;n</h1>			 
+		<p style="margin-bottom: 2px;"><span>1)</span>Hasta 15 d&iacute;as antes del ingreso - 10%</p>           
+		<p style="margin-bottom: 2px;"><span>2)</span>Entre 14 y 10 d&iacute;as antes del ingreso - 15%</p>           
+		<p style="margin-bottom: 2px;"><span>3)</span>Entre 9 y 5 d&iacute;as antes del ingreso - 30%</p>           
+		<p style="margin-bottom: 2px;"><span>4)</span>Entre 4 d&iacute;as y el d&iacute;a del ingreso - 50%</p>           
+	</div>
+    <div id="cont_right">
+        <h2>Formulario</h2>
+        <div id="img_contacto"></div>
+            <form name="contactform" method="post" action="send_form_email.php" >
+			<table width="450px" style="float:right;">
+				
+				<tr>
+					 <td width="172" align="right" valign="top">
+					  <label for="first_name">Nombre *</label>
+					 </td>
+					 <td width="266" align="right" valign="top">
+					  <input  type="text" name="first_name" maxlength="50" size="30">
+				  </td>
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top"">
+					  <label for="last_name">Apellido *</label>
+					 </td>
+					 <td align="right" valign="top">
+					  <input  type="text" name="last_name" maxlength="50" size="30">
+				  </td>
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top"">
+					  <label for="pais">Pa&iacute;s </label>
+					 </td>
+					 <td align="right" valign="top">
+					  <input  type="text" name="pais" maxlength="50" size="30">
+				  </td>
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top">
+					  <label for="email">Email *</label>
+					 </td>
+					 <td align="right" valign="top">
+					  <input  type="text" name="email" maxlength="80" size="30">
+				  </td>				 
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top">
+					  <label for="email">Tel&eacute;fono</label>
+					 </td>
+					 <td align="right" valign="top">
+					  <input  type="text" name="telephone" maxlength="80" size="30">
+				  </td>				 
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top">
+					  <label for="fIngreso">Fecha ingreso*</label>
+					 </td>
+					 <td align="right" valign="top">
+					  <input  type="text" name="fIngreso" id="fI" maxlength="30" size="30">
+				  </td>
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top">
+					  <label for="fEgreso">Fecha egreso*</label>
+					 </td>
+					 <td align="right" valign="top">
+					  <input  type="text" name="fEgreso" id="fE" maxlength="30" size="30">
+				  </td>
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top">
+					  <label for="cant">Cantidad de personas</label>
+					 </td>
+					 <td align="right" valign="top">
+					  <input  type="text" name="cant" maxlength="30" size="30">
+				  </td>
+			  </tr>
+				
+				<tr>
+					 <td align="right" valign="top">
+					  <label for="comments">Consulta *</label>
+					 </td>
+					 <td align="right" valign="top">
+					  <textarea  name="comments" maxlength="1000" cols="25" rows="6"></textarea>
+				  </td>				 
+			  </tr>
+				
+				<tr>
+					 <td colspan="2" align="right" style="text-align:center">
+					  <input type="submit" value="Enviar mail" oncomplete="alert('Exito!');" class="btn_enviar" > 
+					 </td>
+				</tr>
+				
+			</table>
+  </form>
+</div>	
