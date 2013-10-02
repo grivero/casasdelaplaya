@@ -1,0 +1,90 @@
+<script type="text/javascript">
+	function validate(){
+		if( $("#user").val()=="" || $("#pass").val()=="" ){
+			$("#show_error").show();
+			return false;
+		}
+		$("#show_error").hide();
+		return true;		
+	}
+	$(function() {
+		
+	});
+</script>
+	
+	<!-- Tray -->
+	<div id="tray" class="box">
+		<p class="f-left box">
+	    <strong>Administracion Sitio Casas de la Playa</strong></p>		
+	</div> <!--  /tray -->
+	<hr class="noscreen" />
+	<!-- Menu -->
+	<div id="menu" class="box">
+		<ul class="box f-right">
+			<li><a href="http://casasdelaplayadelapedrera.com/" target="_blank"><span><strong>Ir al Sitio &raquo;</strong></span></a></li>
+		</ul>
+		<ul class="box">					          	
+	  	</ul>
+	</div> <!-- /header -->
+
+	<hr class="noscreen" />
+    
+    <div class="fix"></div>
+	<!-- Columns -->
+	<div id="cols" class="box">
+		<!-- Aside (Left Column) -->
+		<div id="aside" class="box">
+
+			<div class="padding box">
+				<!-- Logo (Max. width = 200px) -->
+			 	<p id="logo"><a href="#"><img src="<?=$this->baseUrl().'/img/LaRubia-Hostel-LaPedrera.png'?>" alt="Our logo" title="Visit Site" /></a></p>
+			</div> <!-- /padding -->
+			<ul class="box">                              
+			</ul>
+
+		</div> <!-- /aside -->
+		<hr class="noscreen" />
+		
+<!-- Content (Right Column) -->
+  <div id="content" class="box">
+
+			<h1>Login Administrador</h1>
+																		
+			<p class="msg info">Indique usuario y contrase&ntilde;a para acceder</p>
+			
+			<p id="show_error" class="msg warning" style="display: none;">Complete los campos obligatorios</p>			                        
+            <?php if( isset($_GET["type"]) && $_GET["type"]=="error" ){?>
+					<p class="msg error">Usuario o Contrase&ntilde;a Incorrectos</p>
+			<?php }?>			
+			
+	<form id="form"  name="form"  action="<?=$this->baseUrl()?>/authentication/login" method="post" enctype="multipart/form-data" onsubmit="return validate();"  >
+			<!-- Tab01 -->
+			<div id="tab01">			
+				  <fieldset id="article">
+                        <legend>L O G I N</legend>
+                         <span class="demo">
+
+						 <label for="user"><span id="">* Usuario: </span></label>  
+						 <input type="text" id="user" name="user" size="30" />						
+						<br />			 
+						 <label for="pass"><span id="">* Contrase&ntilde;a: </span></label>  
+						 <input type="password" id="pass" name="pass" size="30" />							 
+						                        
+						</span><!-- End demo -->
+					</fieldset>
+																								
+			</div> <!-- /tab01 -->
+            <div align="center">
+            	<input name="boton" id="button2" type="submit" value="Acceder" style="float: left; margin-left:250px;" />            
+            </div>
+	</form>
+												
+</div> 
+<!-- /content -->
+
+</div> <!-- /cols -->
+
+<hr class="noscreen" />
+
+	
+

@@ -1,20 +1,17 @@
 <?php
 
-class AuthenticationController extends Zend_Controller_Action
-{
+class AuthenticationController extends Zend_Controller_Action{
 
-    public function init()
-    {
+    public function init(){
         /* Initialize action controller here */
     }
 
-    public function indexAction()
-    {
+    public function indexAction(){
         // action body
     }
 
-    public function loginAction()
-    {
+    public function loginAction(){
+    	
         //get user variables
     	$user	= $this->_request->getParam('user');
     	$pass	= $this->_request->getParam('pass');
@@ -36,11 +33,19 @@ class AuthenticationController extends Zend_Controller_Action
     		$identity = $authAdapter->getResultRowObject();    		
     		$authStorage = $auth->getStorage();    		
     		$authStorage->write( $identity ); 
-    		$this->_redirect('admin/index');
+    		$this->_redirect('backend/index');
     	}else{
-    		$this->_redirect('admin/adminstrador?type=error');	
+    		$this->_redirect('backend/login?type=error');	
     	}	
     	
+    }
+    
+	public function logoutAction(){    
+    	if( Zend_Auth::getInstance()->hasIdentity()){    		    	
+    		Zend_Auth::getInstance()->clearIdentity();
+    		Zend_Session::destroy(false);
+    	}    		
+    	$this->_redirect('backend/login');    	    		    	
     }
     
 	/**
@@ -54,15 +59,6 @@ class AuthenticationController extends Zend_Controller_Action
     				->setIdentityColumn('email')
     				->setCredentialColumn('password');    
     	return $authAdapter;    	   
-    }
-
-    public function logoutAction()
-    {
-    	if( Zend_Auth::getInstance()->hasIdentity()){    		    	
-    		Zend_Auth::getInstance()->clearIdentity();
-    		Zend_Session::destroy(false);    		
-    		$this->_redirect('admin/administrador');//si esta lo mando al index
-    	}
     }
 
 

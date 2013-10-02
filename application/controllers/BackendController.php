@@ -5,10 +5,11 @@ class BackendController extends Zend_Controller_Action
 
     public function init()
     {
-       	//pregunto si ya esta autenticado
-    	if( !Zend_Auth::getInstance()->hasIdentity() && $this->getRequest()->getActionName()!='administrador' ){			    	
-    		$this->_redirect('/admin/administrador');    	
-    	}    	
+       	//i ask if was already loged
+    	if( !Zend_Auth::getInstance()->hasIdentity() && $this->getRequest()->getActionName()!='login' ){			    	
+    		$this->_redirect('/backend/login');    	
+    	}
+    	//set default layout for controller views    	
     	$this->_helper->_layout->setLayout('admin');
     }
 
@@ -17,7 +18,7 @@ class BackendController extends Zend_Controller_Action
         // action body
     }
 
- 	public function addHabitacionAction()
+    public function addHabitacionAction()
     {
         // action body
        if ($_POST['camas']){
@@ -144,9 +145,9 @@ class BackendController extends Zend_Controller_Action
 			$hab_name[$id_habitacion] = $habitacion['nombre'];
 		}
 		$this->view->hab_name = $hab_name;		
-		if ($this->_request->getParam('deleted') == 'si'){
+		if ($this->_request->getParam('deleted') == 'si')
 			$this->view->msg = 'La reserva fue borrada';		
-    	}
+    	
     }
 
     public function editReservaAction()
@@ -410,8 +411,8 @@ class BackendController extends Zend_Controller_Action
 	       	
        } 
     }
-    
-   public function restrictionsListAction()
+
+    public function restrictionsListAction()
     {
   		//Temporada
 			$temp_model = new Application_Model_DbTable_Temporadas();
@@ -421,7 +422,7 @@ class BackendController extends Zend_Controller_Action
 										->query()->fetchAll();	
         
     }
-  
+
     public function delTemporadaAction()
     {
         // action body
@@ -430,11 +431,70 @@ class BackendController extends Zend_Controller_Action
 	     $id = $temp_model->delete( array('id_temporada = ?' => $id_temporada));
 	     $this->_forward('restrictions-list','admin','default',array("deleted"=>'si'));
     }
-    
-  	public function administradorAction()
+
+    public function administradorAction()
     {
         // action body
     }
-    
+
+    public function loginAction()
+    {
+        // action body
+    }
+
+    public function houseListAction(){
+    	
+    	// action body
+        $hab_model = new Application_Model_DbTable_House();
+        $habitaciones = $hab_model->select()->from('house')
+										->order('id DESC')															
+										->query()->fetchAll();	
+		$this->view->habitaciones = $habitaciones;	
+		if ($this->_request->getParam('deleted') == 'si'){
+			$this->view->msg = 'La habitacion fue borrada';
+		}
+		
+    }
+
+    public function userListAction()
+    {
+        // action body
+    }
+
+    public function messageListAction()
+    {
+        // action body
+    }
+
+    public function seasonListAction()
+    {
+        // action body
+    }
+
+    public function postListAction()
+    {
+        // action body
+    }
+
+    public function reservationListAction()
+    {
+        // action body
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

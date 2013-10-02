@@ -23,6 +23,13 @@
         </controllerFile>
         <controllerFile controllerName="Backend">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="login"/>
+          <actionMethod actionName="houseList"/>
+          <actionMethod actionName="userList"/>
+          <actionMethod actionName="messageList"/>
+          <actionMethod actionName="seasonList"/>
+          <actionMethod actionName="postList"/>
+          <actionMethod actionName="reservationList"/>
         </controllerFile>
         <controllerFile controllerName="Frontend">
           <actionMethod actionName="index"/>
@@ -30,6 +37,8 @@
         </controllerFile>
         <controllerFile controllerName="Authentication">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="login"/>
+          <actionMethod actionName="logout"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
@@ -80,6 +89,33 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Frontend">
             <viewScriptFile forActionName="sendMessage"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Authentication">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Authentication">
+            <viewScriptFile forActionName="logout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="houseList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="userList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="messageList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="seasonList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="postList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="reservationList"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

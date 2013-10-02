@@ -1,4 +1,9 @@
-	
+<script language="Javascript">
+function decision(message, url){
+if(confirm(message)) location.href = url;
+}
+</script> 
+
 	<!-- Tray -->
 	<div id="tray" class="box">
 		<p class="f-left box">
@@ -12,7 +17,7 @@
 			<li><a href="http://casasdelaplayadelapedrera.com/" target="_blank"><span><strong>Ir al Sitio &raquo;</strong></span></a></li>
 		</ul>
 		<ul class="box">		
-			<li><a href="<?=$this->baseUrl()?>/backend/house-list"><span>Casas</span></a></li>     
+			<li id="menu-active" ><a href="<?=$this->baseUrl()?>/backend/house-list"><span>Casas</span></a></li>     
 			<li><a href="<?=$this->baseUrl().'/backend/message-list'?>"><span>Mensajes</span></a></li>                		
 			<li><a href="<?=$this->baseUrl()?>/backend/post-list"><span>Posts</span></a></li>
             <li><a href="<?=$this->baseUrl()?>/backend/reservation-list"><span>Reservas</span></a></li>
@@ -23,7 +28,7 @@
 
 	<hr class="noscreen" />
     
-    <div class="fix"></div>
+    <div class="fix"></div>	
 	<!-- Columns -->
 	<div id="cols" class="box">
 		<!-- Aside (Left Column) -->
@@ -33,7 +38,7 @@
 			 	<p id="logo"><a href="#"><img src="<?=$this->baseUrl()?>/img/logo/logo.png" alt="Our logo" title="Visit Site" /></a></p>
 			</div> <!-- /padding -->
 			<ul class="box">
-						<li><a href="<?=$this->baseUrl()?>/backend/house-list">Casas</a></li>     
+						<li id="submenu-active"><a href="<?=$this->baseUrl()?>/backend/house-list">Casas</a></li>     
 						<li><a href="<?=$this->baseUrl().'/backend/message-list'?>">Mensajes</a></li>                		
 						<li><a href="<?=$this->baseUrl()?>/backend/post-list">Posts</a></li>
                         <li><a href="<?=$this->baseUrl()?>/backend/reservation-list">Reservas</a></li>
@@ -43,18 +48,50 @@
 		</div> <!-- /aside -->
 		<hr class="noscreen" />
 		<!-- Content (Right Column) -->
-	  	<div id="content" class="box">
-			<h1>Administrador Casas de la Playa</h1>
-			<!-- Headings -->
-			<!--	<p class="msg warning">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<p class="msg info">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	  <div id="content" class="box">
+          <h1>Casas</h1>
+	      <!-- Headings -->
+          <!--<p class="msg warning">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<p class="msg info">Lorem ipsttetu amet, consecum dolor sir adipiscing elit.</p>
 			<p class="msg done">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 			<p class="msg error">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
-			<p class="msg info">Bienvenido al administrador </p>			
-            <p class="msg info">Usted podr&aacute; hacer altas, bajas, listados y modificaciones de Casas, Mensajes, Posts, Reservas, Temporadas y Usuarios</p>                              
-	  	</div> 
-		<!-- /content -->
-	</div> <!-- /cols -->
-	<hr class="noscreen" />
+			<?php if ($this->msg != ''){ ?>
+<p class="msg done"><?=$this->msg; ?></p>
+	<?php } ?>
+          <h3 class="tit">Listado de Casas</h3>
+                    
+	      <table>
+            <tbody>
+            <tr>
+              <th>Nombre (Nro)</th>
+              <th>Cantidad de camas</th>
+              <th>Acci&oacute;n</th>
+            </tr>
+            
+          <?php 
+          	$i = 0;
+          	foreach ($this->habitaciones as $habitacion){
+          		$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >
+              <td><?=$habitacion['nombre'];?></td>
+              <td><?=$habitacion['cant_camas'];?></td>
+              <td align="center">
+              		<a href="<?=$this->baseUrl()?>/backend/edit-house?id=<?=$habitacion['id_habitacion'];?>">
+              			<img src="<?=$this->baseUrl()?>/img/icons2/edit.png" title="Editar habitaci&oacute;n" width="16" height="16">
+              		</a>
+             		<a href="javascript:decision('¿Está seguro que desea borrar esta habitacion?','<?=$this->baseUrl()?>/backend/del-house?id=<?=$habitacion['id_habitacion'];?>')">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/trash_closed.png" title="Borrar Casa" width="16" height="16">
+             		</a>
+             	</td>            
+            </tr>
+            <?php } ?>
+            </tbody></table>
+	      <br>
+	      <p>&nbsp;</p>
+      </div>
+      <!-- /content -->
+  </div>
+	<!-- /cols -->
 
+	<hr class="noscreen">
 	
