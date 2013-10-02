@@ -26,6 +26,7 @@
         </controllerFile>
         <controllerFile controllerName="Frontend">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="sendMessage"/>
         </controllerFile>
         <controllerFile controllerName="Authentication">
           <actionMethod actionName="index"/>
@@ -76,6 +77,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="alojamientos"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Frontend">
+            <viewScriptFile forActionName="sendMessage"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

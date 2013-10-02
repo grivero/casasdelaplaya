@@ -1,20 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<?php echo $this->doctype();?>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Casa de la Playa</title>
-<link href="<?=$this->baseUrl()?>/css/oldweb_css/reset.css" rel="stylesheet" type="text/css" />
-<link href="<?=$this->baseUrl()?>/css/oldweb_css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-1.5.1.min.js"></script>
-<link rel="shortcut icon" href="<?=$this->baseUrl()?>/img/deco/favicon.gif" />
-<link rel="shortcut icon" href="<?=$this->baseUrl()?>/img/deco/favicon.ico" />
-<script>
-$(document).ready(function(){
-	$("#" + "<?=$this->current_page?>").addClass("menu_selected");
-});
-</script>
+    <?php
+        echo $this->headMeta();
+        echo $this->headTitle();
+    ?>
+	<link href="<?=$this->baseUrl()?>/css/oldweb_css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="<?=$this->baseUrl()?>/css/oldweb_css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-1.5.1.min.js"></script>
+	<link rel="shortcut icon" href="<?=$this->baseUrl()?>/img/deco/favicon.gif" />
+	<link rel="shortcut icon" href="<?=$this->baseUrl()?>/img/deco/favicon.ico" />
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#" + "<?=$this->current_page?>").addClass("menu_selected");
+		});
+	</script>
 </head>
-
 <body>
 	<div id="head">
 	    <ul id="left">
