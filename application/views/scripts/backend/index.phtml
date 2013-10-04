@@ -1,60 +1,12 @@
-	
-	<!-- Tray -->
-	<div id="tray" class="box">
-		<p class="f-left box">
-	    <strong>Administracion Sitio Casas de la Playa</strong></p>
-		<p class="f-right">Usuario: <strong><a href="#">gianco hard worker stylen</a></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong><a href="<?=$this->baseUrl();?>/authentication/logout" id="logout">Log out</a></strong></p>
-	</div> <!--  /tray -->
-	<hr class="noscreen" />
-	<!-- Menu -->
-	<div id="menu" class="box">
-		<ul class="box f-right">
-			<li><a href="http://casasdelaplayadelapedrera.com/" target="_blank"><span><strong>Ir al Sitio &raquo;</strong></span></a></li>
-		</ul>
-		<ul class="box">		
-			<li><a href="<?=$this->baseUrl()?>/backend/house-list"><span>Casas</span></a></li>     
-			<li><a href="<?=$this->baseUrl().'/backend/message-list'?>"><span>Mensajes</span></a></li>                		
-			<li><a href="<?=$this->baseUrl()?>/backend/post-list"><span>Posts</span></a></li>
-            <li><a href="<?=$this->baseUrl()?>/backend/reservation-list"><span>Reservas</span></a></li>
-            <li><a href="<?=$this->baseUrl()?>/backend/season-list"><span>Temporadas</span></a></li>
-            <li><a href="<?=$this->baseUrl()?>/backend/user-list"><span>Usuarios</span></a></li>        	
-	  	</ul>
-	</div> <!-- /header -->
-
-	<hr class="noscreen" />
-    
-    <div class="fix"></div>
-	<!-- Columns -->
-	<div id="cols" class="box">
-		<!-- Aside (Left Column) -->
-		<div id="aside" class="box">
-			<div class="padding box">
-				<!-- Logo (Max. width = 200px) -->
-			 	<p id="logo"><a href="#"><img src="<?=$this->baseUrl()?>/img/logo/logo.png" alt="Our logo" title="Visit Site" /></a></p>
-			</div> <!-- /padding -->
-			<ul class="box">
-						<li><a href="<?=$this->baseUrl()?>/backend/house-list">Casas</a></li>     
-						<li><a href="<?=$this->baseUrl().'/backend/message-list'?>">Mensajes</a></li>                		
-						<li><a href="<?=$this->baseUrl()?>/backend/post-list">Posts</a></li>
-                        <li><a href="<?=$this->baseUrl()?>/backend/reservation-list">Reservas</a></li>
-                        <li><a href="<?=$this->baseUrl()?>/backend/season-list">Temporadas</a></li>
-                        <li><a href="<?=$this->baseUrl()?>/backend/user-list">Usuarios</a></li>      
-			</ul>
-		</div> <!-- /aside -->
-		<hr class="noscreen" />
-		<!-- Content (Right Column) -->
-	  	<div id="content" class="box">
-			<h1>Administrador Casas de la Playa</h1>
-			<!-- Headings -->
-			<!--	<p class="msg warning">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<p class="msg info">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<p class="msg done">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<p class="msg error">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
-			<p class="msg info">Bienvenido al administrador </p>			
-            <p class="msg info">Usted podr&aacute; hacer altas, bajas, listados y modificaciones de Casas, Mensajes, Posts, Reservas, Temporadas y Usuarios</p>                              
-	  	</div> 
-		<!-- /content -->
-	</div> <!-- /cols -->
-	<hr class="noscreen" />
+<?= $this->getAdminLayout('none') ?>
+	<h1>Administrador Casas de la Playa</h1>
+	<!-- Headings -->
+	<!--	<p class="msg warning">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p class="msg info">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p class="msg done">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p class="msg error">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+	<p class="msg info">Bienvenido al administrador </p>			
+	<p class="msg info">Usted podr&aacute; hacer altas, bajas, listados y modificaciones de Casas, Mensajes, Posts, Reservas, Temporadas y Usuarios</p>                              
+<?= $this->getAdminFooter() ?>
 
 	

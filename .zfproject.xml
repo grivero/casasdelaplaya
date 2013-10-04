@@ -30,6 +30,10 @@
           <actionMethod actionName="seasonList"/>
           <actionMethod actionName="postList"/>
           <actionMethod actionName="reservationList"/>
+          <actionMethod actionName="deleteHouse"/>
+          <actionMethod actionName="viewHouse"/>
+          <actionMethod actionName="editHouse"/>
+          <actionMethod actionName="addHouse"/>
         </controllerFile>
         <controllerFile controllerName="Frontend">
           <actionMethod actionName="index"/>
@@ -116,6 +120,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Backend">
             <viewScriptFile forActionName="reservationList"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="deleteHouse"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="viewHouse"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="editHouse"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="addHouse"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

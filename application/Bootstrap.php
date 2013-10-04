@@ -45,6 +45,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		ZendX_JQuery::enableView($view);			
 		$view->jQuery()->enable();		
 			
+		//lunch helpers
+		$view->registerHelper( new Application_View_Helper_GetAdminLayout(), 'getAdminLayout' );		
+		$view->registerHelper( new Application_View_Helper_GetAdminFooter(), 'getAdminFooter' );
+		
 	}
 	
 	//Iniciador de Session
