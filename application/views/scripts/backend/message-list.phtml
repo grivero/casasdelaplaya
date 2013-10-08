@@ -1,4 +1,50 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Backend</b> and script/action name <b>messageList</b></p>
-</div>
+<script language="Javascript">
+	function decision(message, url){
+		if(confirm(message)) 
+			location.href = url;
+	}
+</script> 
+
+	<?= $this->getAdminLayout('Mensajes') ?>	   
+	<?php if ($this->msg != ''){ ?>
+		<p class="msg done"><?=$this->msg; ?></p>
+	<?php } ?>
+      <h3 class="tit">Listado de Mensajes</h3>                    
+      <table>
+            <tbody>
+            <tr>
+              <th>Remitente</th>
+              <th>Contenido</th>
+              <th>Email</th>
+              <th>Pais</th>
+              <th>Personas</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Fecha env&iacute;o</th>
+              <th>Eliminar</th>
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->messages as $message){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >
+              <td><a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$message['user_id'];?>"><b><?=$message['first_name'];?> <?=$message['last_name']?></b></a></td>
+              <td><?=$message['content'];?></td>              
+              <td><?=$message['email'];?></td>
+              <td><?=$message['country'];?></td>
+              <td><?=$message['howManyPeople'];?></td>
+              <td><?=$message['checkin'];?></td>
+              <td><?=$message['checkout'];?></td>              
+              <td><?=$message['date_created'];?></td>
+              <td align="center">              		              		
+             		<a href="javascript:decision('¿Está seguro que desea borrar este Mensaje?','<?=$this->baseUrl()?>/backend/delete-message?id=<?=$message['id'];?>')">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/trash_closed.png" title="Eliminar" width="16" height="16" alt="del">
+             		</a>
+             	</td>            
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <br>
+      <p>&nbsp;</p>
+      
+      <?= $this->getAdminFooter() ?>

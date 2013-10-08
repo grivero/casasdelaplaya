@@ -1,4 +1,56 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Backend</b> and script/action name <b>userList</b></p>
-</div>
+<script language="Javascript">
+	function decision(user, url){
+		if(confirm(user)) 
+			location.href = url;
+	}
+</script> 
+
+	<?= $this->getAdminLayout('Usuarios') ?>	   
+	<?php if ($this->msg != ''){ ?>
+		<p class="msg done"><?=$this->msg; ?></p>
+	<?php } ?>
+      <h3 class="tit">Listado de Usuarios</h3>                    
+      <table>
+            <tbody>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Pais</th>
+              <th>Ciudad</th>
+              <th>Fecha nacimiento</th>
+              <th>Identificador civil</th>
+              <th>Fecha creacion</th>              
+              <th>Acciones</th>
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->users as $user){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >
+              <td><a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$user['id'];?>"><b><?=$user['name'];?></b></a></td>                           
+              <td><?=$user['email'];?></td>
+              <td><?=$user['phone'];?></td>
+              <td><?=$user['country'];?></td>
+              <td><?=$user['city'];?></td>
+              <td><?=$user['date_birth'];?></td>
+              <td><?=$user['civil_identifier'];?></td>                          
+              <td><?=$user['date_created'];?></td>
+              <td align="center">              		              		
+             		<a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$user['id'];?>">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/house.png" title="Ver Detalles" width="16" height="16" alt="del">
+             		</a>
+              		<a href="<?=$this->baseUrl()?>/backend/edit-user?id=<?=$user['id'];?>">
+              			<img src="<?=$this->baseUrl()?>/img/icons2/edit.png" title="Editar" width="16" height="16" alt="edit">
+              		</a>
+             		<a href="javascript:decision('¿Está seguro que desea borrar este Usuario? El borrado incorrecto puede causar inestabilidad en el sistema','<?=$this->baseUrl()?>/backend/delete-user?id=<?=$user['id'];?>')">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/trash_closed.png" title="Eliminar" width="16" height="16" alt="del">
+             		</a>
+             	</td>            
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <br>
+      <p>&nbsp;</p>
+      
+      <?= $this->getAdminFooter() ?>

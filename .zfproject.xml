@@ -34,6 +34,10 @@
           <actionMethod actionName="viewHouse"/>
           <actionMethod actionName="editHouse"/>
           <actionMethod actionName="addHouse"/>
+          <actionMethod actionName="deleteMessage"/>
+          <actionMethod actionName="editUser"/>
+          <actionMethod actionName="addUser"/>
+          <actionMethod actionName="viewUser"/>
         </controllerFile>
         <controllerFile controllerName="Frontend">
           <actionMethod actionName="index"/>
@@ -132,6 +136,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Backend">
             <viewScriptFile forActionName="addHouse"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="deleteMessage"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="editUser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="addUser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="viewUser"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
