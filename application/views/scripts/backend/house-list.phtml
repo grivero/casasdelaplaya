@@ -26,10 +26,10 @@
           	$i++; ?>  
            <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >
               <td><a href="<?=$this->baseUrl();?>/backend/view-house?id=<?=$habitacion['id'];?>"><b><?=$habitacion['name'];?></b></a></td>
-              <td>$<?=$habitacion['low_price'];?></td>              
-              <td>$<?=$habitacion['medium_price'];?></td>
-              <td>$<?=$habitacion['high_price'];?></td>
-              <td>$<?=$habitacion['special_price'];?></td>              
+              <td>$ <?=$habitacion['low_price'];?></td>              
+              <td>$ <?=$habitacion['medium_price'];?></td>
+              <td>$ <?=$habitacion['high_price'];?></td>
+              <td>$ <?=$habitacion['special_price'];?></td>              
               <td align="center">
               		<a href="<?=$this->baseUrl();?>/backend/view-house?id=<?=$habitacion['id'];?>">
              			<img src="<?=$this->baseUrl()?>/img/icons2/house.png" title="Ver Detalles" width="16" height="16" alt="del">

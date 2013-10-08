@@ -38,6 +38,11 @@
           <actionMethod actionName="editUser"/>
           <actionMethod actionName="addUser"/>
           <actionMethod actionName="viewUser"/>
+          <actionMethod actionName="viewReservation"/>
+          <actionMethod actionName="addReservation"/>
+          <actionMethod actionName="deleteReservation"/>
+          <actionMethod actionName="deleteUser"/>
+          <actionMethod actionName="editSeason"/>
         </controllerFile>
         <controllerFile controllerName="Frontend">
           <actionMethod actionName="index"/>
@@ -148,6 +153,21 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Backend">
             <viewScriptFile forActionName="viewUser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="viewReservation"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="addReservation"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="deleteReservation"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="deleteUser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="editSeason"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

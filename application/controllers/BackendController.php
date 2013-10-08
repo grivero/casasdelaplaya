@@ -1,30 +1,33 @@
 <?php
+/**
+ * 
+ * Backend system controller
+ * @author gustavo rivero
+ * @date 1/10/2013
+ * @email gus.rivero.rodriguez@gmail.com
+ */
+class BackendController extends Zend_Controller_Action{
 
-class BackendController extends Zend_Controller_Action
-{
-
-    public function init()
-    {
+    public function init(){
+    	    	
        	//i ask if was already loged
     	if( !Zend_Auth::getInstance()->hasIdentity() && $this->getRequest()->getActionName()!='login' ){			    	
     		$this->_redirect('/backend/login');    	
     	}
     	//set default layout for controller views    	
     	$this->_helper->_layout->setLayout('admin');
+    	
     }
 
-    public function indexAction()
-    {
+    public function indexAction(){
         // action body
     }
 
-    public function loginAction()
-    {
+    public function loginAction(){
         // action body
     }
 
-    public function houseListAction()
-    {
+    public function houseListAction(){
     	
     	// action body
         $hab_model = new Application_Model_DbTable_House();
@@ -38,57 +41,107 @@ class BackendController extends Zend_Controller_Action
 		
     }
 
-    public function userListAction()
-    {
+    public function userListAction(){
+    	
         // action body
         $user_model = new Application_Model_DbTable_User();
         $users = $user_model->select()->from('user')
 										->order('name DESC')															
 										->query()->fetchAll();	
 		$this->view->users = $users;	
-		if ($this->_request->getParam('deleted') == 'ok')
+		if ($this->_request->getParam('deleted') == 'ok'){
 			$this->view->msg = 'Mensaje fue borrado';
+		}
+			
     }
 
-    public function messageListAction()
-    {
+    public function messageListAction(){
+    	
     	// action body
         $message_model = new Application_Model_DbTable_Message();
         $messages = $message_model->select()->from('message')
 										->order('date_created DESC')															
 										->query()->fetchAll();	
 		$this->view->messages = $messages;	
-		if ($this->_request->getParam('deleted') == 'ok')
+		if ($this->_request->getParam('deleted') == 'ok'){
 			$this->view->msg = 'Mensaje fue borrado';
+		}
 		
     }
 
-    public function seasonListAction()
-    {
-        // action body
+    public function seasonListAction(){
+    	
+    	// models    	
+    	$season_model = new Application_Model_DbTable_Season();    	
+		// data    	
+    	$seasons = $season_model->select()->from('season')
+										->order('date_created DESC')															
+										->query()->fetchAll();													
+		$this->view->seasons = $seasons;	
+		if ($this->_request->getParam('edited') == 'ok'){
+			$this->view->msg = 'La temporada fue editada';
+		}
+		
+    }
+    
+	public function editSeasonAction(){    	
+    	//vars
+    	$id 			= $_GET['id'];    	
+    	$season_model 	= new Application_Model_DbTable_Season();
+    	$season 		= $season_model->find($id)->current();
+    	
+        if( $this->getRequest()->getParam('edit')=='true' ){
+        	//helper        	
+        	require_once('../library/utils/fecha.class.php');
+        	//dates manipulation
+        	$start_date  		= trim( $this->_request->getParam('start_date') );    						
+			$fecha_obj 			= new Fecha($start_date);		
+			$start_date 		= $fecha_obj->getFecha()->format('Y-m-d');
+			$season->start_date	= $start_date;    		
+        	
+			$end_date  			= trim( $this->_request->getParam('end_date') );    						
+			$fecha_obj 			= new Fecha($end_date);		
+			$end_date 			= $fecha_obj->getFecha()->format('Y-m-d');
+			$season->end_date	= $end_date;    		
+        	    		    	    		
+			$season->save();    		  		    		
+        	$this->_forward('season-list','backend','default',array("edited"=>"ok"));
+        }else{
+			//show season info	        	
+			$this->view->season = $season;
+        }
+	}
+
+    public function postListAction(){
+       	    	
     }
 
-    public function postListAction()
-    {
-        // action body
+    public function reservationListAction(){
+    	    
+    	// models    	
+    	$res_model 		= new Application_Model_DbTable_Reservation();    	
+		// data    	
+    	$reservations = $res_model->select()->from('reservation')
+										->order('date_created DESC')															
+										->query()->fetchAll();													
+		$this->view->reservations = $reservations;	
+		if ($this->_request->getParam('deleted') == 'ok'){
+			$this->view->msg = 'La reserva fue borrada';
+		}
+		
     }
 
-    public function reservationListAction()
-    {
-        // action body
-    }
-
-    public function deleteHouseAction()
-    {
+    public function deleteHouseAction(){
+    	
          // action body
          $id_habitacion = $_GET['id'];
          $hab_model = new Application_Model_DbTable_House();
 	     $id_hab = $hab_model->delete( array('id = ?' => $id_habitacion));
 	     $this->_forward('house-list','backend','default',array("deleted"=>'ok'));
+	     
     }
 
-    public function viewHouseAction()
-    {
+    public function viewHouseAction(){
         // action body
         $id = $_GET['id'];    
         $hab_model = new Application_Model_DbTable_House();
@@ -100,9 +153,7 @@ class BackendController extends Zend_Controller_Action
 		
     }
 
-    public function editHouseAction()
-    {
-    	
+    public function editHouseAction(){    	
     	//vars
     	$id 		= $_GET['id'];    	
     	$hab_model 	= new Application_Model_DbTable_House();
@@ -152,8 +203,7 @@ class BackendController extends Zend_Controller_Action
         
     }
 
-    public function deleteMessageAction()
-    {
+    public function deleteMessageAction(){
     	
          // action body
          $id_message = $_GET['id'];
@@ -206,9 +256,30 @@ class BackendController extends Zend_Controller_Action
     {
         // action body
     }
+    
+	public function deleteUserAction(){
+         
+		// vars
+         $id_user = $_GET['id'];
+         // models
+         $user_model 	= new Application_Model_DbTable_User();
+         $res_model 	= new Application_Model_DbTable_Reservations();
+         $post_model	= new Application_Model_DbTable_Post();
+         $msg_model		= new Application_Model_DbTable_Message();
+         
+         // deletes
+         //TODO: im not deleting the guests from reservations, and the phisical files from posts
+	     $user_model->delete( array('id = ?' => $id_user) );
+	     $res_model->delete( array('user_id = ?' => $id_user) );
+	     $post_model->delete( array('user_id = ?' => $id_user) );
+	     $msg_model->delete( array('user_id = ?' => $id_user) );
+	     
+	     $this->_forward('user-list','backend','default',array("deleted"=>'ok'));
+	     
+    }
 
-    public function viewUserAction()
-    {
+    public function viewUserAction(){
+    	
 		//vars
     	$id 			= $_GET['id'];    	
     	$user_model 	= new Application_Model_DbTable_User();
@@ -220,7 +291,7 @@ class BackendController extends Zend_Controller_Action
     	$user			= $user_model->find($id)->current();
     	$posts			= $post_model->select()->from('post')
         								->where("user_id = $id")
-        								->order('date_created DESC')																							
+        								->order('date_created DESC')																		
 										->query()->fetchAll();
 		$messages		= $msg_model->select()->from('message')
         								->where("user_id = $id")
@@ -239,19 +310,44 @@ class BackendController extends Zend_Controller_Action
 		
     }
 
+    public function viewReservationAction(){
+    	
+    	// vars
+    	$id 			= $_GET['id'];
+    	// models    	
+    	$res_model 		= new Application_Model_DbTable_Reservation();
+    	$guest_model	= new Application_Model_DbTable_Guest();
+		// data    	
+    	$reservation = $res_model->find($id)->current();    									
+		$guests = $guest_model->select()->from('guest')
+										->where("reservation_id = $id")
+        								->order('date_created DESC')																							
+										->query()->fetchAll();
+		//data to view		
+		$this->view->reservation 	= $reservation;
+		$this->view->guests			= $guests;
+				
+    }
+
+	public function addReservationAction(){
+    	
+    }
+
+	public function deleteReservationAction(){
+		
+		// vars
+    	$id 			= $_GET['id'];
+    	// models    	
+    	$res_model 		= new Application_Model_DbTable_User();
+    	$guest_model	= new Application_Model_DbTable_Guest();
+		// deletes    	
+    	$res_model->delete( array('id = ?' => $id) );
+	    $guest_model->delete( array('reservation_id = ?' => $id) );
+	    // redirection
+	    $this->_forward('reservation-list','backend','default',array("deleted"=>'ok'));
+	     
+    } 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 

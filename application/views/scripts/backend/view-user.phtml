@@ -87,7 +87,7 @@ if ($_GET['edited']=='ok') {
               <td><?=$reservation['canceled'];?></td>
               <td><?=$reservation['date_created'];?></td>
               <td align="center">              		              		
-             		<a href="<?=$this->baseUrl()?>/backend/view-reservation?id=<?=$reservation['id'];?>')">
+             		<a href="<?=$this->baseUrl()?>/backend/view-reservation?id=<?=$reservation['id'];?>">
              			<img src="<?=$this->baseUrl()?>/img/icons2/house.png" title="Ver Detalles" width="16" height="16" alt="del">
              		</a>
              	</td>                                                            
@@ -112,7 +112,7 @@ if ($_GET['edited']=='ok') {
           foreach ($this->messages as $message){
           	$i++; ?>  
            <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
-              <td><a href="<?=$this->baseUrl()?>/backend/view-message?id=<?=$message['id']?>"><?=$message['content'];?></a></td>                                          
+              <td><?=$message['content'];?></td>                                          
               <td><?=$message['checkin'];?></td>
               <td><?=$message['checkout'];?></td>
               <td><?=$message['howManyPeople'];?></td>              

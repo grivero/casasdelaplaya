@@ -89,9 +89,9 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 					  	'<div id="content" class="box">'.
 				        	'<h1>Mensajes</h1>';	
    		}else if($section == 'Posts'){
-   				$mid_content =	'<li id="menu-active" ><a href="javascript:;"><span>Casas</span></a></li>'.     
+   				$mid_content =	'<li><a href="'.$baseUrl.'/backend/post-list"><span>Casas</span></a></li>'.     
 							'<li><a href="'.$baseUrl.'/backend/message-list"><span>Mensajes</span></a></li>'.                		
-							'<li><a href="'.$baseUrl.'/backend/post-list"><span>Posts</span></a></li>'.
+							'<li id="menu-active"><a href="javascript:;"><span>Posts</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/reservation-list"><span>Reservas</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/season-list"><span>Temporadas</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/user-list"><span>Usuarios</span></a></li>'.        	
@@ -107,13 +107,13 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 			 					'<p id="logo"><a href="#"><img src="'.$baseUrl.'/img/logo/logo.png" alt="Our logo" title="Visit Site" /></a></p>'.
 							'</div>'.
 							'<ul class="box">'.
-	   							'<li id="submenu-active"><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.
-								'<ul>'.
-                            		'<li><a href="'.$baseUrl.'/backend/add-house">Agregar</a></li>'.
-                            		'<li><a href="javascript:;">Listado Casas</a></li>'.						
-								'</ul>'.     
+	   							'<li><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.								     
 								'<li><a href="'.$baseUrl.'/backend/message-list">Mensajes</a></li>'.                		
-								'<li><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
+								'<li id="submenu-active"><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
+   								'<ul>'.
+                            		'<li><a href="'.$baseUrl.'/backend/add-post">Agregar</a></li>'.
+                            		'<li><a href="'.$baseUrl.'/backend/post-list">Listado Posts</a></li>'.						
+								'</ul>'.
                         		'<li><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.
                         		'<li><a href="'.$baseUrl.'/backend/season-list">Temporadas</a></li>'.
                         		'<li><a href="'.$baseUrl.'/backend/user-list">Usuarios</a></li>'.      
@@ -121,12 +121,12 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 						'</div>'.
 						'<hr class="noscreen" />'.						
 					  	'<div id="content" class="box">'.
-				        	'<h1>Casas</h1>';
+				        	'<h1>Posts</h1>';
    		}else if($section == 'Reservas'){
-   				$mid_content =	'<li id="menu-active" ><a href="javascript:;"><span>Casas</span></a></li>'.     
+   				$mid_content =	'<li><a href="'.$baseUrl.'/backend/reservation-list"><span>Casas</span></a></li>'.     
 							'<li><a href="'.$baseUrl.'/backend/message-list"><span>Mensajes</span></a></li>'.                		
 							'<li><a href="'.$baseUrl.'/backend/post-list"><span>Posts</span></a></li>'.
-				            '<li><a href="'.$baseUrl.'/backend/reservation-list"><span>Reservas</span></a></li>'.
+				            '<li id="menu-active" ><a href="javascript:;"><span>Reservas</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/season-list"><span>Temporadas</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/user-list"><span>Usuarios</span></a></li>'.        	
 					  	'</ul>'.
@@ -141,27 +141,27 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 			 					'<p id="logo"><a href="#"><img src="'.$baseUrl.'/img/logo/logo.png" alt="Our logo" title="Visit Site" /></a></p>'.
 							'</div>'.
 							'<ul class="box">'.
-	   							'<li id="submenu-active"><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.
-								'<ul>'.
-                            		'<li><a href="'.$baseUrl.'/backend/add-house">Agregar</a></li>'.
-                            		'<li><a href="javascript:;">Listado Casas</a></li>'.						
-								'</ul>'.     
+	   							'<li><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.								    
 								'<li><a href="'.$baseUrl.'/backend/message-list">Mensajes</a></li>'.                		
 								'<li><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
-                        		'<li><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.
+                        		'<li id="submenu-active"><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.
+   								'<ul>'.
+                            		'<li><a href="'.$baseUrl.'/backend/add-reservation">Agregar</a></li>'.
+                            		'<li><a href="'.$baseUrl.'/backend/reservation-list">Listado Reservas</a></li>'.						
+								'</ul>'.
                         		'<li><a href="'.$baseUrl.'/backend/season-list">Temporadas</a></li>'.
                         		'<li><a href="'.$baseUrl.'/backend/user-list">Usuarios</a></li>'.      
 							'</ul>'.
 						'</div>'.
 						'<hr class="noscreen" />'.						
 					  	'<div id="content" class="box">'.
-				        	'<h1>Casas</h1>';
+				        	'<h1>Reservas</h1>';
    		}else if($section == 'Temporadas'){
-   				$mid_content =	'<li id="menu-active" ><a href="javascript:;"><span>Casas</span></a></li>'.     
+   				$mid_content =	'<li><a href="'.$baseUrl.'/backend/house-list"><span>Casas</span></a></li>'.     
 							'<li><a href="'.$baseUrl.'/backend/message-list"><span>Mensajes</span></a></li>'.                		
 							'<li><a href="'.$baseUrl.'/backend/post-list"><span>Posts</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/reservation-list"><span>Reservas</span></a></li>'.
-				            '<li><a href="'.$baseUrl.'/backend/season-list"><span>Temporadas</span></a></li>'.
+				            '<li id="menu-active" ><a href="javascript:;"><span>Temporadas</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/user-list"><span>Usuarios</span></a></li>'.        	
 					  	'</ul>'.
 					'</div>'.			
@@ -175,21 +175,20 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 			 					'<p id="logo"><a href="#"><img src="'.$baseUrl.'/img/logo/logo.png" alt="Our logo" title="Visit Site" /></a></p>'.
 							'</div>'.
 							'<ul class="box">'.
-	   							'<li id="submenu-active"><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.
-								'<ul>'.
-                            		'<li><a href="'.$baseUrl.'/backend/add-house">Agregar</a></li>'.
-                            		'<li><a href="javascript:;">Listado Casas</a></li>'.						
-								'</ul>'.     
+	   							'<li><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.								  
 								'<li><a href="'.$baseUrl.'/backend/message-list">Mensajes</a></li>'.                		
 								'<li><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
                         		'<li><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.
-                        		'<li><a href="'.$baseUrl.'/backend/season-list">Temporadas</a></li>'.
+                        		'<li id="submenu-active"><a href="'.$baseUrl.'/backend/season-list">Temporadas</a></li>'.
+   								'<ul>'.                            		
+                            		'<li><a href="'.$baseUrl.'/backend/season-list">Listado Temporadas</a></li>'.						
+								'</ul>'.   
                         		'<li><a href="'.$baseUrl.'/backend/user-list">Usuarios</a></li>'.      
 							'</ul>'.
 						'</div>'.
 						'<hr class="noscreen" />'.						
 					  	'<div id="content" class="box">'.
-				        	'<h1>Casas</h1>';
+				        	'<h1>Temporadas</h1>';
    		}else if($section == 'Usuarios'){
    				$mid_content =	'<li><a href="'.$baseUrl.'/backend/house-list"><span>Casas</span></a></li>'.     
 							'<li><a href="'.$baseUrl.'/backend/message-list"><span>Mensajes</span></a></li>'.                		
@@ -209,12 +208,12 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 			 					'<p id="logo"><a href="#"><img src="'.$baseUrl.'/img/logo/logo.png" alt="Our logo" title="Visit Site" /></a></p>'.
 							'</div>'.
 							'<ul class="box">'.
-	   							'<li id="submenu-active"><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.								     
+	   							'<li><a href="'.$baseUrl.'/backend/house-list">Casas</a></li>'.								     
 								'<li><a href="'.$baseUrl.'/backend/message-list">Mensajes</a></li>'.                		
 								'<li><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
                         		'<li><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.
                         		'<li><a href="'.$baseUrl.'/backend/season-list">Temporadas</a></li>'.
-                        		'<li><a href="'.$baseUrl.'/backend/user-list">Usuarios</a></li>'.
+                        		'<li id="submenu-active"><a href="'.$baseUrl.'/backend/user-list">Usuarios</a></li>'.
    								'<ul>'.
                             		'<li><a href="'.$baseUrl.'/backend/add-user">Agregar</a></li>'.
                             		'<li><a href="'.$baseUrl.'/backend/user-list">Listado Usuarios</a></li>'.						

@@ -1,4 +1,58 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Backend</b> and script/action name <b>reservationList</b></p>
-</div>
+<script language="Javascript">
+	function decision(message, url){
+		if(confirm(message)) 
+			location.href = url;
+	}
+</script> 
+
+	<?= $this->getAdminLayout('Reservas') ?>	   
+	<?php if ($this->msg != ''){ ?>
+		<p class="msg done"><?=$this->msg; ?></p>
+	<?php } ?>
+      <h3 class="tit">Listado de Reservas</h3>                    
+      <table>
+            <tbody>
+            <tr>
+              <th>Id usuario</th>
+              <th>Id casa</th>
+              <th>Check in</th>
+              <th>Check out</th>
+              <th>Costo</th>              
+              <th>Estado pago</th>
+              <th>Estado reserva</th>
+              <th>Pedidos especiales</th>
+              <th>Fecha creaci&oacute;n</th>
+              <th>Acciones</th>
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->reservations as $reservation){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >
+              <td><a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$reservation['user_id'];?>"><b><?=$reservation['user_id'];?></b></a></td>
+              <td><a href="<?=$this->baseUrl();?>/backend/view-house?id=<?=$reservation['house_id'];?>"><b><?=$reservation['house_id'];?></b></a></td>
+              <td><?=$reservation['checkin'];?></td>              
+              <td><?=$reservation['checkout'];?></td>
+              <td>$ <?=$reservation['cost'];?></td>
+              <td><?=$reservation['payed'];?></td>
+              <td><?=$reservation['canceled'];?></td>              
+              <td><?=$reservation['special_request'];?></td>
+              <td><?=$reservation['date_created'];?></td>
+              <td align="center">
+              		<a href="<?=$this->baseUrl();?>/backend/view-reservation?id=<?=$reservation['id'];?>">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/house.png" title="Ver Detalles" width="16" height="16" alt="del">
+             		</a>
+              		<a href="<?=$this->baseUrl()?>/backend/edit-reservation?id=<?=$reservation['id'];?>">
+              			<img src="<?=$this->baseUrl()?>/img/icons2/edit.png" title="Editar" width="16" height="16" alt="edit">
+              		</a>
+             		<a href="javascript:decision('¿Está seguro que desea borrar esta Reserva? El borrado incorrecto puede causar inestabilidad en el sistema','<?=$this->baseUrl()?>/backend/delete-reservation?id=<?=$reservation['id'];?>')">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/trash_closed.png" title="Eliminar" width="16" height="16" alt="del">
+             		</a>
+             	</td>            
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <br>
+      <p>&nbsp;</p>
+      
+      <?= $this->getAdminFooter() ?>

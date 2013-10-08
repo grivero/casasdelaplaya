@@ -1,4 +1,51 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Backend</b> and script/action name <b>seasonList</b></p>
-</div>
+<script language="Javascript">
+	function decision(season, url){
+		if(confirm(season)) 
+			location.href = url;
+	}
+</script> 
+
+	<?= $this->getAdminLayout('Temporadas') ?>	   
+	<?php if ($this->msg != ''){ ?>
+		<p class="msg done"><?=$this->msg; ?></p>
+	<?php } ?>
+      <h3 class="tit">Listado de Temporadas</h3>                    
+      <table>
+            <tbody>
+            <tr>
+              <th>Tipo tarifa</th>              
+              <th>Desde</th>
+              <th>Hasta</th>
+              <th>Fecha modificaci&oacute;n</th>
+              <th>Editar</th>
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->seasons as $season){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >           		                            
+              <td><?=$season['rate_type'];?></td>
+              <?php               
+              		require_once('../library/utils/fecha.class.php');
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($season['start_date'])
+           	  ?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+              <?php                             		
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($season['end_date'])
+           	  ?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>                                          
+              <td><?=$season['date_modified'];?></td>              
+              <td align="center">              		              		
+             		<a href="<?=$this->baseUrl()?>/backend/edit-season?id=<?=$season['id'];?>">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/edit.png" title="Editar" width="16" height="16" alt="edit">
+             		</a>
+             	</td>            
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <br>
+      <p>&nbsp;</p>
+      
+      <?= $this->getAdminFooter() ?>
