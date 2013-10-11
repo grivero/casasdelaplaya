@@ -1,0 +1,97 @@
+<?= $this->getAdminLayout('Reservas') ?>
+<h3 class="tit">Detalles de reserva</h3>
+<?php 
+if ($_GET['edited']=='ok') { 
+	echo '<p class="msg done">Se ha editado la reserva con exito!</p>'; 
+ }else if ($_GET['status']=='fail') { 
+	echo '<p class="msg error">Error</p>';
+ }
+?>		                    
+      
+<table width="50%">
+   	<tbody>
+            <tr>
+              	<td><b>Id usuario</b></td>
+              	<td><a href="<?=$this->baseUrl()?>/backend/view-user?id=<?=$this->reservation['user_id']?>"><?=$this->reservation['user_id'];?></a></td>
+            </tr>
+             <tr class="bg">
+              	<td><b>Id casa</b></td>
+            	<td><a href="<?=$this->baseUrl()?>/backend/view-house?id=<?=$this->reservation['house_id']?>"><?=$this->reservation['house_id'];?></a></td>
+            </tr>
+             <tr>
+              	<td><b>Check in</b></td>
+             	<td><?=$this->reservation['checkin'];?></td>
+            </tr>
+             <tr class="bg">
+              <td><b>Check out</b></td>
+              <td><?=$this->reservation['checkout'];?></td>
+            </tr>
+            <tr>
+              <td><b>Costo</b></td>
+               <td>$ <?=$this->reservation['cost'];?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Estado de pago</b></td>              
+              <td><?php if ($this->reservation['payed'] == '0') echo 'pago'; else echo 'no pago'; ?></td>
+            </tr>            
+            <tr>
+              <td><b>Pedido especial</b></td>              
+              <td><?=$this->reservation['special_request'];?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Fecha creaci&oacute;n</b></td>              
+              <td><?=$this->reservation['date_created'];?></td>
+            </tr>
+            <tr>
+              <td><b>Fecha modificacion</b></td>       
+              <td><?=$this->reservation['date_modified']?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Costo cancelaci&oacute;n (si hubo)</b></td>
+               <td>$ <?=$this->reservation['canceled_cost'];?></td>
+            </tr>
+            <tr>
+              <td><b>Cancelado</b></td>                     
+              <td><?php if ($this->reservation['canceled'] == '0') echo 'no'; else echo 'si'; ?></td>
+            </tr>
+    </tbody>
+</table>
+      
+<h3 class="tit">Invitados listados en reserva</h3>                    
+      <table>
+            <tbody>
+            <tr>              
+              <th>Nombre</th>                                          
+              <th>Sexo</th>
+              <th>Fecha nacimiento</th>              
+              <th>Fecha creaci&oacute;n</th>			                         
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->guests as $guest){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
+              <td><?=$guest['name'];?></td>                                          
+              <td><?=$guest['gender'];?></td>
+              <td><?=$guest['date_birth'];?></td>                            
+              <td><?=$guest['date_created'];?></td>                                                                          
+            </tr>
+            <?php } ?>
+            </tbody>
+      </table>
+      <br>
+      <p>&nbsp;</p>
+      
+	<div id="menu" class="box">
+		<ul class="box f-right">
+			<li>
+				<a href="<?=$this->baseUrl()?>/backend/edit-reservation?id=<?=$this->reservation['id']?>">
+				<span>
+					<strong>Editar</strong>
+				</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+                 
+<?= $this->getAdminFooter() ?>

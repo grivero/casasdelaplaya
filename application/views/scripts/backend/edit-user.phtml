@@ -1,0 +1,81 @@
+<script type="text/javascript">
+function validateForm(){
+	if( $('#first_name').val()=='' || $('#last_name').val()=='' || $('#email').val()=='' ){
+		alert('Complete todos los campos');
+		return false;
+	}else if( validateEmail($('#email').val()) )	
+		return confirm('Realmente quieres editar el usuario?');
+	else
+		return false;
+}
+$(function() {
+	$( "#date_birth" ).datepicker({
+			minDate: -999*99,
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "1920:2000"
+	});		
+});
+function validateEmail(){
+	var email = $('#email').val();
+	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;		
+	if( reg.test(email) ){ 
+		return true;
+	}else{
+		alert('Formato email incorrecto');
+		return false;
+	}			
+}
+</script>	
+	
+<?= $this->getAdminLayout('Usuarios') ?>
+<h3 class="tit">Editar <?= $this->user['name']?></h3> 					
+			<p class="msg info">Cuidado, estas a punto de editar un Usuario</p>
+			<p class="msg info">Por favor, llene todos los campos obligatorios</p>
+			<?php 
+				if ($_GET['status']=='fail') 
+					echo '<p class="msg error">Error</p>';			 	
+			?>							
+		    <fieldset>
+		    <legend>Editar Usuario</legend>
+		     <form id="userform"  action="<?=$this->baseUrl()?>/backend/edit-user?id=<?=$this->user['id']?>&edit=true" method="post" onsubmit="return validateForm();" enctype="multipart/form-data" >		     			
+					<table class="nostyle">																									
+						<tr>
+							<td>Nombre(s)*:</td>
+							<td><input type="text" size="40" name="first_name" id="first_name" class="input-text" value="<?= $this->user['first_name']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Apellido(s)*:</td>
+							<td><input type="text" size="40" name="last_name" id="last_name" class="input-text" value="<?= $this->user['last_name']; ?>" /></td>
+						</tr>	                    
+	                    <tr>
+							<td>Email*:</td>
+							<td><input type="text" size="40" name="email" class="input-text" id="email" value="<?= $this->user['email']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Telefono:</td>
+							<td><input type="text" size="40" name="phone" class="input-text" id="phone" value="<?= $this->user['phone']; ?>" /></td>
+						</tr>
+	                    <tr>
+							<td>Pa&iacute;s:</td>
+							<td><input type="text" size="40" name="country" id="country" class="input-text"  value="<?= $this->user['country']; ?>" /></td>
+						</tr>
+	                    <tr>
+							<td>Ciudad:</td>
+							<td><input type="text" size="40" name="city" id="city" class="input-text"  value="<?= $this->user['city']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Identificador Civil:</td>
+							<td><input type="text" size="40" name="civil_identifier" id="civil_identifier" class="input-text"  value="<?= $this->user['civil_identifier']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Fecha Nacimiento:</td>
+							<td><input type="text" name="date_birth" id="date_birth" class="input-text" value="<?=$this->user['date_birth'];?>" /></td>
+						</tr>						                    						
+						<tr>
+							<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="Guardar Cambios" /></td>
+						</tr>
+					</table>
+			</form>
+		    </fieldset>
+<?= $this->getAdminFooter() ?>				
