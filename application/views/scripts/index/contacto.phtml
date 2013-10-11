@@ -1,0 +1,202 @@
+<script type="text/javascript" src="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.13.custom.min.js"></script>
+<link href="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+<style>
+ #overlayCustom{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background-color: #333;
+            cursor: wait;
+        
+            opacity:0.4;
+            filter:alpha(opacity=40); /* For IE8 and earlier */
+        }
+        #loader{
+            position: fixed;
+            top: 45%;
+            left: 45%;
+            width: 240px;
+            text-align: center;
+            display: none;
+            z-index: 9999;
+            cursor: wait;
+        }
+</style>
+	
+	<script type="text/javascript">
+		$(function() {
+			$( "#fI" ).datepicker();
+			$( "#fE" ).datepicker();
+		});
+	
+		function validateData(){
+			if ( $('#email').val()!='' && $('#first_name').val()!='' && $('#last_name').val()!='' && $('#fI').val()!='' && $('#fE').val()!='' && $('#comments').val()!=''){
+				return validateEmail();
+			}else{
+				alert('Por favor, complete todos los campos obligatorios antes de enviar');
+				return false;
+			}
+		}		
+		
+		function validateEmail(){
+			var email = $('#email').val();
+			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;		
+			if( reg.test(email) ){ 
+				return true;
+			}else{
+				alert('Email incorrecto');
+				return false;
+			}			
+		}
+
+	 	function send_message(){		
+	 	 	if( validateData() && confirm('Desea enviar mensaje?') ){
+	 	 		showOverlay();
+	 	 		$.ajax({
+	 				type: "POST",
+	 				url: "<?=$this->baseUrl();?>/frontend/send-message",
+	 				dataType: "json",
+	 				data: "email="+$('#email').val()+"&first_name="+$('#first_name').val()+"&last_name="+$('#last_name').val()
+	 						+"&fIngreso="+$('#fI').val()+"&fEgreso="+$('#fE').val()+"&comments="+$('#comments').val()
+	 						+"&pais="+$("#pais").val()+"&cant="+$("#cant").val()+"&telephone="+$("#telephone").val(),
+	 				success: function(data){
+	 							if (data.success == 'yes') {
+	 								$(function() {
+		 								hideOverlay();
+	 									$( "#dialog" ).dialog();
+	 								});
+	 							} else if (data.success == 'no') {
+	 								hideOverlay();
+	 								alert('error al mandar mensaje');							 
+	 							}
+	 		  				}	
+	 			});
+	 	 	}		 		
+	 	}
+	 	
+	 	function showOverlay(){
+            var overlay = $('#overlayCustom');
+            var windowHeight = $(document).height() + 'px';
+            $('#overlayCustom').css('height',windowHeight);
+            $('#overlayCustom').fadeIn("slow");
+            $('#loader').fadeIn("slow");
+	    }
+
+        function hideOverlay(){
+            $('#overlayCustom').fadeOut("slow");
+            $('#loader').fadeOut("slow");
+        }
+	</script>
+		
+	<div id="cont_left">
+            <h1>Contacto</h1>
+            <p><span>Tel:</span><br />Desde Uruguay: 098 805 930<br />Internacional: (00598) 98 805 930</p>           
+		<p><span>Tel:</span><br />Desde Uruguay: 099 343 490<br />Internacional: (00598) 99 343 490</p> 
+		
+		<br/><br/><br/><br/><br/><br/>						
+		
+		<h1 style="margin-bottom: 10px; font-size: 20px;">Cancelaci&oacute;n</h1>			 
+		<p style="margin-bottom: 2px;"><span>1)</span>Hasta 15 d&iacute;as antes del ingreso - 10%</p>           
+		<p style="margin-bottom: 2px;"><span>2)</span>Entre 14 y 10 d&iacute;as antes del ingreso - 15%</p>           
+		<p style="margin-bottom: 2px;"><span>3)</span>Entre 9 y 5 d&iacute;as antes del ingreso - 30%</p>           
+		<p style="margin-bottom: 2px;"><span>4)</span>Entre 4 d&iacute;as y el d&iacute;a del ingreso - 50%</p>           
+	</div>
+    <div id="cont_right">
+        <h2>Formulario</h2>
+        <div id="img_contacto"></div>
+            <form>
+				<table width="450px" style="float:right;">					
+					<tr>
+						 <td width="172" align="right" valign="top">
+						  <label for="first_name">Nombre *</label>
+						 </td>
+						 <td width="266" align="right" valign="top">
+						  <input  type="text" id="first_name" name="first_name" maxlength="50" size="30">
+					  </td>
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top"">
+						  <label for="last_name">Apellido *</label>
+						 </td>
+						 <td align="right" valign="top">
+						  <input  id="last_name" type="text" name="last_name" maxlength="50" size="30">
+					  </td>
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top"">
+						  <label for="pais">Pa&iacute;s </label>
+						 </td>
+						 <td align="right" valign="top">
+						  <input  id="pais" type="text" name="pais" maxlength="50" size="30">
+					  </td>
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top">
+						  <label for="email">Email *</label>
+						 </td>
+						 <td align="right" valign="top">
+						  <input  id="email" type="text" name="email" maxlength="80" size="30">
+					  </td>				 
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top">
+						  <label for="email">Tel&eacute;fono</label>
+						 </td>
+						 <td align="right" valign="top">
+						  <input id="telephone" type="text" name="telephone" maxlength="80" size="30">
+					  </td>				 
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top">
+						  <label for="fIngreso">Fecha ingreso*</label>
+						 </td>
+						 <td align="right" valign="top">
+						  <input type="text" name="fIngreso" id="fI" maxlength="30" size="30">
+					  </td>
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top">
+						  <label for="fEgreso">Fecha egreso*</label>
+						 </td>
+						 <td align="right" valign="top">
+						  <input type="text" name="fEgreso" id="fE" maxlength="30" size="30">
+					  </td>
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top">
+						  <label for="cant">Cantidad de personas</label>
+						 </td>
+						 <td align="right" valign="top">
+						  <input id="cant"  type="text" name="cant" maxlength="30" size="30">
+					  </td>
+				  </tr>					
+					<tr>
+						 <td align="right" valign="top">
+						  <label for="comments">Consulta *</label>
+						 </td>
+						 <td align="right" valign="top">
+						  <textarea id="comments" name="comments" maxlength="1000" cols="25" rows="6"></textarea>
+					  </td>				 
+				  </tr>					
+					<tr>
+						 <td colspan="2" align="right" style="text-align:center">						 	
+						 	<input type="button"  onclick="send_message()" value="Enviar mail" class="btn_enviar"> 
+						 </td>
+					</tr>				
+				</table>
+  		</form>
+</div>
+<div id="dialog" title="Email enviado" style="display: none;">
+	<p>Email enviado con exito, nos comunicaremos con usted lo antes posible.</p></br>
+	<p>Muchas gracias, Casas de la Playa</p>
+</div>	
+<!-- Custom Overlay -->
+<div id="overlayCustom"></div>
+<!-- Custom Progress Bar  -->
+<div id="loader">
+	<img src="<?=$this->baseUrl()?>/img/ajax-loader.gif" alt="loading.." />
+</div>

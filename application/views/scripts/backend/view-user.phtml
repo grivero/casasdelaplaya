@@ -1,0 +1,162 @@
+<?= $this->getAdminLayout('Usuarios') ?>
+<h3 class="tit">Detalles de <?= $this->user['name']?></h3>
+<?php 
+if ($_GET['edited']=='ok') { 
+	echo '<p class="msg done">Se ha editado la Usuario con exito!</p>'; 
+ }else if ($_GET['status']=='fail') { 
+	echo '<p class="msg error">Error</p>';
+ }
+?>		                    
+      
+<table width="50%">
+   	<tbody>
+            <tr>
+              <td><b>Nombre</b></td>
+              <td><?=$this->user['name'];?></td>
+            </tr>
+             <tr class="bg">
+              <td><b>Email</b></td>
+            <td><?=$this->user['email'];?></td>
+            </tr>
+             <tr>
+              <td><b>Identificador civil</b></td>
+             <td><?=$this->user['civil_identifier'];?></td>
+            </tr>
+             <tr class="bg">
+              <td><b>Telefono</b></td>
+              <td><?=$this->user['phone'];?></td>
+            </tr>
+            <tr>
+              <td><b>Pais</b></td>
+               <td><?=$this->user['country'];?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Ciudad</b></td>
+               <td><?=$this->user['city'];?></td>
+            </tr>            
+            <tr>
+              <td><b>Fecha nacimiento</b></td>
+              <?php               
+              	require_once('../library/utils/fecha.class.php');
+            	$fecha_obj = new Fecha();
+            	$fecha_obj->setFecha($this->user['date_birth'])
+           	?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Fecha creaci&oacute;n</b></td>
+              <?php               
+              	require_once('../library/utils/fecha.class.php');
+            	$fecha_obj = new Fecha();
+            	$fecha_obj->setFecha($this->user['date_created'])
+           	?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+            </tr>
+            <tr>
+              <td><b>Fecha modificacion</b></td>       
+              <td><?=$this->user['date_modified']?></td>
+            </tr>
+    </tbody>
+</table>
+      
+<h3 class="tit">Reservas hechas por el usuario</h3>                    
+      <table>
+            <tbody>
+            <tr>              
+              <th>Check in</th>                                          
+              <th>Check out</th>
+              <th>Cant personas</th>
+              <th>Id Casa</th>
+              <th>Costo</th>
+              <th>Estado de pago</th>
+              <th>Estado de reserva</th>
+              <th>Fecha creaci&oacute;n</th>
+			  <th>Ver reserva</th>                            
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->reservations as $reservation){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
+              <td><?=$reservation['checkin'];?></td>                                          
+              <td><?=$reservation['checkout'];?></td>
+              <td><?=$reservation['howManyPeople'];?></td>
+              <td><a href="<?=$this->baseUrl()?>/backend/view-house?id=<?=$reservation['house_id']?>"><?=$reservation['house_id'];?></a></td>
+              <td>$<?=$reservation['cost'];?></td>
+              <td><?php if ($reservation['payed'] == '0') echo 'pago'; else echo 'no pago'; ?></td>
+              <td><?php if ($reservation['canceled'] == '0') echo 'no'; else echo 'si'; ?></td>
+              <td><?=$reservation['date_created'];?></td>
+              <td align="center">              		              		
+             		<a href="<?=$this->baseUrl()?>/backend/view-reservation?id=<?=$reservation['id'];?>">
+             			<img src="<?=$this->baseUrl()?>/img/icons2/house.png" title="Ver Detalles" width="16" height="16" alt="del">
+             		</a>
+             	</td>                                                            
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <br>
+      <p>&nbsp;</p>
+
+<h3 class="tit">Mensajes enviados por el usuario</h3>                    
+      <table>
+            <tbody>
+            <tr>              
+              <th>Contenido</th>                                          
+              <th>Check in</th>                                                        
+              <th>Check out</th>
+              <th>Cant personas</th>
+              <th>Fecha env&iacute;o</th>              
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->messages as $message){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
+              <td><?=$message['content'];?></td>                                          
+              <td><?=$message['checkin'];?></td>
+              <td><?=$message['checkout'];?></td>
+              <td><?=$message['howManyPeople'];?></td>              
+              <td><?=$message['date_created'];?></td>                          
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <br>
+      <p>&nbsp;</p>
+      
+<h3 class="tit">Posts hechos por el usuario</h3>                    
+      <table>
+            <tbody>
+            <tr>              
+              <th>Descripcion</th>                            
+              <th>Ranking</th>
+              <th>Aprobaci&oacute;n</th>              
+              <th>Fecha creaci&oacute;n</th>              
+            </tr>            
+          <?php 
+          $i = 0;
+          foreach ($this->posts as $post){
+          	$i++; ?>  
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
+              <td><a href="<?=$this->baseUrl()?>/backend/view-post?id=<?=$post['id']?>"><?=$post['description'];?></a></td>                                          
+              <td><?=$post['ranking'];?></td>
+              <td><?=$post['approved'];?></td>                           
+              <td><?=$post['date_created'];?></td>                          
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <br>
+      <p>&nbsp;</p>
+      
+      <div id="menu" class="box">
+		<ul class="box f-right">
+			<li>
+				<a href="<?=$this->baseUrl()?>/backend/edit-user?id=<?=$this->user['id']?>">
+				<span>
+					<strong>Editar</strong>
+				</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+      
+<?= $this->getAdminFooter() ?>

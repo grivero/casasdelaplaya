@@ -1,0 +1,70 @@
+<?= $this->getAdminLayout('Casas') ?>
+<h3 class="tit">Detalles de <?= $this->house['name']?></h3>
+<?php 
+if ($_GET['edited']=='ok') { 
+	echo '<p class="msg done">Se ha editado la Casa con exito!</p>'; 
+ }else if ($_GET['status']=='fail') { 
+	echo '<p class="msg error">Error</p>';
+ }
+?>		                    
+      
+<p class="msg info">Detalle de la Casa</p>	   
+   <table width="50%">
+   		<tbody>
+            <tr>
+              <td><b>Nombre</b></td>
+              <td><?=$this->house['name'];?></td>
+            </tr>
+             <tr class="bg">
+              <td><b>Detalles</b></td>
+            <td><?=$this->house['description'];?></td>
+            </tr>
+             <tr>
+              <td><b>Precio Temp Alta</b></td>
+             <td><?=$this->house['high_price'];?></td>
+            </tr>
+             <tr class="bg">
+              <td><b>Precio Temp Media</b></td>
+              <td><?=$this->house['medium_price'];?></td>
+            </tr>
+            <tr>
+              <td><b>Precio Temp Baja</b></td>
+               <td><?=$this->house['low_price'];?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Precio Especial</b></td>
+               <td><?=$this->house['special_price'];?></td>
+            </tr>            
+            <tr>
+              <td><b>Fecha Creacion</b></td>
+              	<?php               
+              		require_once('../library/utils/fecha.class.php');
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($this->house['fecha_created'])
+           		?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Fecha Modificacion</b></td>
+              	<?php               
+              		require_once('../library/utils/fecha.class.php');
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($this->house['date_modified'])
+           		?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+            </tr>
+    	</tbody>
+	</table>      
+      
+    <div id="menu" class="box">
+		<ul class="box f-right">
+			<li>
+				<a href="<?=$this->baseUrl()?>/backend/edit-house?id=<?=$this->house['id']?>">
+				<span>
+					<strong>Editar</strong>
+				</span>
+				</a>
+			</li>
+		</ul>
+	</div>  
+<?= $this->getAdminFooter() ?>

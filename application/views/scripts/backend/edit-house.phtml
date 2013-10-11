@@ -1,0 +1,54 @@
+<script type="text/javascript">
+function validateForm(){
+	if( $('#name').val()=='' || $('#high_price').val()=='' || $('#medium_price').val()=='' || 
+			$('#low_price').val()=='' || $('#special_price').val()=='' ){
+		alert('Complete todos los campos');
+		return false;
+	}else
+		return confirm('Realmente quieres editar la casa?');
+}
+</script>	
+	
+<?= $this->getAdminLayout('Casas') ?>
+<h3 class="tit">Editar <?= $this->house['name']?></h3> 					
+			<p class="msg info">Cuidado, estas a punto de editar una Casa</p>
+			<p class="msg info">Por favor, llene todos los campos obligatorios</p>
+			<?php 
+				if ($_GET['status']=='fail') 
+					echo '<p class="msg error">Error</p>';			 	
+			?>							
+		    <fieldset>
+		    <legend>Editar Casa</legend>
+		     <form id="houseform"  action="<?=$this->baseUrl()?>/backend/edit-house?id=<?=$this->house['id']?>&edit=true" method="post" onsubmit="return validateForm();" enctype="multipart/form-data" >		     			
+					<table class="nostyle">																									
+						<tr>
+							<td>Nombre:</td>
+							<td><input type="text" size="40" name="name" id="name" class="input-text" value="<?= $this->house['name']; ?>" /></td>
+						</tr>	                    
+	                    <tr>
+							<td>Precio Temporada Alta:</td>
+							<td><input type="text" size="40" name="high_price" class="input-text" id="high_price" value="<?= $this->house['high_price']; ?>" /></td>
+						</tr>
+	                    <tr>
+							<td>Precio Temporada Media:</td>
+							<td><input type="text" size="40" name="medium_price" id="medium_price" class="input-text"  value="<?= $this->house['medium_price']; ?>" /></td>
+						</tr>
+	                    <tr>
+							<td>Precio Temporada Baja:</td>
+							<td><input type="text" size="40" name="low_price" id="low_price" class="input-text"  value="<?= $this->house['low_price']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Precio Especial:</td>
+							<td><input type="text" size="40" name="special_price" id="special_price" class="input-text"  value="<?= $this->house['special_price']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Detalles - Tareas - Notas:</td>
+							<td><textarea name="description" id="description" class="input-text" rows="3" cols="38"> <?= $this->house['description']; ?></textarea></td>
+						</tr>	                      						
+						<tr>
+							<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="Guardar Cambios" /></td>
+						</tr>
+					</table>
+			</form>
+		    </fieldset>
+<?= $this->getAdminFooter() ?>				

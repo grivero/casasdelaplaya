@@ -1,0 +1,45 @@
+<?php echo $this->doctype();?>
+<html>
+<head>
+	<?php
+        echo $this->headMeta();
+    ?>
+	<meta name="robots" content="noindex,nofollow" />
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="<?=$this->baseUrl()?>/css/admin-css/reset.css" /> <!-- RESET -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="<?=$this->baseUrl()?>/css/admin-css/main.css" /> <!-- MAIN STYLE SHEET -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="<?=$this->baseUrl()?>/css/admin-css/2col.css" title="2col" /> <!-- DEFAULT: 2 COLUMNS -->
+	<link rel="alternate stylesheet" media="screen,projection" type="text/css" href="<?=$this->baseUrl()?>/css/admin-css/1col.css" title="1col" /> <!-- ALTERNATE: 1 COLUMN -->
+	<!--[if lte IE 6]><link rel="stylesheet" media="screen,projection" type="text/css" href="<?=$this->baseUrl()?>/css/admin-css/main-ie6.css" /><![endif]--> <!-- MSIE6 -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="<?=$this->baseUrl()?>/css/admin-css/style.css" /> <!-- GRAPHIC THEME -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="<?=$this->baseUrl()?>/css/admin-css/mystyle.css" /> <!-- WRITE YOUR CSS CODE HERE -->
+ 
+  <link type="text/css" href="<?=$this->baseUrl()?>/js/admin-js/themes/base/ui.all.css" rel="stylesheet" />
+   <script type="text/javascript" src="<?=$this->baseUrl()?>/js/admin-js/jquery.js"></script>
+   	<script type="text/javascript" src="<?=$this->baseUrl()?>/js/admin-js/ui/ui.core.js"></script>
+	<script type="text/javascript" src="<?=$this->baseUrl()?>/js/admin-js/ui/ui.datepicker.js"></script>
+    <script type="text/javascript" src="<?=$this->baseUrl()?>/js/admin-js/ui/i18n/ui.datepicker-es.js"></script>  
+	
+
+<!-- Calendar !-->
+ 
+ 	<script type="text/javascript">
+ 		$(document).ready(function(){
+ 			document.getElementsByTagName('img')[0].setAttribute("src","<?=$this->baseUrl()?>/img/logo/logo.png"); 	 		
+ 		});
+ 	</script>
+   <title>Administraci&oacute;n Casas de la Playa</title>
+</head>
+
+<body>
+	<div id="main">
+		<?php 
+			echo $this->layout()->content; 
+		?>	
+		<!-- Footer -->
+		<div id="footer" class="box">
+			<p class="f-left">&copy; 2013 <a href="http://www.linkedin.com/profile/view?id=107884826">TeteAndKbSoftware</a>, All Rights Reserved &reg;</p>
+			<p class="f-right">Desarrollado por: <a href="http://www.linkedin.com/profile/view?id=107884826">TeteAndKbSoftware</a></p>
+	  	</div> <!-- /footer -->	
+	</div> <!-- /main -->
+</body>
+</html>
