@@ -75,7 +75,7 @@ class BackendController extends Zend_Controller_Action{
     	$season_model = new Application_Model_DbTable_Season();    	
 		// data    	
     	$seasons = $season_model->select()->from('season')
-										->order('date_created DESC')															
+										->order('date_modified DESC')															
 										->query()->fetchAll();													
 		$this->view->seasons = $seasons;	
 		if ($this->_request->getParam('edited') == 'ok'){
@@ -103,7 +103,9 @@ class BackendController extends Zend_Controller_Action{
 			$fecha_obj 			= new Fecha($end_date);		
 			$end_date 			= $fecha_obj->getFecha()->format('Y-m-d');
 			$season->end_date	= $end_date;    		
-        	    		    	    		
+
+			$color			= $this->getRequest()->getParam('color');
+			$season->color 	= $color;
 			$season->save();    		  		    		
         	$this->_forward('season-list','backend','default',array("edited"=>"ok"));
         }else{
@@ -198,7 +200,7 @@ class BackendController extends Zend_Controller_Action{
 			$id = $hab_model->createRow(array("name"=>$name, "description"=>$description, "high_price"=>$high_price, 
 		        								"low_price"=>$low_price, "medium_price"=>$medium_price, "special_price"=>$special_price, "date_created"=>$date_created )) 	        										
 			        	  			 ->save();
-        	$this->_forward('house-list','backend','default');
+        	$this->_forward('house-list','backend','default',array("added"=>"ok","id"=>$id));
     	}
         
     }
@@ -330,6 +332,51 @@ class BackendController extends Zend_Controller_Action{
     }
 
 	public function addReservationAction(){
+		
+    	// models    	
+    	$user_model = new Application_Model_DbTable_User();
+    	$house_model= new Application_Model_DbTable_House();
+    	$res_model	= new Application_Model_DbTable_Reservation();
+    	
+    	if( $this->getRequest()->getParam('add')!='true' ){
+    		
+	    	// houses and users to select in page    	 		    	
+    		$users 	= $user_model->fetchAll()->toArray();
+    		$houses = $house_model->fetchAll()->toArray();
+    		
+			//data to view		
+			$this->view->users 	= $users;
+			$this->view->houses	= $houses;
+											
+    	}else{
+    		
+    		// vars to save
+    		$checkin			= trim( $this->getRequest()->getParam('checkin') );
+    		$checkout			= trim( $this->getRequest()->getParam('checkout') );
+    		$user_id			= trim( $this->getRequest()->getParam('user_id') );
+    		$house_id			= trim( $this->getRequest()->getParam('house_id') );
+    		$payed				= trim( $this->getRequest()->getParam('payed') );
+    		$special_request 	= trim( $this->getRequest()->getParam('special_request') );
+    		$cost				= trim( $this->getRequest()->getParam('cost') );
+    		$howManyPeople		= trim( $this->getRequest()->getParam('howManyPeople') );
+    		$date_created 		= date('Y-m-d H:i:s');
+    		
+    		// date manipulations    		
+			require_once('../library/utils/fecha.class.php');
+			$fecha 		= new Fecha($checkin);		
+			$checkin 	= $fecha->getFecha()->format('Y-m-d');
+			$fecha		= new Fecha($checkout);
+			$checkout 	= $fecha->getFecha()->format('Y-m-d');
+    		
+    		// save
+    		$id = $res_model->createRow(array("checkout"=>$checkout, "checkin"=>$checkin, "payed"=>$payed, 
+		        							  "cost"=>$cost, "special_request"=>$special_request, "user_id"=>$user_id, 
+		        							  "house_id"=>$house_id, "howManyPeople"=>$howManyPeople, "date_created"=>$date_created )) 	        										
+			        	  			 ->save();
+    		// redirect
+    		$this->_forward('reservation-list','backend','default',array("added"=>"ok","id"=>$id));
+    		
+    	}
     	
     }
 
@@ -338,7 +385,7 @@ class BackendController extends Zend_Controller_Action{
 		// vars
     	$id 			= $_GET['id'];
     	// models    	
-    	$res_model 		= new Application_Model_DbTable_User();
+    	$res_model 		= new Application_Model_DbTable_Reservation();
     	$guest_model	= new Application_Model_DbTable_Guest();
 		// deletes    	
     	$res_model->delete( array('id = ?' => $id) );

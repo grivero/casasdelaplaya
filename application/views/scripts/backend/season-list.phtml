@@ -4,6 +4,16 @@
 			location.href = url;
 	}
 </script> 
+<style>
+.pm{
+	border-style: solid;
+	border-width: 0 0;
+	width: 11px;
+	height: 11px;
+	position: relative;
+	left:43%;	  	  	
+}
+</style>
 
 	<?= $this->getAdminLayout('Temporadas') ?>	   
 	<?php if ($this->msg != ''){ ?>
@@ -17,6 +27,7 @@
               <th>Desde</th>
               <th>Hasta</th>
               <th>Fecha modificaci&oacute;n</th>
+              <th>Color</th>
               <th>Editar</th>
             </tr>            
           <?php 
@@ -35,8 +46,11 @@
             		$fecha_obj = new Fecha();
             		$fecha_obj->setFecha($season['end_date'])
            	  ?>
-              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>                                          
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>                                                        
               <td><?=$season['date_modified'];?></td>              
+              <td>
+              	<div class="pm" style="background-color: #<?=$season['color']?>"></div>             
+              </td>
               <td align="center">              		              		
              		<a href="<?=$this->baseUrl()?>/backend/edit-season?id=<?=$season['id'];?>">
              			<img src="<?=$this->baseUrl()?>/img/icons2/edit.png" title="Editar" width="16" height="16" alt="edit">

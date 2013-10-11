@@ -73,7 +73,7 @@ class FrontendController extends Zend_Controller_Action{
 	        							"howManyPeople"=>$cant, "content"=>$msj, "date_created"=>$date_created ))
 	          		->save(); 
 	  
-			// send email TODO: testear mailing una vez en el servidor	               	        	        	
+			// send email	               	        	        	
     		//$result = $this->_mailHandler->sendContactEmail( $email, $first_name, $last_name, $telephone, $msj, $apellido, $pais, $cant, $fechaIn, $fechaOut, false );
         }catch(exception $e){	
         	$output = $e->getMessage();

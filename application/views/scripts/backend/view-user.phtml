@@ -82,9 +82,9 @@ if ($_GET['edited']=='ok') {
               <td><?=$reservation['checkout'];?></td>
               <td><?=$reservation['howManyPeople'];?></td>
               <td><a href="<?=$this->baseUrl()?>/backend/view-house?id=<?=$reservation['house_id']?>"><?=$reservation['house_id'];?></a></td>
-              <td><?=$reservation['cost'];?></td>
-              <td><?=$reservation['payed'];?></td>
-              <td><?=$reservation['canceled'];?></td>
+              <td>$<?=$reservation['cost'];?></td>
+              <td><?php if ($reservation['payed'] == '0') echo 'pago'; else echo 'no pago'; ?></td>
+              <td><?php if ($reservation['canceled'] == '0') echo 'no'; else echo 'si'; ?></td>
               <td><?=$reservation['date_created'];?></td>
               <td align="center">              		              		
              		<a href="<?=$this->baseUrl()?>/backend/view-reservation?id=<?=$reservation['id'];?>">
@@ -146,5 +146,17 @@ if ($_GET['edited']=='ok') {
             </tbody></table>
       <br>
       <p>&nbsp;</p>
+      
+      <div id="menu" class="box">
+		<ul class="box f-right">
+			<li>
+				<a href="<?=$this->baseUrl()?>/backend/edit-user?id=<?=$this->user['id']?>">
+				<span>
+					<strong>Editar</strong>
+				</span>
+				</a>
+			</li>
+		</ul>
+	</div>
       
 <?= $this->getAdminFooter() ?>

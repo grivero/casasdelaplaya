@@ -2,8 +2,8 @@
 
 class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 	
-	private $_replay_account	= 'no-reply@larubiahostel.com';
-	private $_replay_pass		= 'larubiawebhostel';
+	private $_replay_account	= 'casasdelaplaya@gmail.com';
+	private $_replay_pass		= '';
 	private $_communicationPort	= '465';
 	private $_charset			= 'utf-8';
 	private $_mailInstance;
@@ -40,17 +40,17 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 		$fecha = date("F j, Y, g:i a", $fecha );
 		 
 	    // Cuerpo del Email			    
-	    $email_message = "Informacion procesada: \n\n";
-		$email_message .= "Fecha de envio: ".$fecha."\n";	
-	    $email_message .= "Nombre: ".trim($first_name)."\n";
-	    $email_message .= "Apellido: ".trim($last_name)."\n";
-	    $email_message .= "Email: ".trim($email_from)."\n";
-		$email_message .= "Pais: ".trim($pais)."\n";
-	    $email_message .= "Telefono: ".trim($telephone)."\n";
-		$email_message .= "Fecha Ingreso: ".trim($fechaIn)."\n";
-		$email_message .= "Fecha Egreso: ".trim($fechaOut)."\n";
-		$email_message .= "Cantidad personas: ".trim($cant)."\n";
-	    $email_message .= "Comentarios: ".trim($msj)."\n";
+	    $email_message = "Informacion procesada: <br/><br/>";
+		$email_message .= "Fecha de envio: ".$fecha."<br/>";	
+	    $email_message .= "Nombre: ".trim($first_name)."<br/>";
+	    $email_message .= "Apellido: ".trim($last_name)."<br/>";
+	    $email_message .= "Email: ".trim($email_from)."<br/>";
+		$email_message .= "Pais: ".trim($pais)."<br/>";
+	    $email_message .= "Telefono: ".trim($telephone)."<br/>";
+		$email_message .= "Fecha Ingreso: ".trim($fechaIn)."<br/>";
+		$email_message .= "Fecha Egreso: ".trim($fechaOut)."<br/>";
+		$email_message .= "Cantidad personas: ".trim($cant)."<br/>";
+	    $email_message .= "Comentarios: ".trim($msj)."<br/>";
 	    
 		
 	    // Asunto y Direccion
@@ -257,7 +257,7 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 		if($secure)
 			$transport = $this->getSmtpTransport();			
 		else
-			$transport = new Zend_Mail_Transport_Sendmail('-fno-reply@larubiahostel.com');		
+			$transport = new Zend_Mail_Transport_Sendmail('-fno-reply@casasdelaplaya.com');		
 		try{	
 			$this->_mailInstance->send( $transport );
 		}catch(Zend_Mail_Exception $e){

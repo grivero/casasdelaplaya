@@ -1,4 +1,108 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Backend</b> and script/action name <b>addReservation</b></p>
-</div>
+<script type="text/javascript">
+function validateForm(){
+	if( $('#checkin').val()=='' || $('#checkout').val()=='' || $('#cost').val()=='' || 
+			$('#user_id').val()=='' || $('#house_id').val()=='' || $('#howManyPeople').val()==''){
+		alert('Complete todos los campos');
+		return false;
+	}else
+		return true;
+}
+$(function() {
+	$( "#checkin" ).datepicker({
+			minDate: -999*99,
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "2013:2018"
+	});
+	$( "#checkout" ).datepicker({
+		minDate: -999*99,
+		changeMonth: true,
+		changeYear: true,								
+		yearRange: "2013:2018"
+	});		
+});
+</script>	
+	
+<?= $this->getAdminLayout('Reservas') ?>
+<h3 class="tit">Crear Reservaci&oacute;n</h3> 					
+			<p class="msg info">Por favor, llene todos los campos obligatorios</p>
+			<p class="msg info">El usuario y la casa deben ser creados anteriormente</p>
+			<p class="msg info">El costo debe ser agregado manualmente, no se realizan operaciones autom&aacute;ticas en el administrador</p>
+			<p class="msg info">Usted puede agregar mas info en la p&aacute;gina de edici&oacute;n</p>			
+			<p class="msg info">Usted debe agregar los invitados en la p&aacute;gina de edici&oacute;n</p>											
+		    <fieldset>
+		    <legend>Crear Reserva</legend>
+		     <form id="reservasform"  action="<?=$this->baseUrl()?>/backend/add-reservation?add=true" method="post" onsubmit="return validateForm();" enctype="multipart/form-data" >		     			
+					<table class="nostyle">																									
+						<tr>
+							<td>Check in:</td>
+							<td><input type="text" size="15" name="checkin" id="checkin" class="input-text" /></td>
+						</tr>	                    
+	                    <tr>
+							<td>Check out:</td>
+							<td><input type="text" size="15" class="input-text" name="checkout" id="checkout" /></td>
+						</tr>
+	                    <tr>
+							<td>Casa:</td>
+							<td>
+								<select name="house_id" id="house_id">
+									<option></option>
+								<?php 
+								foreach ($this->houses as $house){
+								?>
+									<option value="<?=$house['id']?>"><?=$house['name']?></option>
+								<?php	
+								}
+								?>
+								</select>								
+							</td>
+						</tr>
+	                    <tr>
+							<td>Usuario:</td>
+							<td>
+								<select name="user_id" id="user_id">
+									<option></option>
+								<?php 
+								foreach ($this->users as $user){
+								?>
+									<option value="<?=$user['id']?>"><?=$user['email']?> - <?=$user['name']?></option>
+								<?php	
+								}
+								?>
+								</select>								
+							</td>
+						</tr>
+						<tr>
+							<td>Costo:</td>
+							<td><input type="number" size="15" name="cost" id="cost" class="input-text"/></td>
+						</tr>
+						<tr>
+							<td>Estado de pago:</td>
+							<td>
+								<select name="payed" id="payed" >  								
+	  								<option value="0">No Pago</option>
+	  								<option value="1">Pago</option>  
+								</select>
+							</td>							
+						</tr>	                      					
+						<tr>
+							<td>Cuantas personas:</td>
+							<td><input type="number" size="15" name="howManyPeople" id="howManyPeople" class="input-text"/></td>
+						</tr>
+						<tr>
+							<td>Pedido Especial:</td>
+							<td>
+								<select name="special_request" id="special_request" >  								
+	  								<option></option>
+	  								<option value="Cuna">Cuna</option>  
+	  								<option value="Puerta con escalera">Puerta en escalera</option>
+								</select>
+							</td>
+						</tr>	
+						<tr>
+							<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="Crear" /></td>
+						</tr>
+					</table>
+			</form>
+		    </fieldset>		    		    
+<?= $this->getAdminFooter() ?>				

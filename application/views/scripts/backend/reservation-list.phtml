@@ -19,7 +19,7 @@
               <th>Check out</th>
               <th>Costo</th>              
               <th>Estado pago</th>
-              <th>Estado reserva</th>
+              <th>Cancelada</th>
               <th>Pedidos especiales</th>
               <th>Fecha creaci&oacute;n</th>
               <th>Acciones</th>
@@ -33,9 +33,9 @@
               <td><a href="<?=$this->baseUrl();?>/backend/view-house?id=<?=$reservation['house_id'];?>"><b><?=$reservation['house_id'];?></b></a></td>
               <td><?=$reservation['checkin'];?></td>              
               <td><?=$reservation['checkout'];?></td>
-              <td>$ <?=$reservation['cost'];?></td>
-              <td><?=$reservation['payed'];?></td>
-              <td><?=$reservation['canceled'];?></td>              
+              <td>$<?=$reservation['cost'];?></td>
+              <td><?php if ($reservation['payed'] == '0') echo 'pago'; else echo 'no pago'; ?></td>
+              <td><?php if ($reservation['canceled'] == '0') echo 'no'; else echo 'si'; ?></td>                            
               <td><?=$reservation['special_request'];?></td>
               <td><?=$reservation['date_created'];?></td>
               <td align="center">

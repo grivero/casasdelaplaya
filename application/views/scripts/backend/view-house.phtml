@@ -56,4 +56,15 @@ if ($_GET['edited']=='ok') {
     	</tbody>
 	</table>      
       
+    <div id="menu" class="box">
+		<ul class="box f-right">
+			<li>
+				<a href="<?=$this->baseUrl()?>/backend/edit-house?id=<?=$this->house['id']?>">
+				<span>
+					<strong>Editar</strong>
+				</span>
+				</a>
+			</li>
+		</ul>
+	</div>  
 <?= $this->getAdminFooter() ?>

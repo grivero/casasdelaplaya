@@ -1,14 +1,38 @@
-	<script type="text/javascript" src="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.13.custom.min.js"></script>
-	<link href="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.13.custom.min.js"></script>
+<link href="<?=$this->baseUrl()?>/js/oldweb_js/jQuery/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+<style>
+ #overlayCustom{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background-color: #333;
+            cursor: wait;
+        
+            opacity:0.4;
+            filter:alpha(opacity=40); /* For IE8 and earlier */
+        }
+        #loader{
+            position: fixed;
+            top: 45%;
+            left: 45%;
+            width: 240px;
+            text-align: center;
+            display: none;
+            z-index: 9999;
+            cursor: wait;
+        }
+</style>
 	
 	<script type="text/javascript">
-			$(function() {
-				$( "#fI" ).datepicker();
-				$( "#fE" ).datepicker();
-			});
-	</script>
+		$(function() {
+			$( "#fI" ).datepicker();
+			$( "#fE" ).datepicker();
+		});
 	
-	<script type="text/javascript">
 		function validateData(){
 			if ( $('#email').val()!='' && $('#first_name').val()!='' && $('#last_name').val()!='' && $('#fI').val()!='' && $('#fE').val()!='' && $('#comments').val()!=''){
 				return validateEmail();
@@ -31,6 +55,7 @@
 
 	 	function send_message(){		
 	 	 	if( validateData() && confirm('Desea enviar mensaje?') ){
+	 	 		showOverlay();
 	 	 		$.ajax({
 	 				type: "POST",
 	 				url: "<?=$this->baseUrl();?>/frontend/send-message",
@@ -41,15 +66,30 @@
 	 				success: function(data){
 	 							if (data.success == 'yes') {
 	 								$(function() {
+		 								hideOverlay();
 	 									$( "#dialog" ).dialog();
 	 								});
 	 							} else if (data.success == 'no') {
+	 								hideOverlay();
 	 								alert('error al mandar mensaje');							 
 	 							}
 	 		  				}	
 	 			});
 	 	 	}		 		
 	 	}
+	 	
+	 	function showOverlay(){
+            var overlay = $('#overlayCustom');
+            var windowHeight = $(document).height() + 'px';
+            $('#overlayCustom').css('height',windowHeight);
+            $('#overlayCustom').fadeIn("slow");
+            $('#loader').fadeIn("slow");
+	    }
+
+        function hideOverlay(){
+            $('#overlayCustom').fadeOut("slow");
+            $('#loader').fadeOut("slow");
+        }
 	</script>
 		
 	<div id="cont_left">
@@ -154,3 +194,9 @@
 	<p>Email enviado con exito, nos comunicaremos con usted lo antes posible.</p></br>
 	<p>Muchas gracias, Casas de la Playa</p>
 </div>	
+<!-- Custom Overlay -->
+<div id="overlayCustom"></div>
+<!-- Custom Progress Bar  -->
+<div id="loader">
+	<img src="<?=$this->baseUrl()?>/img/ajax-loader.gif" alt="loading.." />
+</div>
