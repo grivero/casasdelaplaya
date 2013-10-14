@@ -22,7 +22,7 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
    		
    		$mid_content = '';
    		if($section == 'Casas'){
-	   		$mid_content =	'<li id="menu-active" ><a href="javascript:;"><span>Casas</span></a></li>'.     
+	   		$mid_content =	'<li id="menu-active" ><a href="javascript:;"><span>Casas</span></a></li>'.	   						     
 							'<li><a href="'.$baseUrl.'/backend/message-list"><span>Mensajes</span></a></li>'.                		
 							'<li><a href="'.$baseUrl.'/backend/post-list"><span>Posts</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/reservation-list"><span>Reservas</span></a></li>'.
@@ -112,6 +112,8 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 								'<li id="submenu-active"><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
    								'<ul>'.
                             		'<li><a href="'.$baseUrl.'/backend/add-post">Agregar</a></li>'.
+   									'<li><a href="javascript:;">Posts habilitados</a></li>'.
+   									'<li><a href="javascript:;">Posts denegados</a></li>'.
                             		'<li><a href="'.$baseUrl.'/backend/post-list">Listado Posts</a></li>'.						
 								'</ul>'.
                         		'<li><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.
@@ -146,8 +148,8 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 								'<li><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
                         		'<li id="submenu-active"><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.
    								'<ul>'.
-                            		'<li><a href="'.$baseUrl.'/backend/add-reservation">Agregar</a></li>'.
-                            		'<li><a href="'.$baseUrl.'/backend/reservation-list">Listado Reservas</a></li>'.						
+                            		'<li><a href="'.$baseUrl.'/backend/add-reservation">Agregar</a></li>'.   									
+                            		'<li><a href="'.$baseUrl.'/backend/reservation-list">Listado Todas las Reservas</a></li>'.						
 								'</ul>'.
                         		'<li><a href="'.$baseUrl.'/backend/season-list">Temporadas</a></li>'.
                         		'<li><a href="'.$baseUrl.'/backend/user-list">Usuarios</a></li>'.      

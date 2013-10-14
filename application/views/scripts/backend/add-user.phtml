@@ -1,4 +1,76 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Backend</b> and script/action name <b>addUser</b></p>
-</div>
+<script type="text/javascript">
+function validateForm(){
+	if( $('#first_name').val()=='' || $('#last_name').val()=='' || $('#email').val()=='' ){
+		alert('Complete todos los campos');
+		return false;
+	}else if( validateEmail($('#email').val()) )	
+		return confirm('Realmente quieres editar el usuario?');
+	else
+		return false;
+}
+$(function() {
+	$( "#date_birth" ).datepicker({
+			minDate: -999*99,
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "1920:2000"
+	});		
+});
+function validateEmail(){
+	var email = $('#email').val();
+	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;		
+	if( reg.test(email) ){ 
+		return true;
+	}else{
+		alert('Formato email incorrecto');
+		return false;
+	}			
+}
+</script>	
+	
+<?= $this->getAdminLayout('Usuarios') ?>
+<h3 class="tit">Crear Usuario</h3> 								
+			<p class="msg info">Por favor, llene todos los campos obligatorios</p>			
+		    <fieldset>
+		    <legend>Informaci&oacute;n de usuario</legend>
+		     <form id="userform"  action="<?=$this->baseUrl()?>/backend/add-user?add=true" method="post" onsubmit="return validateForm();" enctype="multipart/form-data" >		     			
+					<table class="nostyle">																									
+						<tr>
+							<td>Nombre(s)*:</td>
+							<td><input type="text" size="40" name="first_name" id="first_name" class="input-text" /></td>
+						</tr>
+						<tr>
+							<td>Apellido(s)*:</td>
+							<td><input type="text" size="40" name="last_name" id="last_name" class="input-text" /></td>
+						</tr>	                    
+	                    <tr>
+							<td>Email*:</td>
+							<td><input type="text" size="40" name="email" class="input-text" id="email" /></td>
+						</tr>
+						<tr>
+							<td>Telefono:</td>
+							<td><input type="text" size="40" name="phone" class="input-text" id="phone" /></td>
+						</tr>
+	                    <tr>
+							<td>Pa&iacute;s:</td>
+							<td><input type="text" size="40" name="country" id="country" class="input-text" /></td>
+						</tr>
+	                    <tr>
+							<td>Ciudad:</td>
+							<td><input type="text" size="40" name="city" id="city" class="input-text" /></td>
+						</tr>
+						<tr>
+							<td>Identificador Civil:</td>
+							<td><input type="text" size="40" name="civil_identifier" id="civil_identifier" class="input-text" /></td>
+						</tr>
+						<tr>
+							<td>Fecha Nacimiento:</td>
+							<td><input type="text" name="date_birth" id="date_birth" class="input-text" /></td>
+						</tr>						                    						
+						<tr>
+							<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="Crear Usuario" /></td>
+						</tr>
+					</table>
+			</form>
+		    </fieldset>
+<?= $this->getAdminFooter() ?>				

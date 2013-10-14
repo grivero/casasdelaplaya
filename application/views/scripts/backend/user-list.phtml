@@ -1,15 +1,16 @@
-<script language="Javascript">
-	function decision(user, url){
-		if(confirm(user)) 
-			location.href = url;
-	}
-</script> 
-
-	<?= $this->getAdminLayout('Usuarios') ?>	   
-	<?php if ($this->msg != ''){ ?>
-		<p class="msg done"><?=$this->msg; ?></p>
-	<?php } ?>
-      <h3 class="tit">Listado de Usuarios</h3>                    
+<?= $this->getAdminLayout('Usuarios') ?>	   
+      <h3 class="tit">Listado de Usuarios</h3>
+      <?php 
+	if ($_GET['edited']=='ok') { 
+		echo '<p class="msg done">Se ha editado la Usuario con &eacute;xito!</p>'; 
+ 	}else if ($_GET['status']=='fail') { 
+		echo '<p class="msg error">Error</p>';
+ 	}else if ($_GET['added']=='ok') { 
+		echo '<p class="msg done">Se ha agregado un nuevo Usuario con &eacute;xito!</p>';
+ 	}else if ($_GET['deleted']=='ok') { 
+		echo '<p class="msg done">Se ha eliminado al Usuario con &eacute;xito!</p>';
+ 	}
+?>		                     
       <table>
             <tbody>
             <tr>
