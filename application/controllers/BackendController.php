@@ -348,16 +348,24 @@ class BackendController extends Zend_Controller_Action{
     	$id 			= $_GET['id'];
     	// models    	
     	$res_model 		= new Application_Model_DbTable_Reservation();
+    	$user_model		= new Application_Model_DbTable_User();
     	$guest_model	= new Application_Model_DbTable_Guest();
+    	$house_model	= new Application_Model_DbTable_House();
+    	
 		// data    	
-    	$reservation = $res_model->find($id)->current();    									
-		$guests = $guest_model->select()->from('guest')
+    	$reservation 	= $res_model->find($id)->current();    									
+		$guests 		= $guest_model->select()->from('guest')
 										->where("reservation_id = $id")
         								->order('date_created DESC')																							
 										->query()->fetchAll();
+		$user 			= $user_model->find($reservation['user_id'])->current();
+		$house			= $house_model->find($reservation['house_id'])->current();
+		
 		//data to view		
 		$this->view->reservation 	= $reservation;
 		$this->view->guests			= $guests;
+		$this->view->user			= $user;
+		$this->view->house			= $house;
 				
     }
 
@@ -416,7 +424,33 @@ class BackendController extends Zend_Controller_Action{
     	$user_model = new Application_Model_DbTable_User();
     	$house_model= new Application_Model_DbTable_House();
     	$res_model	= new Application_Model_DbTable_Reservation();
-    	$guest_model= new Application_Model_DbTable_Guest();
+    	$guest_model= new Application_Model_DbTable_Guest();    	
+    	// vars
+    	$id 			= $_GET['id'];    	
+    	// for edit
+    	$reservation 				= $res_model->find($id)->current();
+    	$this->view->reservation 	= $reservation;
+    	
+    	if($this->getRequest()->getParam('edit')=='true'){
+    		
+    	}else{
+    		    	    	
+			// data    	    	    									
+			$guests 		= $guest_model->select()->from('guest')
+											->where("reservation_id = $id")
+	        								->order('date_created DESC')																							
+											->query()->fetchAll();
+			$user 			= $user_model->find($reservation['user_id'])->current();
+			$house			= $house_model->find($reservation['house_id'])->current();
+			$houses 		= $house_model->fetchAll()->toArray();
+			
+			//data to view					
+			$this->view->guests			= $guests;
+			$this->view->user			= $user;
+			$this->view->house			= $house;
+			$this->view->houses			= $houses;
+			
+    	}
     	    	
     }
 

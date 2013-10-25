@@ -7,6 +7,10 @@ class FrontendController extends Zend_Controller_Action{
         //email plugin
 		$emailSender = new Application_Plugin_EmailSender();
 		$this->_mailHandler = $emailSender;
+		
+		//set default layout for controller views    	
+    	$this->_helper->_layout->setLayout('layout');    	
+    	
     }
 
     public function indexAction(){

@@ -39,8 +39,21 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 		// Le damos al resultado el formato deseado:
 		$fecha = date("F j, Y, g:i a", $fecha );
 		 
-	    // Cuerpo del Email			    
-	    $email_message = "Informacion procesada: <br/><br/>";
+		 // Cuerpo del Email --- PHP MAIL
+		$email_message = "Informacion procesada: \n\n";
+		$email_message .= "Fecha de envio: ".$fecha."\n";	
+	    $email_message .= "Nombre: ".trim($first_name)."\n";
+	    $email_message .= "Apellido: ".trim($last_name)."\n";
+	    $email_message .= "Email: ".trim($email_from)."\n";
+		$email_message .= "Pais: ".trim($pais)."\n";
+	    $email_message .= "Telefono: ".trim($telephone)."\n";
+		$email_message .= "Fecha Ingreso: ".trim($fechaIn)."\n";
+		$email_message .= "Fecha Egreso: ".trim($fechaOut)."\n";
+		$email_message .= "Cantidad personas: ".trim($cant)."\n";
+	    $email_message .= "Comentarios: ".trim($msj)."\n";
+	    
+	    // Cuerpo del Email			--- ZEND MAIL    
+/**	    $email_message = "Informacion procesada: <br/><br/>";
 		$email_message .= "Fecha de envio: ".$fecha."<br/>";	
 	    $email_message .= "Nombre: ".trim($first_name)."<br/>";
 	    $email_message .= "Apellido: ".trim($last_name)."<br/>";
@@ -52,7 +65,6 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 		$email_message .= "Cantidad personas: ".trim($cant)."<br/>";
 	    $email_message .= "Comentarios: ".trim($msj)."<br/>";
 	    
-		
 	    // Asunto y Direccion
 	    $email_to 		= "casasdelaplaya@gmail.com";
 	    $email_subject 	= "[Casas de la Playa - Contacto - Web]";
@@ -60,6 +72,7 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 									
 		//inicializo zend_mail
 		$this->init();
+		//$this->_mailInstance->setFrom('-f'.$email_from,$first_name);
 		//seteo subject
 		$this->_mailInstance->setSubject($email_subject);
 		//seteo a quien se lo envio
@@ -69,6 +82,17 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 											$this->_charset);
 		//lo envio		
 		return $this->send($secure);
+		**/	   
+		
+	    // Asunto y Direccion
+	    $email_to = "casasdelaplaya@gmail.com";
+	    $email_subject = "[Casas de la Playa - Web]";
+			
+		// Email Headers
+		$headers = 'From: '.$email_from."\r\n".
+		'Reply-To: '.$email_from."\r\n" .
+		'X-Mailer: PHP/' . phpversion();
+		@mail($email_to, $email_subject, $email_message, $headers);
 		
 	}
 	

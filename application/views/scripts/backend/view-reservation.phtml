@@ -11,20 +11,29 @@ if ($_GET['edited']=='ok') {
 <table width="50%">
    	<tbody>
             <tr>
-              	<td><b>Id usuario</b></td>
-              	<td><a href="<?=$this->baseUrl()?>/backend/view-user?id=<?=$this->reservation['user_id']?>"><?=$this->reservation['user_id'];?></a></td>
+              	<td><b>Usuario</b></td>
+              	<td><a href="<?=$this->baseUrl()?>/backend/view-user?id=<?=$this->reservation['user_id']?>"><?=$this->user['name'];?></a></td>
             </tr>
              <tr class="bg">
-              	<td><b>Id casa</b></td>
-            	<td><a href="<?=$this->baseUrl()?>/backend/view-house?id=<?=$this->reservation['house_id']?>"><?=$this->reservation['house_id'];?></a></td>
+              	<td><b>Casa</b></td>
+            	<td><a href="<?=$this->baseUrl()?>/backend/view-house?id=<?=$this->reservation['house_id']?>"><?=$this->house['name'];?></a></td>
             </tr>
              <tr>
               	<td><b>Check in</b></td>
-             	<td><?=$this->reservation['checkin'];?></td>
+              	<?php               
+              		require_once('../library/utils/fecha.class.php');
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($this->reservation['checkin']);
+           		?>
+              	<td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>             	
             </tr>
              <tr class="bg">
               <td><b>Check out</b></td>
-              <td><?=$this->reservation['checkout'];?></td>
+              <?php                             	
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($this->reservation['checkout']);
+           		?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>              
             </tr>
             <tr>
               <td><b>Costo</b></td>

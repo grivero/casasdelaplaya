@@ -1,4 +1,363 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Frontend</b> and script/action name <b>index</b></p>
-</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//set calendars for reservation and contact forms
+		$( "#dateIn" ).datepicker({				
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "1920:2000"
+		});
+		$( "#dateOut" ).datepicker({			
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "1920:2000"
+		});
+		$( "#inputIn" ).datepicker({			
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "2013:2016"
+		});
+		$( "#inputOut" ).datepicker({			
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "2013:2016"
+		});
+				
+		//alojamiento img scroll up   
+		$(".top_slide").addClass("slide_marg_bottom_on");
+		$(".aloj_btn").hover(
+			function () {
+				$(this).find(".aloj_more").fadeIn(200);
+				$(this).find(".aloj_thumb").css('margin-top','-206px');
+			},
+			function () {
+		$(this).find(".aloj_more").fadeOut(200);
+		$(this).find(".aloj_thumb").css('margin-top','0');
+			}
+		);
+
+	});
+
+	//index carousel			
+	$(function() {
+		$('#carousel').carouFredSel({
+			width: $(window).width(),
+			height: $(window).height(),
+			align: false,
+			items: {
+				visible: 1,
+				width: 'variable',
+				height: 'variable'				
+			}
+		});
+			$(window).resize(function() {
+				var newCss = {
+					width: $(window).width(),
+					height: $(window).height()
+				};
+				$('#carousel').css( 'width', newCss.width*4 );
+				$('#carousel').parent().css( newCss );
+				$('#carousel div').css( newCss );
+			}).resize();
+
+		$(window).scroll(function(){
+			if ($(this).scrollTop() > 100) {
+				$('.scrollup').fadeIn();
+			} else {
+				$('.scrollup').fadeOut();
+			}
+		}); 
+		
+		$('.scrollup').click(function(){
+			$("html, body").animate({ scrollTop: 0 }, 600);
+			return false;
+		});
+		
+		/* Script para cambiar el fx del carousel */
+		//$('#carousel').trigger('configuration', ['auto.fx', 'crossfade']);
+		
+		function filterPath(string) {
+		return string
+		.replace(/^\//,'')
+		.replace(/(index|default).[a-zA-Z]{3,4}$/,'')
+		.replace(/\/$/,'');
+		}
+		var locationPath = filterPath(location.pathname);
+		var scrollElem = scrollableElement('html', 'body');
+		
+		$('a[href*=#]').each(function() {
+		var thisPath = filterPath(this.pathname) || locationPath;
+		if (  locationPath == thisPath
+		&& (location.hostname == this.hostname || !this.hostname)
+		&& this.hash.replace(/#/,'') ) {
+		  var $target = $(this.hash), target = this.hash;
+		  if (target) {
+			var targetOffset = $target.offset().top;
+			$(this).click(function(event) {
+			  event.preventDefault();
+			  $(scrollElem).animate({scrollTop: targetOffset}, 800, function() {
+				location.hash = target;
+			  });
+			});
+		  }
+		}
+		});
+		
+		// use the first element that is "scrollable"
+		function scrollableElement(els) {
+		for (var i = 0, argLength = arguments.length; i <argLength; i++) {
+		  var el = arguments[i],
+			  $scrollElement = $(el);
+		  if ($scrollElement.scrollTop()> 0) {
+			return el;
+		  } else {
+			$scrollElement.scrollTop(1);
+			var isScrollable = $scrollElement.scrollTop()> 0;
+			$scrollElement.scrollTop(0);
+			if (isScrollable) {
+			  return el;
+			}
+		  }
+		}
+		return [];
+		}
+	});
+	$(document).ready(function() {
+		$('.carousel').carousel();
+		// Support for AJAX loaded modal window.
+		// Focuses on first input textbox after it loads the window.
+		$('[data-toggle="modal"]').click(function(e) {
+			e.preventDefault();
+			var url = $(this).attr('href');
+			if (url.indexOf('#') == 0) {
+				$(url).modal('open');
+			} else {
+				$.get(url, function(data) {
+					$('<div class="modal hide fade span10">' + data + '</div>').modal();
+				}).success(function() { $('input:text:visible:first').focus(); });
+			}
+		});
+		
+	});	
+</script>
+    
+    <div id="wrapper">
+        <div id="carousel">
+            <div><img src="<?=$this->baseUrl()?>/images/bkg_carousel/001.jpg" alt="Casas de la playa - Sue&ntilde;os de un descansar" width="1600" height="750" /></div>
+            <div><img src="<?=$this->baseUrl()?>/images/bkg_carousel/002.jpg" alt="Casas de la playa - Sue&ntilde;os de un descansar" width="1600" height="750" /></div>
+            <div><img src="<?=$this->baseUrl()?>/images/bkg_carousel/003.jpg" alt="Casas de la playa - Sue&ntilde;os de un descansar" width="1600" height="750" /></div>
+            <div><img src="<?=$this->baseUrl()?>/images/bkg_carousel/004.jpg" alt="Casas de la playa - Sue&ntilde;os de un descansar" width="1600" height="750" /></div>
+        </div>
+        <div class="h_bkg_desc">
+            <a href="#alojamientos" class="h_btn_desc" alt="Descubr&iacute; Casas de la Playa" title="Descubr&iacute; Casas de la Playa">
+                <img src="<?=$this->baseUrl()?>/images/btn/h_ico_desc.png">
+                <h3>Descubr&iacute; Casas de la Playa</h3>
+            </a>
+        </div>
+        <div id="home_content">
+            <div class="container">
+                <div class="row">
+                    <div class="span3">
+                        <img src="<?=$this->baseUrl()?>/images/h_logo.png">
+                    </div>
+                    <div class="span9">
+                        <ul class="nav nav-pills pull-right">
+                            <li><a href="#">qui&eacute;ne somos</a></li>
+                            <li><a href="#">la pedrera</a></li>
+                            <li><a href="#alojamientos">alojamientos</a></li>
+                            <li><a href="#ubicacion">ubicacion</a></li>
+                            <li><a href="#">actividades</a></li>
+                            <li><a href="#contacto">contacto</a></li>
+                        </ul>            
+                    </div>
+                </div>
+            </div>
+            <section class="span5 offset7 h_mods mod_reserva">
+                <h1>reservas</h1>
+                <form class="form-horizontal">
+                    <label for="inputIn" class="input_res_h">desde</label>
+                  	<label for="inputOut" class="input_res_h input_res_h-last">hasta</label>
+                    <div class="cont_display_icon input_res_h">
+                        <img src="<?=$this->baseUrl()?>/images/ico/ico_cal_b-n.png">
+                        <input type="text" id="inputIn" >
+                    </div>
+                    <div class="cont_display_icon input_res_h input_res_h-last">
+                        <img src="<?=$this->baseUrl()?>/images/ico/ico_cal_b-n.png">
+                        <input type="text" id="inputOut" >
+                    </div>
+	                <input type="button" value="reservar" class="btn pull-right">
+				</form>
+            </section>
+            <section class="span5 offset7 h_mods">
+                <h1>contacto</h1>
+                <ul>
+                    <li><img src="<?=$this->baseUrl()?>/images/ico/ico_tel_h.png"> <a href="tel:(00598)98 805 930">(00598)98 805 930</a></li>
+                    <li><img src="<?=$this->baseUrl()?>/images/ico/ico_mail_h.png"> <a href="mailto:casasdelaplaya@gmail.com">casasdelaplaya@gmail.com</a></li>
+                    <li>
+                    	<a href="" class="h_fb"></a>
+                    	<a href="" class="h_tw"></a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        
+    </div>
+    
+    <section id="alojamientos">
+        <div class="container" >
+            <div class="row">
+                <div class="span6" >
+                	<h1>alojamientos</h1>
+                    <p>Con los pies sobre la arena de la playa El Desplayado, en La Pedrera, te esperamos para que disfrutes de unas vacaciones &uacute;nicas. Ubicadas en primera l&iacute;nea y frente a la zona de ba&ntilde;o con vistas de 180° al mar, brindamos el confort de tu casa en la playa.</p>
+                	<section class="aloj_serv">
+                        <h3>Servicios</h3>
+                        <ul>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> COFRE FORT</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> WI-FI</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> TV CABLE</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> limpieza diaria</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> ROPA BLANCA</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> AIRE ACONDICIONADO</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> BARBACOAS (SERVICIO DE LIMPIEZA)</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> COCHERAS</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> ATENCI&Oacute;N LAS 24 HS.</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> LAVANDER&Iacute;A* (OPCIONAL)</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> REPOSERAS</li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> SOMBRAS DE PLAYA</li>
+                        </ul>
+                    <section>
+                </div>
+                <div class="span6">
+                	<ul>
+                    	<li>
+                            <a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/cuatro" class="aloj_btn aloj_cuatro">
+                            	<img src="<?=$this->baseUrl()?>/images/btn/icon_more.png" class="aloj_more">
+                                <img src="<?=$this->baseUrl()?>/images/casas/4/h_btn_thumb.jpg" class="aloj_thumb">
+                                <h2>Casas para 4 personas</h2>
+                                <span>Click para ver m&acute;s informaci&oacute;n</span>
+                            </a>
+                        </li>
+                    	<li>
+                            <a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/seis" class="aloj_btn aloj_cuatro">
+                                <img src="<?=$this->baseUrl()?>/images/btn/icon_more.png" class="aloj_more">
+                                <img src="<?=$this->baseUrl()?>/images/casas/6/h_btn_thumb.jpg" class="aloj_thumb">
+                                <h2>Casas para 6 personas</h2>
+                                <span>Click para ver m&acute;s informaci&oacute;n</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="ubicacion" style="height:400px;">
+        <div class="container" >
+            <div class="row">
+                <div class="span6" >
+                	<h1>ubicaci&oacute;n</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contacto" style="height:700px;">
+        <div class="container">
+        	<h1>contacto</h1>
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="span6" >
+                        <div class="control-group">
+                            <label class="control-label" for="inputName">Nombre</label>
+                            <div class="controls">
+                                <input type="text" id="inputName" class="span4">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputLastn">Apellidos</label>
+                            <div class="controls">
+                                <input type="text" id="inputLastn" class="span4">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputCountry">Pa&iacute;s</label>
+                            <div class="controls">
+                                <input type="text" id="inputCountry" class="span4">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputEmail">E-mail</label>
+                            <div class="controls">
+                                <input type="text" id="inputEmail" class="span4">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone">Tel&eacute;fono</label>
+                            <div class="controls">
+                                <input type="text" id="inputPhone" class="span4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6" >
+                        <div class="control-group">
+                            <label class="control-label" for="inputIn">Fecha Ingreso</label>
+                            <div class="controls">
+                                <div class="cont_display_icon">
+                                	<img src="<?=$this->baseUrl()?>/images/ico/ico_cal.png">
+	                                <input type="text" id="dateIn" >
+    							</div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputOut">Fecha Egreso</label>
+                            <div class="controls">
+                                <div class="cont_display_icon">
+                                	<img src="<?=$this->baseUrl()?>/images/ico/ico_cal.png">
+	                                <input type="text" id="dateOut" >
+    							</div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label c_doble_line" for="inputCantp">Cantidad de personas</label>
+                            <div class="controls">
+                                <div class="cont_display_icon">
+                                	<img src="<?=$this->baseUrl()?>/images/ico/ico_down_arrow.png">
+                                    <select >
+                                      <option>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputTxt">Consulta</label>
+                            <div class="controls">
+                               <textarea id="inputTxt" class="span4"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                               <input type="button" value="Enviar Consulta" class="btn pull-right">
+                            </div>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+            <div class="row">
+            	<div class="span6 offset6 c_mod_tel">
+                	<h1>tel&eacute;fonos</h1>
+                    <div class="row">
+                        <ul class="span3">
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_tel.png"> <a href="tel:098 805 930">098 805 930</a></li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_tel.png"> <a href="tel:(00598) 98 805 930">(00598) 98 805 930</a></li>
+                        </ul>
+                        <ul class="span3">
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_tel.png"> <a href="tel:099 343 490">099 343 490</a></li>
+                            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_tel.png"> <a href="tel:(00598) 99 343 490">(00598) 99 343 490</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal -->

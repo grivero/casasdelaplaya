@@ -25,14 +25,23 @@
               <th>Acciones</th>
             </tr>            
           <?php 
+          require_once('../library/utils/fecha.class.php');
           $i = 0;
           foreach ($this->reservations as $reservation){
           	$i++; ?>  
            <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >
               <td><a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$reservation['user_id'];?>"><b><?=$reservation['user_id'];?></b></a></td>
               <td><a href="<?=$this->baseUrl();?>/backend/view-house?id=<?=$reservation['house_id'];?>"><b><?=$reservation['house_id'];?></b></a></td>
-              <td><?=$reservation['checkin'];?></td>              
-              <td><?=$reservation['checkout'];?></td>
+              <?php                             		
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($reservation['checkin']);
+           		?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+              <?php                             		
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($reservation['checkout']);
+           		?>
+           	  <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>                                
               <td>$<?=$reservation['cost'];?></td>
               <td><?php if ($reservation['payed'] == '0') echo 'pago'; else echo 'no pago'; ?></td>
               <td><?php if ($reservation['canceled'] == '0') echo 'no'; else echo 'si'; ?></td>                            
