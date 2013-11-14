@@ -5,10 +5,9 @@ class Image{
 
 	public function Image(){
 	}
-	
-	//big-post 293*212 
-	//ampliada(ligthbox) 700*525  	
-	//original
+		
+	//img de view-actividad (ligthbox) 	758*544  	
+	//img de listas de actividades  	184*256 
  	public function uploadImage($image){
 		
 		$ruta = "../public/uploads/";
@@ -22,7 +21,7 @@ class Image{
 			if (!file_exists("$path1")){
 				mkdir($path1,0777);
 			}
-			//original
+			//original  <<<<<---------------------------- VER SI PUEDO BORRAR
 			$path_ori1 = $ruta.'original/';
 			if (!file_exists("$path_ori1")){
 				mkdir($path_ori1,0777);

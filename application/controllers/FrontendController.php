@@ -108,32 +108,36 @@ class FrontendController extends Zend_Controller_Action
 
     public function actividadesAction()
     {
-        // action body
+       
     }
 
     public function addActividadAction()
     {
-        // action body
+      
     }
 
     public function casasseisAction()
     {
-        // action body
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
     }
 
     public function casascuatroAction()
     {
-        // action body
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
     }
 
     public function viewActividadAction()
     {
-        // action body
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
     }
 
     public function createActividadAction()
     {
-        // action body
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
     }
 
 

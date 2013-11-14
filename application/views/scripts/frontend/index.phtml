@@ -1,5 +1,14 @@
-<script type="text/javascript">	
+<style type="text/css">
+.modal, .modal.fade.in {
+    top: 0; /* was 10% */
+}
+</style>
+<script type="text/javascript">
+	// to scroll up when index is refreshed
+	$("html, body").animate({ scrollTop: 0 }, 600);
+	
 	$(document).ready(function() {
+						
 		//set calendars for reservation and contact forms				
 		$( "#fI" ).datepicker({			
 			changeMonth: true,
@@ -16,6 +25,8 @@
 				
 		//alojamiento img scroll up   
 		$(".top_slide").addClass("slide_marg_bottom_on");
+
+		// hover for casas 4/6 photos in alojamiento section
 		$(".aloj_btn").hover(
 			function () {
 				$(this).find(".aloj_more").fadeIn(200);
@@ -26,11 +37,13 @@
 				$(this).find(".aloj_thumb").css('margin-top','0');
 			}
 		);
-
+			
 	});
 
-	//index carousel			
+	// carousel functionallity			
 	$(function() {
+
+		// constructor with basic params
 		$('#carousel').carouFredSel({
 			width: $(window).width(),
 			height: $(window).height(),
@@ -41,7 +54,8 @@
 				height: 'variable'				
 			}
 		});
-		
+
+		// funky stuff for carousel and css resizeing
 		$(window).resize(function() {
 			var newCss = {
 				width: $(window).width(),
@@ -52,6 +66,7 @@
 			$('#carousel div').css( newCss );
 		}).resize();
 
+		// to hide or not the green scroll button
 		$(window).scroll(function(){
 			if ($(this).scrollTop() > 100) {
 				$('.scrollup').fadeIn();
@@ -59,7 +74,8 @@
 				$('.scrollup').fadeOut();
 			}
 		}); 
-		
+
+		// to scroll the page up when click on green button
 		$('.scrollup').click(function(){
 			$("html, body").animate({ scrollTop: 0 }, 600);
 			return false;
@@ -77,7 +93,8 @@
 
 		var locationPath = filterPath(location.pathname);
 		var scrollElem = scrollableElement('html', 'body');
-			
+
+		// to scroll into specific section using url, example: #contacto
 		$('a[href*=#]').each(function() {
 			var thisPath = filterPath(this.pathname) || locationPath;
 			if (  	locationPath == thisPath
@@ -117,7 +134,9 @@
 	});
 	
 	$(document).ready(function() {
+		// carousel constructor call
 		$('.carousel').carousel();
+		
 		// Support for AJAX loaded modal window.
 		// Focuses on first input textbox after it loads the window.
 		$('[data-toggle="modal"]').click(function(e) {
@@ -125,14 +144,16 @@
 			var url = $(this).attr('href');
 			if (url.indexOf('#') == 0) {
 				$(url).modal('open');
-			} else {
+			} else { // IS GETTING THIS WAY !
 				$.get(url, function(data) {
-					$('<div class="modal hide fade span10">' + data + '</div>').modal();
+					$('<div class="modal hide fade span10" style="overflow-y: auto;" >' + data + '</div>').modal();
 				}).success(function() { $('input:text:visible:first').focus(); });
 			}
-		});
+		});			
+		
 	});
 
+	// function for contact form
 	function validateData(){
 		if ( $('#email').val()!='' && $('#first_name').val()!='' && $('#last_name').val()!='' && $('#fI').val()!='' && $('#fE').val()!='' && $('#comments').val()!=''){
 			return validateEmail();
@@ -141,7 +162,8 @@
 			return false;
 		}
 	}		
-	
+
+	// function for contact form
 	function validateEmail(){
 		var email = $('#email').val();
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;		
@@ -152,7 +174,8 @@
 			return false;
 		}			
 	}
-	
+
+	// function for contact form
  	function send_message(){		
  	 	if( validateData() && confirm('Desea enviar mensaje?') ){
  	 		showOverlay();
@@ -177,6 +200,7 @@
  			});
  	 	}		 		
  	}
+ 	
 </script>
     
     <div id="wrapper">
@@ -268,7 +292,7 @@
                 <div class="span6">
                 	<ul>
                     	<li>
-                            <a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/casascuatro" class="aloj_btn aloj_cuatro">
+                            <a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/casascuatro" id="m1" class="aloj_btn aloj_cuatro">
                             	<img src="<?=$this->baseUrl()?>/images/btn/icon_more.png" class="aloj_more">
                                 <img src="<?=$this->baseUrl()?>/images/casas/4/h_btn_thumb.jpg" class="aloj_thumb">
                                 <h2>Casas para 4 personas</h2>
@@ -276,7 +300,7 @@
                             </a>
                         </li>
                     	<li>
-                            <a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/casasseis" class="aloj_btn aloj_cuatro">
+                            <a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/casasseis" class="aloj_btn aloj_cuatro" id="m2">
                                 <img src="<?=$this->baseUrl()?>/images/btn/icon_more.png" class="aloj_more">
                                 <img src="<?=$this->baseUrl()?>/images/casas/6/h_btn_thumb.jpg" class="aloj_thumb">
                                 <h2>Casas para 6 personas</h2>
