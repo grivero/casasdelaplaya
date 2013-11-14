@@ -1,9 +1,12 @@
 <?php
 
-class FrontendController extends Zend_Controller_Action{
-	private $_mailHandler = null;
-	
-    public function init(){
+class FrontendController extends Zend_Controller_Action
+{
+
+    private $_mailHandler = null;
+
+    public function init()
+    {
         //email plugin
 		$emailSender = new Application_Plugin_EmailSender();
 		$this->_mailHandler = $emailSender;
@@ -13,17 +16,25 @@ class FrontendController extends Zend_Controller_Action{
     	
     }
 
-    public function indexAction(){
+    public function indexAction()
+    {
         // action body
     }
 
     /**
-     * 
      * Send an email message to casasdelaplaya@gmail.com
      * createas a message and user rows
      * ajax function
+     *
+     *
+     *
+     *
+     *
+     *
+     *
      */
-    public function sendMessageAction(){            	
+    public function sendMessageAction()
+    {
 
     	//to clean response page
     	$this->_helper->layout->disableLayout();
@@ -90,8 +101,57 @@ class FrontendController extends Zend_Controller_Action{
 			
     }
 
+    public function alojamientosAction()
+    {
+        // action body
+    }
+
+    public function actividadesAction()
+    {
+        // action body
+    }
+
+    public function addActividadAction()
+    {
+        // action body
+    }
+
+    public function casasseisAction()
+    {
+        // action body
+    }
+
+    public function casascuatroAction()
+    {
+        // action body
+    }
+
+    public function viewActividadAction()
+    {
+        // action body
+    }
+
+    public function createActividadAction()
+    {
+        // action body
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

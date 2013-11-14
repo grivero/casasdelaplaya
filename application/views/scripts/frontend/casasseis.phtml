@@ -1,0 +1,79 @@
+<div class="modal-header">
+	<a class="close" data-dismiss="modal">&times;</a>
+	<h1>casa para 6 personas</h1>
+</div>
+<div class="modal-body">
+   	<p>Con dos dormitorios y Jard&iacute;n privado con barbacoa, las casas para 6 personas son perfectas para compartir en familia. En planta baja, la cocina y el living comedor se conectan con un deck y p&eacute;rgola creando un espacio amplio e integrado al jard&iacute;n</p>
+    <div id="myCarousel" class="carousel slide">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+        <div class="active item"><img src="<?=$this->baseUrl()?>/images/casas/6/002.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/001.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/003.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/004.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/005.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/006.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/007.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/008.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/009.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/010.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/011.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/012.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/013.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/014.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/015.jpg" width="750" height="444" /></div>
+        <div class="item"><img src="<?=$this->baseUrl()?>/images/casas/6/016.jpg" width="750" height="444" /></div>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev"><img src="<?=$this->baseUrl()?>/images/slide/ar_left.png" width="42" height="42" /></a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next"><img src="<?=$this->baseUrl()?>/images/slide/ar_right.png" width="42" height="42" /></a>
+    	<a class="btn" style="display:none">VER GALERIA</a>
+    </div>
+</div>
+<div class="modal-footer">
+	<a class="btn pull-left btn_servicios" ><img src="<?=$this->baseUrl()?>/images/ico/ico_more.png" width="29" height="29" />servicios</a>
+	<a class="btn pull-left btn_tarifas" ><img src="<?=$this->baseUrl()?>/images/ico/ico_tarif.png" width="29" height="29" />tarifas</a>
+    <div class="serv_over">
+        <ul>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> COFRE FORT</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> WI-FI</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> TV CABLE</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> limpieza diaria</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> ROPA BLANCA</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> AIRE ACONDICIONADO</li>
+        </ul>
+        <ul>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> BARBACOAS <span>(SERVICIO DE LIMPIEZA)</span></li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> COCHERAS</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> ATENCI&Oacute;N LAS 24 HS.</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> LAVANDER&Iacute;A* <span>(OPCIONAL)</span></li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> REPOSERAS</li>
+            <li><img src="<?=$this->baseUrl()?>/images/ico/ico_check.png"> SOMBRAS DE PLAYA</li>
+    	</ul>
+    </div>
+    <img src="<?=$this->baseUrl()?>/images/tarifas_2013.jpg" width="652" height="113" class="tarif_over"/>
+    <div class="btn_mod_ico">
+        <img src="<?=$this->baseUrl()?>/images/btn/btn_arrow.png" width="7" height="13" />
+        <!--<input type="button" value="reservar" class="btn pull-right">-->
+    </div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('.btn_servicios').hover(
+			function () {
+				$('.serv_over').fadeIn(200);
+			},
+			function () {
+				$('.serv_over').fadeOut(200);
+			}
+		);
+		$('.btn_tarifas').hover(
+			function () {
+				$('.tarif_over').fadeIn(200);
+			},
+			function () {
+				$('.tarif_over').fadeOut(200);
+			}
+		);
+	})
+</script>

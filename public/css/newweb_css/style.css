@@ -13,6 +13,10 @@ body * {
 	color: #333;
 	line-height: 22px;
 }
+body.actividades .modal {
+	max-height: 675px;
+	overflow-y: auto;
+}
 h1{
 	font-size:30px;
 	font-family:Georgia, "Times New Roman", Times, serif;
@@ -22,9 +26,12 @@ h1{
 	margin-top:0;
 	margin-bottom:40px;
 }
+a:hover {
+	color: #0A7561;
+}
 .btn {
 	height:42px;
-	background:#52b8a5 url(../../images/btn/btn_arrow.png) 168px 15px no-repeat;
+	background:#52b8a5;
 	border-radius:0;
 	-moz-border-radius:0;
 	-webkit-border-radius:0;
@@ -37,14 +44,34 @@ h1{
 	color:#ffffff;
 	text-shadow:none!important;
 	text-transform:uppercase;
-	padding:0 47px 0 25px;
+	padding:11px 47px 0 25px;
 	border:none;
 	box-shadow:none;
-	
 }
 .btn:hover {
-	background:#2d5c53 url(../../images/btn/btn_arrow.png) 168px 15px no-repeat;
+	background:#2d5c53;
 	color:#ffffff;
+}
+.btn img{
+	margin: -5px 20px 0 -3px;
+	float: left;
+}
+.btn_mod_ico {
+	position:relative;
+	float:right;
+}
+.btn_mod_ico img {
+	position:absolute;
+	top:30px;
+	right:16px;
+}
+#contacto .btn_mod_ico img, .modal-footer .btn_mod_ico img{
+	position:absolute;
+	top:16px;
+	right:32px;
+}
+input[type=button] {
+	padding-top:0!important;
 }
 /* carousel stuff*/
 #wrapper {
@@ -135,6 +162,10 @@ h1{
 	background:none;
 	color:#0a7561;
 }
+body.actividades .nav-pills li a:hover {
+	background:none;
+	color:#cccccc;
+}
 .h_mods {
 	background: rgba(255,255,255,0.9);
 	padding:25px;
@@ -176,6 +207,7 @@ h1{
 }
 .mod_reserva {
 	margin-top:50px;
+	display:none;
 }
 .mod_reserva label {
 	background:none!important;
@@ -185,14 +217,16 @@ h1{
 .mod_reserva input[type=button] {
 	margin-top:15px;
 	width:156px;
-	background:#52b8a5 url(../../images/btn/btn_arrow.png) 135px 15px no-repeat;
+	background:#52b8a5;
 	color:#ffffff;
 }
 .mod_reserva input[type=button]:hover {
-	background:#2d5c53 url(../../images/btn/btn_arrow.png) 135px 15px no-repeat;
+	background:#2d5c53;
 	color:#ffffff;
 }
-
+.mod_contacto {
+	margin-top:200px;
+}
 /* alojamientos/ubicacion section */
 
 #alojamientos, #ubicacion {
@@ -268,7 +302,7 @@ h1{
 #contacto {
 	width:100%;
 	height:747px;
-	padding-top:65px;
+	padding-top:15px;
 	background: url(../../images/bkg/contact_bkg.jpg) center repeat #1c9286;
 }
 #contacto h1 {
@@ -319,7 +353,7 @@ h1{
 	border-top:1px dotted #619f97; 
 	border-bottom:1px dotted #619f97; 
 	padding:25px 0 0 0;
-	margin-top:25px;
+	margin-top:15px;
 }
 .c_mod_tel li {
 	margin-bottom:10px;
@@ -373,8 +407,47 @@ footer img {
 	display:block;
 }
 
+/* interna */
+.h_int {
+	width:100%;
+	background:#1c9488;
+	height:97px;
+	margin-bottom:40px;
+}
 
-
+/* actividades */ 
+.act_mod {
+	border:1px solid #ccc;
+	box-shadow:0 5px 10px #ccc;
+	height:280px;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	margin-bottom:25px;
+	padding:20px;
+	cursor:pointer;
+	transition:ease-in-out opacity 0.5s;
+	-webkit-transition:ease-in-out opacity 0.5s;
+	-moz-transition:ease-in-out optacity 0.5s;
+}
+.act_mod figure{
+	width:256px;
+	height:184px;
+	background:url(../../images/bkg/activ_sin_foto.jpg) no-repeat;
+	margin:0;
+}
+.act_mod:hover {
+	opacity:0.5;
+}
+.act_mod p {
+	text-align:center;
+	margin-top:20px;
+}
+.act_img {
+	max-height:544px;
+	overflow:hidden;
+	background:url(../../images/bkg/activ_sin_foto.jpg) no-repeat center center #e5e5e5;
+}
 /* modal */
 .modal {
 	border-radius:0;
@@ -385,7 +458,7 @@ footer img {
 .modal h1 {
 	margin-bottom:0;
 }
-.modal .btn {
+/*.modal .btn {
 	background: #52B89E url(../../images/btn/btn_arrow.png) 135px 15px no-repeat;
 	padding: 11px 47px 0 25px;
 	width: 162px;
@@ -393,12 +466,13 @@ footer img {
 }
 .modal .btn:hover {
 	background: #2d5c53 url(../../images/btn/btn_arrow.png) 135px 15px no-repeat;
-}
+}*/
 .modal-header {
 	padding:25px 15px 0 15px;
 	border-bottom:none;
 }
 .modal-body {
+	padding-bottom:20px;
 	max-height:none;
 }
 .modal-body .btn {
@@ -409,6 +483,9 @@ footer img {
 	margin-left:-73px;
 	background-image:none;
 	padding: 11px 20px 0 20px;
+}
+body.actividades .modal-body .btn {
+	margin-left:88px!important;
 }
 .modal-body .btn:hover {
 	background-image:none;
@@ -427,6 +504,38 @@ footer img {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
+}
+.modal-footer input[type=button] {
+	width:156px;
+}
+.modal-footer .tarif_over {
+	position: absolute;
+	bottom: 86px;
+	left: 23px;
+	display:none;
+}
+.modal-footer .serv_over {
+	width: 410px;
+	height: 126px;
+	padding:10px 20px 20px;
+	background: #ffffff;
+	position: absolute;
+	bottom: 86px;
+	left: 23px;
+	display:none;
+}
+.modal-footer .serv_over ul {
+	width:200px;
+	float:left;
+	text-align:left;
+	margin-left:5px;
+}
+.modal-footer .serv_over ul li {
+	font-size:14px;
+}
+.modal-footer .serv_over ul span {
+	font-size:11px;
+	text-transform:lowercase;
 }
 .carousel-control {
 	position: absolute;
@@ -451,6 +560,13 @@ footer img {
 .modal-backdrop, .modal-backdrop.fade.in {
 	opacity: .9;
 	filter: alpha(opacity=90);
+}
+.modal-body input[type=text] {
+	box-shadow:none;
+	border:1px solid #cccccc;
+}
+.modal-body label {
+	color:#666666;
 }
 /* scroll */ 
 .scrollup {

@@ -1,0 +1,59 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// Support for AJAX loaded modal window.
+		// Focuses on first input textbox after it loads the window.
+		$('[data-toggle="modal"]').click(function(e) {
+			e.preventDefault();
+			var url = $(this).attr('href');
+			if (url.indexOf('#') == 0) {
+				$(url).modal('open');
+			} else {
+				$.get(url, function(data) { 
+					$('<div class="modal hide fade span10">' + data + '</div>').modal();
+				}).success(function() { $('input:text:visible:first').focus(); });
+			}
+		});		
+		$("body").addClass("actividades");		
+	});
+</script>
+
+    <div class="h_int">
+        <header class="container">
+            <div class="row">
+                <div class="span3">
+                    <img src="<?=$this->baseUrl()?>/images/h_logo.png">
+                </div>
+                <div class="span9">
+                    <ul class="nav nav-pills pull-right">
+                        <li><a href="#">qui&eacute;nes somos</a></li>
+                        <li><a href="#">la pedrera</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend/index#alojamientos">alojamientos</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend/index#ubicacion">ubicaci&oacute;n</a></li>
+                        <li><a href="#">actividades</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend/index#contacto">contacto</a></li>
+                    </ul>            
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <h1>actividades</h1>
+            </div>
+            <div class="span4">
+                <a class="btn pull-right" data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/add-actividad"><img src="<?=$this->baseUrl()?>/images/ico/ico_more.png" width="29" height="29" />agregar actividad</a>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px;">
+        	<?php 
+        	
+        		// ACA hago el for de todos los post aprobados, ordenados por Mayor relevancia
+        		
+        	?>
+            <article class="span4 act_mod" data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/view-actividad?id=">
+            	<figure></figure>
+                <p>Escuela de surf La Pedrera</p>
+            </article>            
+        </div>
+    </div>
