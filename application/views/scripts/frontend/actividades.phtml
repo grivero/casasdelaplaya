@@ -21,16 +21,18 @@
         <header class="container">
             <div class="row">
                 <div class="span3">
-                    <img src="<?=$this->baseUrl()?>/images/h_logo.png">
+                	<a href="<?=$this->baseUrl()?>/frontend/index">
+                    	<img src="<?=$this->baseUrl()?>/images/h_logo.png">
+                    </a>
                 </div>
                 <div class="span9">
                     <ul class="nav nav-pills pull-right">
-                        <li><a href="#">qui&eacute;nes somos</a></li>
-                        <li><a href="#">la pedrera</a></li>
-                        <li><a href="<?=$this->baseUrl()?>/frontend/index#alojamientos">alojamientos</a></li>
-                        <li><a href="<?=$this->baseUrl()?>/frontend/index#ubicacion">ubicaci&oacute;n</a></li>
+                        <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/quienessomos">qui&eacute;nes somos</a></li>
+                        <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/lapedrera">la pedrera</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend#alojamientos">alojamientos</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend#ubicacion">ubicaci&oacute;n</a></li>
                         <li><a href="#">actividades</a></li>
-                        <li><a href="<?=$this->baseUrl()?>/frontend/index#contacto">contacto</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend#contacto">contacto</a></li>
                     </ul>            
                 </div>
             </div>

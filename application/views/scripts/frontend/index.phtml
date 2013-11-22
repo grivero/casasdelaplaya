@@ -37,6 +37,14 @@
 				$(this).find(".aloj_thumb").css('margin-top','0');
 			}
 		);
+		$('.map').hover(
+			function () {
+				$('.map_recorrido').fadeIn(200);
+			},
+			function () {
+				$('.map_recorrido').fadeOut(200);
+			}
+		);
 			
 	});
 
@@ -224,8 +232,8 @@
                     </div>
                     <div class="span9">
                         <ul class="nav nav-pills pull-right">
-                            <li><a href="#">qui&eacute;nes somos</a></li>
-                            <li><a href="#">la pedrera</a></li>
+                            <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/quienessomos">qui&eacute;nes somos</a></li>
+                            <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/lapedrera">la pedrera</a></li>
                             <li><a href="#alojamientos">alojamientos</a></li>
                             <li><a href="#ubicacion">ubicaci&oacute;n</a></li>
                             <li><a href="<?=$this->baseUrl()?>/frontend/actividades">actividades</a></li>
@@ -312,11 +320,15 @@
             </div>
         </div>
     </section>
-    <section id="ubicacion" style="height:400px;">
+    <section id="ubicacion">
         <div class="container" >
-            <div class="row">
-                <div class="span6" >
+           <div class="row">
+                <div class="span12" >
                 	<h1>ubicaci&oacute;n</h1>
+                    <figure class="map">
+                    	<a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/map" class="btn pull-right">Ver mapa con detalle<img src="<?=$this->baseUrl()?>/images/ico/ico_btn_map.png"></a>
+                    	<img src="<?=$this->baseUrl()?>/images/deco/map_recorrido.png" class="map_recorrido">
+                    </figure>
                 </div>
             </div>
         </div>
@@ -400,7 +412,10 @@
                         </div>
                         <div class="control-group">
                             <div class="controls">
-                               <input type="button" onclick="send_message()" value="Enviar Consulta" class="btn pull-right">
+                             	<div class="btn_mod_ico">
+                                    <img src="<?=$this->baseUrl()?>/images/btn/btn_arrow.png" width="7" height="13" />
+                                	<input type="button" onclick="send_message()" value="Enviar Consulta" class="btn pull-right">
+                                </div>                                
                             </div>
                         </div>
                     </div>
@@ -423,4 +438,3 @@
             </div>
         </div>
     </section>
-    <!-- Modal -->
