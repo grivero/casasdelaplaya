@@ -58,6 +58,9 @@
           <actionMethod actionName="casascuatro"/>
           <actionMethod actionName="viewActividad"/>
           <actionMethod actionName="createActividad"/>
+          <actionMethod actionName="quienessomos"/>
+          <actionMethod actionName="lapedrera"/>
+          <actionMethod actionName="map"/>
         </controllerFile>
         <controllerFile controllerName="Authentication">
           <actionMethod actionName="index"/>
@@ -212,6 +215,15 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Frontend">
             <viewScriptFile forActionName="createActividad"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Frontend">
+            <viewScriptFile forActionName="quienessomos"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Frontend">
+            <viewScriptFile forActionName="lapedrera"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Frontend">
+            <viewScriptFile forActionName="map"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

@@ -32,6 +32,8 @@ class FrontendController extends Zend_Controller_Action
      *
      *
      *
+     *
+     *
      */
     public function sendMessageAction()
     {
@@ -140,8 +142,30 @@ class FrontendController extends Zend_Controller_Action
     	$this->_helper->layout->disableLayout();
     }
 
+    public function quienessomosAction()
+    {
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
+    }
+
+    public function lapedreraAction()
+    {
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
+    }
+    
+  	public function mapAction()
+    {
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
+    }
+
 
 }
+
+
+
+
 
 
 
