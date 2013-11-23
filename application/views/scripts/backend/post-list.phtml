@@ -29,7 +29,7 @@
               		<a href="<?=$this->baseUrl()?>/backend/edit-post?id=<?=$post['id'];?>">
               			<img src="<?=$this->baseUrl()?>/img/icons2/edit.png" title="Editar" width="16" height="16" alt="edit">
               		</a>
-             		<a href="javascript:decision('¿Está seguro que desea borrar esta Post?','<?=$this->baseUrl()?>/backend/delete-post?id=<?=$post['id'];?>')">
+             		<a href="javascript:confirm('¿Está seguro que desea borrar esta Post?','<?=$this->baseUrl()?>/backend/delete-post?id=<?=$post['id'];?>')">
              			<img src="<?=$this->baseUrl()?>/img/icons2/trash_closed.png" title="Eliminar" width="16" height="16" alt="del">
              		</a>
              	</td>            

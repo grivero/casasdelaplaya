@@ -474,10 +474,31 @@ class BackendController extends Zend_Controller_Action{
 		// model
     	$post_model = new Application_Model_DbTable_Post();
 
-    	// vars to view
-    	$posts = $post_model->select()->from('post')
+    	if( $this->getRequest()->getParam('approved')=="1" ){
+    		
+    		// vars to view
+    		$posts = $post_model->select()->from('post')
+    									->where('approved = 1')
 										->order('ranking DESC')															
 										->query()->fetchAll();
+										
+    	}else if( $this->getRequest()->getParam('approved')=="0" ){
+    		
+    		// vars to view
+    		$posts = $post_model->select()->from('post')
+    									->where('approved = 0')
+										->order('ranking DESC')															
+										->query()->fetchAll();
+										
+    	}else{
+    		
+			// vars to view
+    		$posts = $post_model->select()->from('post')
+										->order('ranking DESC')															
+										->query()->fetchAll(); 
+										   		
+    	}
+    	
     	$this->view->posts = $posts;
     	
     }
@@ -515,6 +536,7 @@ class BackendController extends Zend_Controller_Action{
 			$ranking		= $this->getRequest()->getParam('ranking');
 			$description	= $this->getRequest()->getParam('description');
 			$apporved		= $this->getRequest()->getParam('approved');
+			$title			= $this->getRequest()->getParam('title');			
 			$date_created 	= date('Y-m-d H:i:s');
 			$approver_id	= '1'; 	
 			
@@ -526,7 +548,7 @@ class BackendController extends Zend_Controller_Action{
 								 	  
 				$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$user_id, "date_created"=>$date_created,
 										 			"ranking"=>$ranking, "approved"=>$apporved, "approver_id"=>$approver_id,
-													"description"=>$description ))->save();
+													"description"=>$description, "title"=>$title ))->save();
 
 				//update image row with post_id
 				$image_to_update = $img_model->find($image_id)->current();

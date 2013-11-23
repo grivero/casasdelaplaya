@@ -112,8 +112,8 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 								'<li id="submenu-active"><a href="'.$baseUrl.'/backend/post-list">Posts</a></li>'.
    								'<ul>'.
                             		'<li><a href="'.$baseUrl.'/backend/add-post">Agregar</a></li>'.
-   									'<li><a href="javascript:;">Posts habilitados</a></li>'.
-   									'<li><a href="javascript:;">Posts denegados</a></li>'.
+   									'<li><a href="'.$baseUrl.'/backend/post-list?approved=1">Posts habilitados</a></li>'.
+   									'<li><a href="'.$baseUrl.'/backend/post-list?approved=0">Posts denegados</a></li>'.
                             		'<li><a href="'.$baseUrl.'/backend/post-list">Listado Posts</a></li>'.						
 								'</ul>'.
                         		'<li><a href="'.$baseUrl.'/backend/reservation-list">Reservas</a></li>'.

@@ -16,6 +16,11 @@
 		$("body").addClass("actividades");		
 	});
 </script>
+<style type="text/css">
+img {
+  .img-responsive();
+}
+</style>
 
     <div class="h_int">
         <header class="container">
@@ -48,14 +53,19 @@
             </div>
         </div>
         <div class="row" style="margin-top:20px;">
-        	<?php 
-        	
-        		// ACA hago el for de todos los post aprobados, ordenados por Mayor relevancia
-        		
-        	?>
-            <article class="span4 act_mod" data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/view-actividad?id=">
-            	<figure></figure>
-                <p>Escuela de surf La Pedrera</p>
-            </article>            
+        	<?php
+				if($this->posts!=null){				        	 	          
+		          foreach ($this->posts as $post){
+	         ?> 
+			            <article class="span4 act_mod" data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/view-actividad?id=<?=$post['id']?>">
+			            	<figure>
+			            		<img class="img-responsive" src="<?=$this->baseUrl()?>/uploads/big-post/<?=$this->imgs[ $post['id'] ];?>" width="256" height="184" />
+			            	</figure>
+			                <p><?=$post['title'];?></p>
+			            </article> 
+            <?php 
+		          }
+				}            
+            ?>           
         </div>
     </div>
