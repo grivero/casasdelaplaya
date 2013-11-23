@@ -13,10 +13,6 @@ body * {
 	color: #333;
 	line-height: 22px;
 }
-body.actividades .modal {
-	max-height: 675px;
-	overflow-y: auto;
-}
 h1{
 	font-size:30px;
 	font-family:Georgia, "Times New Roman", Times, serif;
@@ -516,6 +512,9 @@ footer img {
 }
 body.actividades .modal-body .btn {
 	margin-left:88px!important;
+	position:relative;
+	margin:0px;
+	left:0;
 }
 .modal-body .btn:hover {
 	background-image:none;
