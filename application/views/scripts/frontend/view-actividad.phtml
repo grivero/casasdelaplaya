@@ -1,0 +1,18 @@
+<script type="text/javascript">
+	// when close modal we destroy the div
+	$('.modal').on('hidden.bs.modal', function () {
+		$('div.modal').remove();
+	});
+</script>
+<div class="modal-header">
+	<a class="close" data-dismiss="modal">&times;</a>
+	<h1><?=$this->post['title'];?></h1>
+</div>
+<div class="modal-body modal-scroll">
+	<figure class="act_img">
+    	<img src="<?=$this->baseUrl()?>/uploads/ampliada/<?=$this->img['name'];?>" width="758" height="544" />
+    </figure>
+    <p><?=$this->post['description'];?></p> 
+</div>
+<div class="modal-footer">
+</div>

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+	// when close modal we destroy the div
+	$('.modal').on('hidden.bs.modal', function () {
+		$('div.modal').remove();
+	});
+
+	// when close modal we destroy the div
+	$('.modal').on('shown.bs.modal', function () {
+		var scrollElem2 = scrollableElement('html', 'body');
+		$(scrollElem2).animate({scrollTop: 638}, 800, function() {
+			location.hash = '';
+		});	
+	});
+	
+	// use the first element that is "scrollable"
+	function scrollableElement(els) {
+		for (var i = 0, argLength = arguments.length; i <argLength; i++) {
+		  var el = arguments[i],
+			  $scrollElement = $(el);
+		  if ($scrollElement.scrollTop()> 0) {
+			return el;
+		  } else {
+			$scrollElement.scrollTop(1);
+			var isScrollable = $scrollElement.scrollTop()> 0;
+			$scrollElement.scrollTop(0);
+			if (isScrollable) {
+			  return el;
+			}
+		  }
+		}
+		return [];
+	}	
+</script>
+
+<div class="modal-header">
+	<a class="close" data-dismiss="modal">&times;</a>
+    <h1>qui&eacute;nes somos</h1>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <img src="<?=$this->baseUrl()?>/images/deco/q_s_deco.jpg" class="span3"/>
+        <p class="span6">Desde el 2007 comenzamos con este nuevo proyecto logrando el espacio perfecto para desarrollar esta idea de vivir sobre el mar. En el 2011 lo logramos, con la intenci&oacute;n de dar lo mejor de nosotros para hacer sentir a nuestros hu&eacute;spedes como en su casa. Por eso apostamos a la creatividad, buscando el m&aacute;ximo confort en equipamiento, combinando refinamiento con la rusticidad y simpleza de una casa de playa. Nuestra vida y este proyecto est&aacute; comprometida con el entorno en el que vivimos y las formas naturales, usando materiales como la madera, el bamboo y la paja que son biodegradables y se encuentran en la zona. De esta forma nos vinculamos con el ambiente, poniendo nuestro grano de arena en este m&eacute;dano que cada vez es m&aacute;s grande.</p>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

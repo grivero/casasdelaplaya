@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * 
+ * Bootstrap luncher for casadelaplaya zend project 
+ * @author gus.rivero.rodriguez@gmail.com
+ * @since 10/25/2013
+ */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		
 	protected function _initAutoload(){
@@ -27,7 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		$view = $layout->getView(); 
 								
 		//defino doctype HTML5
-		$view->doctype('HTML5');
+		$view->doctype('HTML5');		
 		
 		//defino y seteo <meta/>
 		$view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8')
@@ -35,8 +40,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 						 ->appendName('description','Con los pies sobre la arena de la playa El Desplayado, en La Pedrera, te esperamos para que disfrutes de unas vacaciones únicas. Ubicadas en primera línea y frente a la zona de baño con vistas de 180° al mar, brindamos el confort de tu casa en la playa. Vive el sueño de estar a orillas del mar en un ambiente familiar y distendido con todos los servicios que necesitas para gozar de este paraíso natural.');
 						 
 		
-		//defino y seteo titulo PRINCIPAL de pagina
-		$view->headTitle()->setSeparator(' - ');
+		//defino y seteo titulo PRINCIPAL de pagina		
 		$view->headTitle('Casas de la Playa - La Pedrera');							
 				
 		//Activamos ZendX_Jquery
@@ -48,6 +52,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		//lunch helpers
 		$view->registerHelper( new Application_View_Helper_GetAdminLayout(), 'getAdminLayout' );		
 		$view->registerHelper( new Application_View_Helper_GetAdminFooter(), 'getAdminFooter' );
+		$view->registerHelper( new Application_View_Helper_GoogleAnalytics(), 'getAnalyticsCode' );
 		
 	}
 	

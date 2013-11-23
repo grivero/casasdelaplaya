@@ -1,0 +1,66 @@
+<script type="text/javascript">
+	// when close modal we destroy the div
+	$('.modal').on('hidden.bs.modal', function () {
+		$('div.modal').remove();
+	});
+
+	// when close modal we destroy the div
+	$('.modal').on('shown.bs.modal', function () {
+		var scrollElem2 = scrollableElement('html', 'body');
+		$(scrollElem2).animate({scrollTop: 638}, 800, function() {
+			location.hash = '';
+		});	
+	});
+	
+	// use the first element that is "scrollable"
+	function scrollableElement(els) {
+		for (var i = 0, argLength = arguments.length; i <argLength; i++) {
+		  var el = arguments[i],
+			  $scrollElement = $(el);
+		  if ($scrollElement.scrollTop()> 0) {
+			return el;
+		  } else {
+			$scrollElement.scrollTop(1);
+			var isScrollable = $scrollElement.scrollTop()> 0;
+			$scrollElement.scrollTop(0);
+			if (isScrollable) {
+			  return el;
+			}
+		  }
+		}
+		return [];
+	}	
+</script>
+
+<div class="modal-header">
+	<a class="close" data-dismiss="modal">&times;</a>
+	<h1>la pedrera</h1>
+</div>
+<div class="modal-body modal-scroll" >
+	<img src="<?=$this->baseUrl()?>/images/deco/l_p_title.jpg" style="max-width:none;"/>
+    <p>La pedrera es un pintoresco pueblo al este del uruguay. Un peque&ntilde;o cerro frente al mar del que se despliegan dos largas bahias
+        atlanticas con arenas blancas y abundante fauna marina. 
+        Sin duda sus dos playas son m&aacute;gicas .Las peque&ntilde;as calas que se forman entre las rocas y
+        la baranda de madera y piedra que nos separa del mar cuando nos paramos en la rambla, son propias de la Pedre.
+        La pedrera es un lugar especial, combina muchas opciones para cada uno de nosotros. Podemos disfrutar de su naturaleza, del increible clima y de las actividades que se viven a diario para grandes y chicos como surf, yoga, cabalgatas, trekings,kayak o del relax que se alcanza en esta latitud. 
+        Tradicionalmente la pedrera es un balneario tranquilo donde los chicos juegan libres en la playa o descubren sus ricones en un paseo en bicicleta.
+        En los &uacute;ltimos a&ntilde;os es muy frecuentado no solo por su distintivo natural sino por la cantidad de opciones gastron&oacute;micas de 
+        primer nivel que se han ganado su lugar con el prestigio y la calidad de sus servicios.
+        La playa, el gigantesco balc&oacute;n al mar de la rambla, la desgustaci&oacute;n de mariscos que podemos disfrutar con nuestra mirada en el horizonte,
+        le dan al balneario esa sensaci&oacute;n mediterr&aacute;nea.
+    </p>
+    <div class="row" style="margin-top:15px;">
+        <img src="<?=$this->baseUrl()?>/images/deco/l_p_deco.jpg" class="span3"/>
+        <div class="span6">
+            <strong style="font-weight:bold; font-size:14px">&iquest;Cu&aacute;ndo?</strong>
+            <p style="margin-top:0!important;">Hay distintos momentos en los que se puede visitar La Pedrera. Fuera de temporada ofrece un encuentro mas &iacute;ntimo con el lugar
+            y sus pobladores, dando lugar a eventos que ya son un cl&aacute;sico como el festival de "jazz entre amigos" o pintar al mar,
+            un encuentro de pintores reunidos en la rambla para vivir ese momento al aire del mar. Durante la temporada la playa se torna un
+            paraiso y el balneario se regocija con todas sus opciones gastron&oacute;micas, las escuelas de surf, los talleres art&iacute;sticos, los paseos 
+            a las gigantescas dunas de valizas o a navegar la laguna de Rocha en kayak. Cualquiera sea la oportunidad, La pedrera es un lugar
+            donde se puede sentir la calidad de vida y la calidez de sus habitantes.</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

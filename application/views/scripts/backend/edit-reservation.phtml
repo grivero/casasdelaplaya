@@ -1,0 +1,163 @@
+<script type="text/javascript">
+$(function() {
+	$( ".date_birth" ).datepicker({
+			minDate: -999*99,
+			changeMonth: true,
+			changeYear: true,								
+			yearRange: "1920:2000"
+	});		
+});
+
+function check_empty(){
+	var result = true;
+	$('input:text').each(function() {
+	   if( $(this).val()=='' ){ 			   
+			$(this).addClass('error');
+			$(".errorMessage").show();										 		   
+	        result = false;
+	   }else{
+		   $(this).removeClass("error");
+	   }	   		        		   
+	});
+	return result;				
+}
+
+//funcion encargada de validar el formulario antes de postearlo, tambien encargada de recolectar las invitaciones para hacer en fb 
+function validateData(){
+	showOverlay();
+	if( check_empty() && validateEmail() ){				
+		$('.button').css('visibility','hidden');
+		return true;				
+	}else{
+		hideOverlay();
+		return false;
+	}				  		
+}
+
+var row_index = 0; 
+function add_family_colum(){
+
+	row_index++;
+		
+	// borro boton agregar
+    $('.btn_add').remove();   
+	
+    // cantidad de fieldsets que tengo, lo calculo con la una clase dentro del fieldset		
+    var botones = $('.nFam'); 
+    var i = botones.length;
+    // nuevo fieldset
+    var nuevo_boton = '<div id="row_'+row_index+'" class="nFam"><fieldset><p><input type="text" name="name' +i+ '" id="name' +i+ '" placeholder="Nombre..." class="req" maxlength="40" /></p><p><input type="text" name="surname' +i+ '" id="surname' +i+ '" placeholder="Apellido..." class="req" maxlength="40" /></p><p class="correo"><input type="text" name="email' +i+ '" id="email' +i+ '" placeholder="Correo electr&oacute;nico..." class="req email_input" maxlength="80" /></p><p><input type="text" name="relation' +i+ '" id="relation' +i+ '" placeholder="Parentezco..." class="req last" maxlength="16" /></p><p><input type="button" value="Agregar" class="btn_del" onclick="remove_line('+row_index+')" /></p><p><input type="button" value="Agregar" class="btn_add" onclick="add_family_colum()" /></p><span></span></fieldset></div>';
+	// donde pongo el nuevo fieldset
+    $('#newContent').before(nuevo_boton);
+    // input hidden para saber cuantos familiares voy a invitar
+    $('#cantidad_familiares').attr('value', i); 
+
+  	// rollover boton eliminar
+	$(".btn_del").hover(function() {
+		  $(this).attr('style','background: url("../img/icon_del_active.png") no-repeat scroll 0 0 transparent;');
+	});
+	$(".btn_del").mouseleave(function() {
+		  $(this).attr('style','background: url("../img/icon_del_inactive.png") no-repeat scroll 0 0 transparent;');
+	});
+
+	// date_birth to use as datepicker
+	$(function() {
+		$( ".date_birth" ).datepicker({
+				minDate: -999*99,
+				changeMonth: true,
+				changeYear: true,								
+				yearRange: "1920:2000"
+		});		
+	});
+	     			    	
+}
+
+function remove_line(row_index){
+	//	console.info($('#row_'+row_index+' p input.btn_add'));
+	//si es la ultima fila tengo que borrar los botones tambien
+	if ($('#row_'+row_index+' p input.btn_add').attr('class') == 'btn_add'){
+		 var p_btn = '<p><input type="button" value="Agregar" class="btn_add" onclick="add_family_colum()" /></p>';
+		 $('#row_'+row_index).remove();  
+		 $('#newContent').prev().find('span').append(p_btn);
+	} else {
+		 $('#row_'+row_index).remove();  
+	}	
+}
+</script>
+
+<?= $this->getAdminLayout('Reservas') ?>
+<h3 class="tit">Editar Reserva</h3> 					
+			<p class="msg info">Cuidado, estas a punto de editar una Reservaci&oacute;n</p>
+			<p class="msg info">Recuerde que en esta pantalla usted debe agregar los invitados en caso de que hayan</p>
+			<p class="msg info">No es necesario agregar el usario que hizo la reserva como invitado</p>
+			<p class="msg info">Por favor, llene todos los campos obligatorios</p>						
+		    <fieldset>
+		    <legend>Editar datos e invitados de la reserva</legend>
+		     <form id="reservasform"  action="<?=$this->baseUrl()?>/backend/edit-reservation?edit=true" method="post" onsubmit="return validateForm();" enctype="multipart/form-data" >		     			
+					<table class="nostyle">																									
+						<tr>
+							<td>Check in*:</td>
+							<td><input type="text" size="15" name="checkin" id="checkin" class="input-text" value="<?=$this->reservation['checkin']?>" /></td>
+						</tr>	                    
+	                    <tr>
+							<td>Check out*:</td>
+							<td><input type="text" size="15" class="input-text" name="checkout" id="checkout" value="<?=$this->reservation['checkout']?>"/></td>
+						</tr>
+	                    <tr>
+							<td>Casa*:</td>
+							<td>
+								<select name="house_id" id="house_id">
+									<option value="<?=$this->reservation['house_id']?>"><?=$this->house['name']?></option>									
+									<?php 
+									foreach ($this->houses as $house){
+									?>
+									<option value="<?=$house['id']?>"><?=$house['name']?></option>
+									<?php	
+									}
+									?>
+								</select>								
+							</td>
+						</tr>	                    
+						<tr>
+							<td>Costo:</td>
+							<td><input type="number" size="15" name="cost" id="cost" class="input-text" value="<?=$this->reservation['cost']?>"/></td>
+						</tr>
+						<tr>
+							<td>Estado de pago:</td>
+							<td>
+								<select name="payed" id="payed">
+									<option value="<?=$this->reservation['payed']?>"><?php if ($this->reservation['payed'] == '0') echo 'Pago'; else echo 'No pago'; ?></option>  								
+	  								<option value="0">No Pago</option>
+	  								<option value="1">Pago</option>  
+								</select>
+							</td>							
+						</tr>	                      					
+						<tr>
+							<td>Cuantas personas:</td>
+							<td><input type="number" size="15" name="howManyPeople" id="howManyPeople" class="input-text" value="<?=$this->reservation['howManyPeople']?>"/></td>
+						</tr>
+						<tr>
+							<td>Pedido Especial:</td>
+							<td>
+								<select name="special_request" id="special_request">  								
+	  								<option value="<?=$this->reservation['special_request']?>"><?=$this->reservation['special_request']?></option>
+	  								<option value="Cuna">Cuna</option>  
+	  								<option value="Puerta con escalera">Puerta en escalera</option>
+								</select>
+							</td>
+						</tr>	
+						<tr>
+							<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="Guardar Cambios en Reserva" /></td>
+						</tr>
+					</table>
+			</form>
+		    </fieldset>	
+		    
+		    <fieldset>		    
+		    	<legend>Editar invitados</legend>
+		    			    			    			    			    			        			    			    			    			    		    
+		    </fieldset>
+		    		    
+<?= $this->getAdminFooter() ?>				
+
+

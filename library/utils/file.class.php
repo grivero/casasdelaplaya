@@ -9,10 +9,9 @@ class File {
 	public function File($test=false){
 		$this->db = new Mysql($test);		
 	}
-	
-	
-	public function getFileData($id_file){
-		$query = $this->db->select("file", "*", "WHERE id_file = '$id_file'");
+		
+	public function getFileData($id){
+		$query = $this->db->select("image", "*", "WHERE id = '$id'");
 		return mysql_fetch_assoc($query);
 	}
 	

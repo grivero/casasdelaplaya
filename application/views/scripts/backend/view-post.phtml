@@ -1,0 +1,65 @@
+<?= $this->getAdminLayout('Posts') ?>
+<h3 class="tit">Detalles de Post</h3>
+      
+<p class="msg info">Detalles de Post</p>	   
+   <table width="50%">
+   		<tbody>
+            <tr>
+              <td><b>Nombre Usuario</b></td>
+              <td><a href="<?=$this->baseUrl()?>/backend/view-user?id=<?=$this->user['id']?>" ><?=$this->user['name'];?></a></td>
+            </tr>
+             <tr class="bg">
+              <td><b>Descripci&oacute;n</b></td>
+            <td><?=$this->post['description'];?></td>
+            </tr>
+             <tr>
+              <td><b>Ranking</b></td>
+             <td><?=$this->post['ranking'];?></td>
+            </tr>
+             <tr class="bg">
+              <td><b>Aprobaci&oacute;n</b></td>
+              <td><?php if ($this->post['approved'] == '1') echo 'aprobado'; else echo 'no aprobado'; ?></td>
+            </tr>                        
+            <tr>
+              <td><b>Fecha Creacion</b></td>
+              	<?php               
+              		require_once('../library/utils/fecha.class.php');
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($this->post['date_created'])
+           		?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+            </tr>
+            <tr class="bg">
+              <td><b>Fecha Modificacion</b></td>
+              	<?php                             		
+            		$fecha_obj = new Fecha();
+            		$fecha_obj->setFecha($this->post['date_modified'])
+           		?>
+              <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
+            </tr>
+    	</tbody>
+	</table>      
+    
+    <table class="nostyle" style="position: relative; left: 190px;">		
+        <tr>
+			  <td class=""></td>
+			  <td>		           
+		          <span id="input_image2">
+		          	<img src="<?=$this->baseUrl()?>/uploads/big-post/<?=$this->img['name'] ?>" />
+		          </span>
+		      </td>
+		</tr>
+	</table>
+    
+    <div id="menu" class="box">
+		<ul class="box f-right">
+			<li>
+				<a href="<?=$this->baseUrl()?>/backend/edit-post?id=<?=$this->post['id']?>">
+				<span>
+					<strong>Editar</strong>
+				</span>
+				</a>
+			</li>
+		</ul>
+	</div>  
+<?= $this->getAdminFooter() ?>

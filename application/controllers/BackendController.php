@@ -113,11 +113,7 @@ class BackendController extends Zend_Controller_Action{
 			$this->view->season = $season;
         }
 	}
-
-    public function postListAction(){
-       	    	
-    }
-
+    
     public function reservationListAction(){
     	    
     	// models    	
@@ -126,7 +122,7 @@ class BackendController extends Zend_Controller_Action{
     	$reservations = $res_model->select()->from('reservation')
 										->order('date_created DESC')															
 										->query()->fetchAll();													
-		$this->view->reservations = $reservations;	
+		$this->view->reservations = $reservations;
 		if ($this->_request->getParam('deleted') == 'ok'){
 			$this->view->msg = 'La reserva fue borrada';
 		}
@@ -182,8 +178,7 @@ class BackendController extends Zend_Controller_Action{
         
     }
 
-    public function addHouseAction()
-    {
+    public function addHouseAction(){
 				
     	if($this->getRequest()->getParam('add')=='true'){
 	    	//vars    	    	
@@ -254,9 +249,44 @@ class BackendController extends Zend_Controller_Action{
         }
     }
 
-    public function addUserAction()
-    {
-        // action body
+    public function addUserAction(){
+        
+    	// vars
+    	$id 			= $_GET['id'];    	
+    	$user_model 	= new Application_Model_DbTable_User();
+    	
+        if( $this->getRequest()->getParam('add')=='true' ){
+        	
+        	// user info        	
+        	$first_name		= trim( $this->_request->getParam('first_name') );    		
+    		$last_name		= trim( $this->_request->getParam('last_name') );
+    		$name 			= $first_name.' '.$last_name;    		
+    		$civil_identifier= trim( $this->_request->getParam('civil_identifier') );
+    		$country		= trim( $this->_request->getParam('country') );
+    		$city			= trim( $this->_request->getParam('city') );
+    		$phone  		= trim( $this->_request->getParam('phone') );
+    		$email  		= trim( $this->_request->getParam('email') );
+    		$date_created   = date('Y-m-d H:i:s');
+    		
+    		// date calculations
+    		$date_birth  	= trim( $this->_request->getParam('date_birth') );
+    		if( $date_birth!='' ){
+				require_once('../library/utils/fecha.class.php');
+				$fecha_obj = new Fecha($date_birth);		
+				$fechaIn = $fecha_obj->getFecha()->format('Y-m-d');
+				$user_edit->date_birth	= $fechaIn;
+    		}			
+    		
+    		// save info
+    		$user_model->createRow(array("first_name"=>$first_name, "last_name"=>$last_name, "name"=>$name, "email"=>$email, 
+		        						"civil_identifier"=>$civil_identifier, "country"=>$country, "city"=>$city, "phone"=>$phone,
+    									"date_created"=>$date_created, "date_birth"=>$date_birth ))
+    					->save();
+			// redirect    		  		    		
+        	$this->_forward('user-list','backend','default',array("added"=>"ok","id"=>$id));
+        	
+        }
+        
     }
     
 	public function deleteUserAction(){
@@ -265,7 +295,7 @@ class BackendController extends Zend_Controller_Action{
          $id_user = $_GET['id'];
          // models
          $user_model 	= new Application_Model_DbTable_User();
-         $res_model 	= new Application_Model_DbTable_Reservations();
+         $res_model 	= new Application_Model_DbTable_Reservation();
          $post_model	= new Application_Model_DbTable_Post();
          $msg_model		= new Application_Model_DbTable_Message();
          
@@ -318,16 +348,24 @@ class BackendController extends Zend_Controller_Action{
     	$id 			= $_GET['id'];
     	// models    	
     	$res_model 		= new Application_Model_DbTable_Reservation();
+    	$user_model		= new Application_Model_DbTable_User();
     	$guest_model	= new Application_Model_DbTable_Guest();
+    	$house_model	= new Application_Model_DbTable_House();
+    	
 		// data    	
-    	$reservation = $res_model->find($id)->current();    									
-		$guests = $guest_model->select()->from('guest')
+    	$reservation 	= $res_model->find($id)->current();    									
+		$guests 		= $guest_model->select()->from('guest')
 										->where("reservation_id = $id")
         								->order('date_created DESC')																							
 										->query()->fetchAll();
+		$user 			= $user_model->find($reservation['user_id'])->current();
+		$house			= $house_model->find($reservation['house_id'])->current();
+		
 		//data to view		
 		$this->view->reservation 	= $reservation;
 		$this->view->guests			= $guests;
+		$this->view->user			= $user;
+		$this->view->house			= $house;
 				
     }
 
@@ -379,6 +417,42 @@ class BackendController extends Zend_Controller_Action{
     	}
     	
     }
+    
+	public function editReservationAction(){
+    	
+		// models    	
+    	$user_model = new Application_Model_DbTable_User();
+    	$house_model= new Application_Model_DbTable_House();
+    	$res_model	= new Application_Model_DbTable_Reservation();
+    	$guest_model= new Application_Model_DbTable_Guest();    	
+    	// vars
+    	$id 			= $_GET['id'];    	
+    	// for edit
+    	$reservation 				= $res_model->find($id)->current();
+    	$this->view->reservation 	= $reservation;
+    	
+    	if($this->getRequest()->getParam('edit')=='true'){
+    		
+    	}else{
+    		    	    	
+			// data    	    	    									
+			$guests 		= $guest_model->select()->from('guest')
+											->where("reservation_id = $id")
+	        								->order('date_created DESC')																							
+											->query()->fetchAll();
+			$user 			= $user_model->find($reservation['user_id'])->current();
+			$house			= $house_model->find($reservation['house_id'])->current();
+			$houses 		= $house_model->fetchAll()->toArray();
+			
+			//data to view					
+			$this->view->guests			= $guests;
+			$this->view->user			= $user;
+			$this->view->house			= $house;
+			$this->view->houses			= $houses;
+			
+    	}
+    	    	
+    }
 
 	public function deleteReservationAction(){
 		
@@ -393,8 +467,131 @@ class BackendController extends Zend_Controller_Action{
 	    // redirection
 	    $this->_forward('reservation-list','backend','default',array("deleted"=>'ok'));
 	     
-    } 
+    }
+
+	public function postListAction(){
+		
+		// model
+    	$post_model = new Application_Model_DbTable_Post();
+
+    	if( $this->getRequest()->getParam('approved')=="1" ){
+    		
+    		// vars to view
+    		$posts = $post_model->select()->from('post')
+    									->where('approved = 1')
+										->order('ranking DESC')															
+										->query()->fetchAll();
+										
+    	}else if( $this->getRequest()->getParam('approved')=="0" ){
+    		
+    		// vars to view
+    		$posts = $post_model->select()->from('post')
+    									->where('approved = 0')
+										->order('ranking DESC')															
+										->query()->fetchAll();
+										
+    	}else{
+    		
+			// vars to view
+    		$posts = $post_model->select()->from('post')
+										->order('ranking DESC')															
+										->query()->fetchAll(); 
+										   		
+    	}
+    	
+    	$this->view->posts = $posts;
+    	
+    }
+    
+    public function addPostAction(){
+    	
+    	// model
+    	$post_model = new Application_Model_DbTable_Post();
+    	$user_model = new Application_Model_DbTable_User();
+    	$img_model	= new Application_Model_DbTable_Image();
+
+    	if( $this->getRequest()->getParam('add')!='true' ){
+    		
+	    	//get all users
+	    	$users 	= $user_model->fetchAll()->toArray();    		    		
+			//data to view		
+			$this->view->users 	= $users;
+					
+    	}else if( $this->getRequest()->getParam('add')=='true' ){
+    		
+    		// image treatment
+    		$image 	= $_FILES["image"];		
+			try{
+				//subo y guardo las imagenes
+				require_once('../library/utils/image.class.php');
+				$image_obj = new Image();
+				$imageName = $image_obj->uploadImage($image);		
+			}catch(Exception $e){
+				Zend_Debug::dump('error: '.$e);
+				$this->_redirect($this->baseUrl.'/backend/add-post?status=fail&error='.$e);					       		
+			}
+			
+			// vars
+			$user_id 		= $this->getRequest()->getParam('user_id');
+			$ranking		= $this->getRequest()->getParam('ranking');
+			$description	= $this->getRequest()->getParam('description');
+			$apporved		= $this->getRequest()->getParam('approved');
+			$title			= $this->getRequest()->getParam('title');			
+			$date_created 	= date('Y-m-d H:i:s');
+			$approver_id	= '1'; 	
+			
+			// save img
+			if ( $imageName!="" && $imageName!=NULL ){
+				 				       	  				
+				$image_id = $img_model->createRow(array("name" =>$imageName, "user_id" => $user_id, "date_created" => $date_created))
+								 	  ->save();
+								 	  
+				$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$user_id, "date_created"=>$date_created,
+										 			"ranking"=>$ranking, "approved"=>$apporved, "approver_id"=>$approver_id,
+													"description"=>$description, "title"=>$title ))->save();
+
+				//update image row with post_id
+				$image_to_update = $img_model->find($image_id)->current();
+				$image_to_update->post_id = $post_id;
+				$image_to_update->save();	
+
+				//redirection
+				$this->_redirect($this->baseUrl.'/backend/post-list');				
+				
+			}						
+
+			//error
+			$this->_redirect($this->baseUrl.'/backend/add-post?status=fail');			
+    		
+    	}
+				    	
+    }
+    
+	public function editPostAction(){
+    	
+    }
+    
+	public function viewPostAction(){
+    	
+		// vars
+		$id = $this->getRequest()->getParam('id');
+		
+		// model
+    	$post_model = new Application_Model_DbTable_Post();
+    	$user_model = new Application_Model_DbTable_User();
+    	$img_model	= new Application_Model_DbTable_Image();
+    	
+    	// info
+    	$post 	= $post_model->find( $id )->current();
+    	$user 	= $user_model->find( $post['user_id'] )->current();
+    	$img 	= $img_model->find( $post['image_id'] )->current();
+    	
+    	// to view
+    	$this->view->post = $post;
+    	$this->view->user = $user;
+    	$this->view->img  = $img;
+    	
+    }
 
 }
-
 
