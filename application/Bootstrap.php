@@ -53,6 +53,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		$view->registerHelper( new Application_View_Helper_GetAdminLayout(), 'getAdminLayout' );		
 		$view->registerHelper( new Application_View_Helper_GetAdminFooter(), 'getAdminFooter' );
 		$view->registerHelper( new Application_View_Helper_GoogleAnalytics(), 'getAnalyticsCode' );
+		$view->registerHelper( new Application_View_Helper_GetUserName(), 'getUserName' );
+		$view->registerHelper( new Application_View_Helper_GetHouseName(), 'getHouseName' );
 		
 	}
 	

@@ -28,35 +28,32 @@ class Image{
 			}
 			$imagename =	$handle->Process($path_ori1);
 											
-			//big-muro max-width = 278
+			//big-muro max-width = 256
 			$path_big = $ruta.'big-post/';
 			$handle->image_resize          = true;
 			$handle->image_ratio           = true;
  		 	$handle->jpeg_quality = 100;
  		 	//Redimensiona considerando si la imagen es apaisada o no.
  		 	list($org_width, $org_height) = getimagesize($image['tmp_name']);
-			if ($org_width > 278){
-				$handle->image_x		= 278;
-				$handle->image_y		= 278*$org_height/$org_width;
+			if ($org_width > 256){
+				$handle->image_x		= 256;
+				$handle->image_y		= 256*$org_height/$org_width;
 			}
 			if (!file_exists("$path_big")){
 				mkdir($path_big,0777);
 			}
 			$imagename = $handle->Process($path_big);
 			
-			//ampliada max-height = 525
+			//ampliada max-height = 758
 			$path_ampliada = $ruta.'ampliada/';
 			$handle->image_resize          = true;
 			$handle->image_ratio           = true;
  		 	$handle->jpeg_quality = 100;
  		 	//Redimensiona considerando si la imagen es mas alta de 565.
  		 	list($org_width, $org_height) = getimagesize($image['tmp_name']);
- 		 	if ($org_height > 565){
-				$handle->image_y		= 565;
-				$handle->image_x		= 565*$org_width/$org_height;
- 		 	} else if ($org_width > 835){
-				$handle->image_y		= 835;
-				$handle->image_x		= 835*$org_height/$org_width;
+ 		 	if ($org_height > 758){
+				$handle->image_y		= 758;
+				$handle->image_x		= 758*$org_width/$org_height; 		 	
  		 	} else {
  		 		$handle->image_y		= $org_height;
 				$handle->image_x		= $org_width;

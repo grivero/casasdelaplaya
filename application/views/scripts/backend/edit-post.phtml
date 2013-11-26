@@ -1,4 +1,76 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Backend</b> and script/action name <b>editPost</b></p>
-</div>
+<script type="text/javascript">
+function validateForm(){
+	if( $('#title').val()=='' || $('#description').val()=='' ){
+		alert('Complete todos los campos');
+		return false;
+	}
+	return true;
+}
+
+var approved_val = '<?=$this->post['approved']?>';
+var ranking_val = '<?=$this->post['ranking']?>';
+
+$(document).ready(function(){
+	$("#ranking").val(ranking_val);
+	$("#approved").val(approved_val);	
+});
+
+</script>	
+	
+<?= $this->getAdminLayout('Posts') ?>
+<h3 class="tit">Editar Post</h3> 					
+			<p class="msg info">Cuidado, estas a punto de editar un Post</p>			
+			<p class="msg info">Desde esta pantalla usted pued habilitar o no un post, tambi&eacute;n lo puede calificar para que aparezca en el orden que usted quiera</p>
+			<p class="msg info">Si no desea cambiar la imagen del Post deje el campo "Cambiar Imagen" vac&iacute;o</p>
+			<?php 
+				if ($_GET['status']=='fail') 
+					echo '<p class="msg error">Error</p>';			 	
+			?>							
+		    <fieldset>
+		    <legend>Editar Post</legend>
+		     <form id="postform"  action="<?=$this->baseUrl()?>/backend/edit-post?id=<?=$this->post['id']?>&edit=true" method="post" onsubmit="return validateForm();" enctype="multipart/form-data" >		     			
+					<table class="nostyle">																									
+						<tr>
+							<td>Titulo*:</td>
+							<td><input type="text" size="40" name="title" id="title" class="input-text" value="<?= $this->post['title']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Descripci&oacute;n*:</td>
+							<td><input type="text" size="40" name="description" id="description" class="input-text" value="<?= $this->post['description']; ?>" /></td>
+						</tr>
+						<tr>
+						  	<td class="va-top">Aprobaci&oacute;n:</td>
+						  	<td>
+					          	<select name="approved" id="approved" >  								
+	  								<option value="0">Denegada</option>
+	  								<option value="1">Aprobada</option>  	  								
+								</select> 					          	
+					      	</td>
+						</tr>
+						<tr>
+							<td>Puntuaci&oacute;n:</td>
+							<td>
+								<select name="ranking" id="ranking" >  								
+	  								<option value="1">1</option>
+	  								<option value="2">2</option>  
+	  								<option value="3">3</option>
+	  								<option value="4">4</option>
+	  								<option value="5">5</option>
+								</select>
+							</td>
+						</tr>	      	      	                    	                    
+						<tr>
+						  	<td class="va-top">Cambiar Imagen ?</td>
+						  	<td>
+					          	<span id="input_imagen">                        
+					             	<input name="image" id="image" type="file" />
+					          	</span> 					          	
+					      	</td>
+						</tr>	                    					                    					
+						<tr>
+							<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="Guardar Cambios" /></td>
+						</tr>
+					</table>
+			</form>
+		    </fieldset>
+<?= $this->getAdminFooter() ?>				

@@ -66,7 +66,7 @@ if ($_GET['edited']=='ok') {
               <th>Check in</th>                                          
               <th>Check out</th>
               <th>Cant personas</th>
-              <th>Id Casa</th>
+              <th>Casa</th>
               <th>Costo</th>
               <th>Estado de pago</th>
               <th>Estado de reserva</th>
@@ -81,7 +81,7 @@ if ($_GET['edited']=='ok') {
               <td><?=$reservation['checkin'];?></td>                                          
               <td><?=$reservation['checkout'];?></td>
               <td><?=$reservation['howManyPeople'];?></td>
-              <td><a href="<?=$this->baseUrl()?>/backend/view-house?id=<?=$reservation['house_id']?>"><?=$reservation['house_id'];?></a></td>
+              <td><a href="<?=$this->baseUrl()?>/backend/view-house?id=<?=$reservation['house_id']?>"><?=$this->getHouseName( $reservation['house_id'] );?></a></td>
               <td>$<?=$reservation['cost'];?></td>
               <td><?php if ($reservation['payed'] == '0') echo 'pago'; else echo 'no pago'; ?></td>
               <td><?php if ($reservation['canceled'] == '0') echo 'no'; else echo 'si'; ?></td>
@@ -127,6 +127,7 @@ if ($_GET['edited']=='ok') {
       <table>
             <tbody>
             <tr>              
+              <th>Titulo</th>
               <th>Descripcion</th>                            
               <th>Ranking</th>
               <th>Aprobaci&oacute;n</th>              
@@ -136,8 +137,9 @@ if ($_GET['edited']=='ok') {
           $i = 0;
           foreach ($this->posts as $post){
           	$i++; ?>  
-           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
-              <td><a href="<?=$this->baseUrl()?>/backend/view-post?id=<?=$post['id']?>"><?=$post['description'];?></a></td>                                          
+           <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >
+           	 <td><a href="<?=$this->baseUrl()?>/backend/view-post?id=<?=$post['id']?>"><?=$post['title'];?></a></td>              
+              <td><?=$post['description'];?></td>                                          
               <td><?=$post['ranking'];?></td>
               <td><?=$post['approved'];?></td>                           
               <td><?=$post['date_created'];?></td>                          

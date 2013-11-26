@@ -1,10 +1,14 @@
 <script type="text/javascript">
 // to scroll up when index is refreshed
-$("html, body").animate({ scrollTop: 0 }, 600);
+//try{
+//	var path = window.location.href.split("#")[1];	
+//}catch(fail){
+//	$("html, body").animate({ scrollTop: 0 }, 600);	
+//}
 
 $(document).ready(function() {
 					
-	//set calendars for reservation and contact forms				
+	// set calendars for reservation and contact forms				
 	$( "#fI" ).datepicker({			
 		changeMonth: true,
 		changeYear: true,								
@@ -18,7 +22,7 @@ $(document).ready(function() {
 		showAnim: "drop"
 	});
 			
-	//alojamiento img scroll up   
+	// alojamiento img scroll up   
 	$(".top_slide").addClass("slide_marg_bottom_on");
 
 	// hover for casas 4/6 photos in alojamiento section
@@ -32,6 +36,8 @@ $(document).ready(function() {
 			$(this).find(".aloj_thumb").css('margin-top','0');
 		}
 	);
+
+	// caminito del mapa
 	$('.map').hover(
 		function () {
 			$('.map_recorrido').fadeIn(200);

@@ -1,11 +1,25 @@
+<script language="Javascript">
+	function decision(message, url){
+		if(confirm(message)) 
+			location.href = url;
+	}
+</script> 
 
 	<?= $this->getAdminLayout('Posts') ?>	   
-
-      <h3 class="tit">Listado de Posts</h3>                    
+	<?php if ($this->msg != ''){ ?>
+		<p class="msg done"><?=$this->msg; ?></p>
+	<?php } ?>
+      <h3 class="tit">Listado de Posts
+      <?php if ($_GET['approved'] == '0'){ ?>
+				Deshabilitados
+	<?php }else if($_GET['approved'] == '1'){ ?>
+				Habilitados
+	<?php }?>
+      </h3>                    
       <table>
             <tbody>
             <tr>
-              <th>Id usuario</th>
+              <th>Usuario</th>
               <th>Aprobaci&oacute;n</th>
               <th>Puntuaci&oacute;n</th>
               <th>Descripci&oacute;n</th>
@@ -17,7 +31,7 @@
           foreach ($this->posts as $post){
           	$i++; ?>  
            <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
-              <td><a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$post['user_id'];?>"><?=$post['user_id'];?></a></td>              
+              <td><a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$post['user_id'];?>"><?=$this->getUserName( $post['user_id'] );?></a></td>              
               <td><?php if ($post['approved'] == '1') echo 'aprobado'; else echo 'no aprobado'; ?></td>              
               <td><?=$post['ranking'];?></td>              
               <td><?=$post['description'];?></td>
@@ -29,7 +43,7 @@
               		<a href="<?=$this->baseUrl()?>/backend/edit-post?id=<?=$post['id'];?>">
               			<img src="<?=$this->baseUrl()?>/img/icons2/edit.png" title="Editar" width="16" height="16" alt="edit">
               		</a>
-             		<a href="javascript:confirm('¿Está seguro que desea borrar esta Post?','<?=$this->baseUrl()?>/backend/delete-post?id=<?=$post['id'];?>')">
+             		<a href="javascript:decision('¿Está seguro que desea borrar este Post?','<?=$this->baseUrl()?>/backend/delete-post?id=<?=$post['id'];?>')">
              			<img src="<?=$this->baseUrl()?>/img/icons2/trash_closed.png" title="Eliminar" width="16" height="16" alt="del">
              		</a>
              	</td>            
