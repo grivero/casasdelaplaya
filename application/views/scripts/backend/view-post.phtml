@@ -4,13 +4,17 @@
 <p class="msg info">Detalles de Post</p>	   
    <table width="50%">
    		<tbody>
-            <tr>
+   			<tr class="bg">   			 
               <td><b>Nombre Usuario</b></td>
               <td><a href="<?=$this->baseUrl()?>/backend/view-user?id=<?=$this->user['id']?>" ><?=$this->user['name'];?></a></td>
             </tr>
+            <tr>
+              <td><b>T&iacute;tulo</b></td>
+            <td><?=$this->post['title'];?></td>
+            <tr>
              <tr class="bg">
-              <td><b>Descripci&oacute;n</b></td>
-            <td><?=$this->post['description'];?></td>
+              	<td><b>Descripci&oacute;n</b></td>
+            	<td><?=$this->post['description'];?></td>
             </tr>
              <tr>
               <td><b>Ranking</b></td>

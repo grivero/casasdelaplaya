@@ -28,41 +28,37 @@ class Image{
 			}
 			$imagename =	$handle->Process($path_ori1);
 											
-			//big-muro max-width = 278
+			// big-muro (height: 184px; width: 256px;)
 			$path_big = $ruta.'big-post/';
+			$handle->image_resize          	= true;
+			$handle->image_ratio           = true;
+ 		 	$handle->jpeg_quality 			= 100;
+ 		 	list($org_width, $org_height) = getimagesize($image['tmp_name']);
+ 		 	$handle->image_ratio_crop	   = true;
 			$handle->image_resize          = true;
 			$handle->image_ratio           = true;
- 		 	$handle->jpeg_quality = 100;
- 		 	//Redimensiona considerando si la imagen es apaisada o no.
- 		 	list($org_width, $org_height) = getimagesize($image['tmp_name']);
-			if ($org_width > 278){
-				$handle->image_x		= 278;
-				$handle->image_y		= 278*$org_height/$org_width;
-			}
-			if (!file_exists("$path_big")){
-				mkdir($path_big,0777);
+ 		 	$handle->jpeg_quality 			= 100;
+			$handle->image_x              = 256;
+			$handle->image_y              = 184;
+			if (!file_exists("$path_tapa")){
+				mkdir($path_tapa,0777);
 			}
 			$imagename = $handle->Process($path_big);
 			
-			//ampliada max-height = 525
+			// ampliada (width ="758" height ="544")  
 			$path_ampliada = $ruta.'ampliada/';
+			$handle->image_resize          	= true;
+			$handle->image_ratio           = true;
+ 		 	$handle->jpeg_quality 			= 100;
+ 		 	list($org_width, $org_height) = getimagesize($image['tmp_name']);
+ 		 	$handle->image_ratio_crop	   = true;
 			$handle->image_resize          = true;
 			$handle->image_ratio           = true;
- 		 	$handle->jpeg_quality = 100;
- 		 	//Redimensiona considerando si la imagen es mas alta de 565.
- 		 	list($org_width, $org_height) = getimagesize($image['tmp_name']);
- 		 	if ($org_height > 565){
-				$handle->image_y		= 565;
-				$handle->image_x		= 565*$org_width/$org_height;
- 		 	} else if ($org_width > 835){
-				$handle->image_y		= 835;
-				$handle->image_x		= 835*$org_height/$org_width;
- 		 	} else {
- 		 		$handle->image_y		= $org_height;
-				$handle->image_x		= $org_width;
- 		 	}
-			if (!file_exists("$path_ampliada")){
-				mkdir($path_ampliada,0777);
+ 		 	$handle->jpeg_quality 			= 100;
+			$handle->image_x              = 658;
+			$handle->image_y              = 444;
+			if (!file_exists("$path_tapa")){
+				mkdir($path_tapa,0777);
 			}
 			$imagename = $handle->Process($path_ampliada);					
 			

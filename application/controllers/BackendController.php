@@ -568,7 +568,59 @@ class BackendController extends Zend_Controller_Action{
     }
     
 	public function editPostAction(){
+		
+		// vars
+    	$id 			= $_GET['id'];    	
+    	$post_model 	= new Application_Model_DbTable_Post();    	    	
+    	// for view
+    	$post			= $post_model->find($id)->current();
     	
+        if( $this->getRequest()->getParam('edit')=='true' ){
+        	
+        	// edit post basic info        	
+        	$post->title		= trim( $this->_request->getParam('title') );    		
+    		$post->description	= trim( $this->_request->getParam('description') );    		
+    		$post->ranking		= $this->_request->getParam('ranking');
+    		$post->approved		= $this->_request->getParam('approved');
+    		    		        
+    		$image 	= $_FILES["image"];
+    		// change image?
+    		if( $image!=null && $image!="" ){
+    			
+	    		try{
+					//subo y guardo las imagenes
+					require_once('../library/utils/image.class.php');
+					$image_obj = new Image();
+					$imageName = $image_obj->uploadImage($image);		
+				}catch(Exception $e){
+					Zend_Debug::dump('error: '.$e);
+					$this->_redirect($this->baseUrl.'/backend/edit-post?status=fail&error='.$e);					       		
+				}
+				
+				// if everything went well, create image row and update post reference
+				if($imageName!=null && $imageName!=""){
+					
+						$img_model 		= new Application_Model_DbTable_Image();    	  
+						$date_created 	= date('Y-m-d H:i:s');
+						
+						$image_id = $img_model->createRow(array("name" =>$imageName, "user_id" => $post->user_id, "date_created" => $date_created, "post_id" => $id))
+								 	  		  ->save();
+
+						// update post reference								 	  		  
+						$post->image_id = $image_id;
+								 	  
+				}
+				
+    		}					
+    		    		
+			//save changes
+			$post->save();    		  		    		
+        	$this->_forward('view-post','backend','default',array("edited"=>"ok","id"=>$id));
+        	
+        }	
+		
+        $this->view->post = $post;
+            	
     }
     
 	public function viewPostAction(){
@@ -591,6 +643,28 @@ class BackendController extends Zend_Controller_Action{
     	$this->view->user = $user;
     	$this->view->img  = $img;
     	
+    }
+    
+    public function deletePostAction(){
+    	
+    	// action body
+        $id_post = $_GET['id'];
+        $post_model = new Application_Model_DbTable_Post();
+     	$post_del = $post_model->delete( array('id = ?' => $id_post));
+     	$this->_forward('post-list','backend','default',array("deleted"=>'ok'));
+     	
+    }
+    
+ 	public function viewCalendarAction(){
+    	
+ 		//get current month
+ 		
+ 		//get reservations for current month
+ 		
+ 		//create map to track rate type depending on dates
+ 		
+ 		//create map to easly track information
+ 		
     }
 
 }

@@ -1,10 +1,13 @@
 <script type="text/javascript">
-// to scroll up when index is refreshed
-$("html, body").animate({ scrollTop: 0 }, 600);
-
 $(document).ready(function() {
-					
-	//set calendars for reservation and contact forms				
+
+	// to scroll up when index is refreshed
+	try{
+		var path = window.location.href.split("#")[1];
+		$("#go" + path)[0].click();	
+	}catch(fail){}
+						
+	// set calendars for reservation and contact forms				
 	$( "#fI" ).datepicker({			
 		changeMonth: true,
 		changeYear: true,								
@@ -18,7 +21,7 @@ $(document).ready(function() {
 		showAnim: "drop"
 	});
 			
-	//alojamiento img scroll up   
+	// alojamiento img scroll up   
 	$(".top_slide").addClass("slide_marg_bottom_on");
 
 	// hover for casas 4/6 photos in alojamiento section
@@ -32,6 +35,8 @@ $(document).ready(function() {
 			$(this).find(".aloj_thumb").css('margin-top','0');
 		}
 	);
+
+	// caminito del mapa
 	$('.map').hover(
 		function () {
 			$('.map_recorrido').fadeIn(200);
@@ -237,10 +242,10 @@ function validateEmail(){
                         <ul class="nav nav-pills pull-right">
                             <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/quienessomos">qui&eacute;nes somos</a></li>
                             <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/lapedrera">la pedrera</a></li>
-                            <li><a href="#alojamientos">alojamientos</a></li>
-                            <li><a href="#ubicacion">ubicaci&oacute;n</a></li>
-                       		
-                            <li><a href="#contacto">contacto</a></li>
+                            <li><a id="goalojamientos" href="#alojamientos">alojamientos</a></li>
+                            <li><a id="goubicacion" href="#ubicacion">ubicaci&oacute;n</a></li>
+                       		<li><a href="<?=$this->baseUrl()?>/frontend/actividades">actividades</a></li>
+                            <li><a id="gocontacto" href="#contacto">contacto</a></li>
                         </ul>            
                     </div>
                 </div>
@@ -281,7 +286,8 @@ function validateEmail(){
             <div class="row">
                 <div class="span6" >
                 	<h1>alojamientos</h1>
-                    <p>Con los pies sobre la arena de la playa El Desplayado, en La Pedrera, te esperamos para que disfrutes de unas vacaciones &uacute;nicas. Ubicadas en primera l&iacute;nea y frente a la zona de ba&ntilde;o con vistas de 180 grados al mar, brindamos el confort de tu casa en la playa.</p>
+                	<p>Casas de la Playa ofrece una excelente alternativa de alojamiento en cuanto a ubicaci&oacute;n, equipamiento, servicios y confort.<br/>
+					Con los pies sobre la arena de la playa El Desplayado, en La Pedrera, te esperamos para que disfrutes de unas vacaciones &uacute;nicas. Ubicadas en primera l&iacute;nea y frente a la zona de ba&ntilde;o con vistas de 180 grados al mar, brindamos el confort de tu casa en la playa.</p>                    
                 	<section class="aloj_serv">
                         <h3>Servicios</h3>
                         <ul>
