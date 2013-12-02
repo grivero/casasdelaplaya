@@ -23,6 +23,10 @@
  		$(document).ready(function(){
  			document.getElementsByTagName('img')[0].setAttribute("src","<?=$this->baseUrl()?>/img/logo/logo.png"); 	 		
  		});
+ 		function decision(message, url){
+ 			if(confirm(message)) 
+ 				location.href = url;
+ 		}
  	</script>
    <title>Administraci&oacute;n Casas de la Playa</title>
 </head>

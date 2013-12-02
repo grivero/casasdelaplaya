@@ -1,10 +1,3 @@
-<script language="Javascript">
-	function decision(message, url){
-		if(confirm(message)) 
-			location.href = url;
-	}
-</script> 
-
 	<?= $this->getAdminLayout('Posts') ?>	   
 	<?php if ($this->msg != ''){ ?>
 		<p class="msg done"><?=$this->msg; ?></p>
@@ -19,6 +12,7 @@
       <table>
             <tbody>
             <tr>
+             <th>T&iacute;tulo</th>
               <th>Usuario</th>
               <th>Aprobaci&oacute;n</th>
               <th>Puntuaci&oacute;n</th>
@@ -31,6 +25,7 @@
           foreach ($this->posts as $post){
           	$i++; ?>  
            <tr <?php if ($i%2==0){ ?> class="bg" <?php } ?> >              
+           	  <td><a href="<?=$this->baseUrl();?>/backend/view-post?id=<?=$post['id'];?>"><?=$post['title']?></a></td>
               <td><a href="<?=$this->baseUrl();?>/backend/view-user?id=<?=$post['user_id'];?>"><?=$this->getUserName( $post['user_id'] );?></a></td>              
               <td><?php if ($post['approved'] == '1') echo 'aprobado'; else echo 'no aprobado'; ?></td>              
               <td><?=$post['ranking'];?></td>              

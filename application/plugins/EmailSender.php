@@ -96,6 +96,46 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 		
 	}
 	
+	/**	 
+	 * @description Mail para notificar sobre una nueva Actividad que necesita aprobacion
+	 * @param string $email del cliente
+	 * @param string $nombre del cliente
+	 * @param string $description de la nueva actividad
+	 * @param string $title de la nueva actividad
+	 */
+	public function sendNewPostEmail( $title, $description, $name, $email ){
+
+		// Agregar horas
+		//Obtenemos la fecha actual:
+		$fecha=time();
+		//Queremos restar 3 horas a la fecha actual:
+		$horas = 3;
+		// Convertimos las horas a segundos y las sumamos:
+		$fecha += ($horas * 60 * 60);
+		// Le damos al resultado el formato deseado:
+		$fecha = date("F j, Y, g:i a", $fecha );
+		 
+		 // Cuerpo del Email --- PHP MAIL
+		$email_message = "Una nueva actividad se ha registrado en el sitio y requiere de aprobacion\n\n";
+		$email_message = "Informacion procesada: \n\n";
+		$email_message .= "Fecha de envio: ".$fecha."\n";	
+	    $email_message .= "Nombre: ".trim($name)."\n";	    
+	    $email_message .= "Email: ".trim($email)."\n";			    				
+		$email_message .= "Titulo actividad: ".trim($title)."\n";
+	    $email_message .= "Descripcion actividad: ".trim($description)."\n";	    	    
+		
+	    // Asunto y Direccion
+	    $email_to = "gus.rivero.rodriguez@gmail.com";
+	    $email_subject = "[Casas de la Playa - Nueva Actividad]";
+			
+		// Email Headers
+		$headers = 'From: '.$email."\r\n".
+		'Reply-To: '.$email."\r\n" .
+		'X-Mailer: PHP/' . phpversion();
+		@mail($email_to, $email_subject, $email_message, $headers);
+		
+	}		
+	
 	/**
 	 * 
 	 * MAil para notificar de una reserva via web

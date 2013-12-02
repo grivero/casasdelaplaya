@@ -200,7 +200,7 @@ class FrontendController extends Zend_Controller_Action
 			$imageName = $image_obj->uploadImage($image);		
 		}catch(Exception $e){
 			Zend_Debug::dump('error: '.$e);
-			$this->_redirect($this->baseUrl.'/frontend?status=fail&action=addImage&error='.$e);								       		
+			$this->_redirect($this->baseUrl.'/frontend/actividades?status=fail&action=addImage&error='.$e);								       		
 		}
 		
 		// vars										
@@ -215,7 +215,7 @@ class FrontendController extends Zend_Controller_Action
 	    $telephone 		= $this->getRequest()->getParam('telephone');	    						
 
  		//search for user in database
-    	$existentEmail = $users->select()
+    	$existentEmail = $user_model->select()
   							   ->from('user',array('email','id'))
   							   ->where('email = ?',$email)
   							   ->limit(1)
@@ -223,7 +223,7 @@ class FrontendController extends Zend_Controller_Action
   							    		  							   
 		//no user in database, create a new one  							   
   		if( !$existentEmail )  			
-	        $id_user = $users->createRow(array("first_name"=>$first_name, "last_name"=>$last_name, "name"=>$name, 
+	        $id_user = $user_model->createRow(array("first_name"=>$first_name, "last_name"=>$last_name, "name"=>$name, 
         										"email"=>$email, "phone"=>$telephone, "date_created"=>$date_created )) 	        										
 	        	  			 ->save();
   		else
@@ -232,10 +232,10 @@ class FrontendController extends Zend_Controller_Action
 		// save img
 		if ( $imageName!="" && $imageName!=NULL ){
 			 				       	  				
-			$image_id = $img_model->createRow(array("name" =>$imageName, "user_id" => $user_id, "date_created" => $date_created))
+			$image_id = $img_model->createRow(array("name" =>$imageName, "user_id" => $id_user, "date_created" => $date_created))
 							 	  ->save();
 							 	  
-			$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$user_id, "date_created"=>$date_created,
+			$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$id_user, "date_created"=>$date_created,
 									 			"ranking"=>"1", "approved"=>"0", "approver_id"=>$approver_id, "title"=>$title,
 												"description"=>$description ))->save();
 
@@ -244,13 +244,16 @@ class FrontendController extends Zend_Controller_Action
 			$image_to_update->post_id = $post_id;
 			$image_to_update->save();	
 
+			//email to notify about the new Post				               	        	        
+    		$this->_mailHandler->sendNewPostEmail( $title, $description, $name, $email );
+			
 			//redirection
-			$this->_redirect($this->baseUrl.'/frontend?status=ok&action=addP');				
+			$this->_redirect($this->baseUrl.'/frontend/actividades?status=ok&action=addPost');				
 			
 		}						
 
 		//error
-		$this->_redirect($this->baseUrl.'/frontend?status=fail&action=addP');
+		$this->_redirect($this->baseUrl.'/frontend/actividades?status=fail&action=addPost');
 		
     }
 

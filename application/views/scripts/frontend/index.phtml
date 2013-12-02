@@ -1,13 +1,12 @@
 <script type="text/javascript">
-// to scroll up when index is refreshed
-//try{
-//	var path = window.location.href.split("#")[1];	
-//}catch(fail){
-//	$("html, body").animate({ scrollTop: 0 }, 600);	
-//}
-
 $(document).ready(function() {
-					
+
+	// to scroll up when index is refreshed
+	try{
+		var path = window.location.href.split("#")[1];
+		$("#go" + path)[0].click();	
+	}catch(fail){}
+						
 	// set calendars for reservation and contact forms				
 	$( "#fI" ).datepicker({			
 		changeMonth: true,
@@ -243,10 +242,10 @@ function validateEmail(){
                         <ul class="nav nav-pills pull-right">
                             <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/quienessomos">qui&eacute;nes somos</a></li>
                             <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/lapedrera">la pedrera</a></li>
-                            <li><a href="#alojamientos">alojamientos</a></li>
-                            <li><a href="#ubicacion">ubicaci&oacute;n</a></li>
-                       		
-                            <li><a href="#contacto">contacto</a></li>
+                            <li><a id="goalojamientos" href="#alojamientos">alojamientos</a></li>
+                            <li><a id="goubicacion" href="#ubicacion">ubicaci&oacute;n</a></li>
+                       		<li><a href="<?=$this->baseUrl()?>/frontend/actividades">actividades</a></li>
+                            <li><a id="gocontacto" href="#contacto">contacto</a></li>
                         </ul>            
                     </div>
                 </div>

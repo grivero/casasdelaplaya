@@ -13,7 +13,21 @@
 				}).success(function() { $('input:text:visible:first').focus(); });
 			}
 		});		
-		$("body").addClass("actividades");		
+		$("body").addClass("actividades");
+
+		<?php 
+			if(isset( $_GET['status'] )){
+				if( $_GET['status']=='ok' && $_GET['action']=='addPost' ){
+		?>
+					alert('Muchas gracias por agregar su actividad, la misma sera supervisada por nuestros administradores antes de ser publicada en nuestro sitio.');
+		<?php		
+				}else if( $_GET['status']=='fail' ){
+		?>
+					alert('Algo ha salido mal, por favor intentelo nuevamente o contacte al administrador.');
+		<?php		
+				}			
+			}	
+		?>		
 	});
 </script>
 <style type="text/css">
@@ -58,7 +72,7 @@ img {
 		          foreach ($this->posts as $post){
 	         ?> 
 			            <article class="span4 act_mod" data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/view-actividad?id=<?=$post['id']?>">
-			            	<figure>
+			            	<figure style="overflow: hidden;" >
 			            		<img class="img-responsive" src="<?=$this->baseUrl()?>/uploads/big-post/<?=$this->imgs[ $post['id'] ];?>" width="256" height="184" />
 			            	</figure>
 			                <p><?=$post['title'];?></p>
