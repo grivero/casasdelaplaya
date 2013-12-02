@@ -125,7 +125,7 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 	    $email_message .= "Descripcion actividad: ".trim($description)."\n";	    	    
 		
 	    // Asunto y Direccion
-	    $email_to = "gus.rivero.rodriguez@gmail.com";
+	    $email_to = "casasdelaplaya@gmail.com";
 	    $email_subject = "[Casas de la Playa - Nueva Actividad]";
 			
 		// Email Headers
