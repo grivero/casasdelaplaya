@@ -6,12 +6,19 @@ html, body {
 body {
 	min-height: 600px;
 }
+p {
+	text-align:justify;
+}
 body * {
 	font-family:'Open Sans', sans-serif;
 	font-weight:300;
 	font-size: 16px;
 	color: #333;
 	line-height: 22px;
+}
+body.actividades .modal {
+	height: 90%;
+	overflow-y: auto;
 }
 h1{
 	font-size:30px;
@@ -78,6 +85,9 @@ input[type=button] {
 .caroufredsel_wrapper {
 	width: 100% !important;
 	height: 100% !important;
+}
+.la_p_carousel {
+	width:734px!important;
 }
 #carousel div {
 	width: 100%;
@@ -315,7 +325,8 @@ body.actividades .nav-pills li a:hover {
 .map .map_recorrido {
 	display:none;
 	position:absolute;
-	top:0px;
+	top: -132px;
+	left: 3px;
 	z-index:3;
 }
 /* contacto */
@@ -324,7 +335,7 @@ body.actividades .nav-pills li a:hover {
 	width:100%;
 	height:747px;
 	padding-top:15px;
-	background: url(../../images/bkg/contact_bkg.jpg) center repeat #1c9286;
+	background: url(../../../images/bkg/contact_bkg.jpg) center repeat #1c9286;
 }
 #contacto h1 {
 	color:#ffffff;
@@ -512,8 +523,6 @@ footer img {
 }
 body.actividades .modal-body .btn {
 	margin-left:88px!important;
-	position:relative;
-	margin:0px;
 }
 .modal-body .btn:hover {
 	background-image:none;
@@ -600,7 +609,7 @@ body.actividades .modal-body .btn {
 	color:#666666;
 }
 .modal-scroll {
-	max-height:450px;
+	max-height:550px;
 }
 /* scroll */ 
 .scrollup {
