@@ -652,7 +652,6 @@ body.actividades .modal-body .btn {
 }
 /* mensaje error */
 .input_error,.input_error[placeholder]{
-	box-shadow: 0 0 5px red !important;
-	color: red;
+	box-shadow: 0 0 5px red !important;	
 	border: red;
 }	

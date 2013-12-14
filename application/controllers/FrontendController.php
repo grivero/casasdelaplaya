@@ -238,7 +238,8 @@ class FrontendController extends Zend_Controller_Action
 							 	  
 			$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$id_user, "date_created"=>$date_created,
 									 			"ranking"=>"1", "approved"=>"0", "approver_id"=>$approver_id, "title"=>$title,
-												"description"=>$description, "web"=>$web ))->save();
+														"description"=>$description ))->save();
+	//											"description"=>$description, "web"=>$web ))->save();
 
 			//update image row with post_id
 			$image_to_update = $img_model->find($image_id)->current();

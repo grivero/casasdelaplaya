@@ -11,7 +11,7 @@
 		
 		if( $('#web').val()!='' ){
 			
-			if( $('#web').val().indexOf("http://")!=-1 ){
+			if( $('#web').val().indexOf("http://")==-1 ){
 				$("#web").addClass("input_error");
 				alert('Por favor, inicie su web con "http://". Gracias');
 				return false;
@@ -19,13 +19,67 @@
 				$("#web").removeClass("input_error");
 			}	
 			
-		}
+		}else
+			$("#web").removeClass("input_error");
 					
-		if ( $('#email').val()!='' && $('#first_name').val()!='' && $('#last_name').val()!='' && $('#description').val()!='' && $('#title').val()!='' ){
+		if ( $('#email').val()!='' && $('#first_name').val()!='' && $('#last_name').val()!='' && $('#description').val()!='' && $('#title').val()!='' ){					
+
+			if( $('#email').val()=='')
+				$('#email').addClass('input_error');
+			else
+				$('#email').removeClass('input_error');
+			
+			if( $('#first_name').val()=='')
+				$('#first_name').addClass('input_error');
+			else
+				$('#first_name').removeClass('input_error');
+			
+			if( $('#last_name').val()=='')
+				$('#last_name').addClass('input_error');
+			else
+				$('#last_name').removeClass('input_error');
+			
+			if( $('#description').val()=='')
+				$('#description').addClass('input_error');
+			else
+				$('#description').removeClass('input_error');
+			
+			if( $('#title').val()=='')
+				$('#title').addClass('input_error');
+			else
+				$('#title').removeClass('input_error');
+			
 			if( confirm("Estas por de subir una actividad a nuestro sitio. La misma sera revisada por nuestros administradores antes de hacerla publica. Verifique que la imagen tenga proporciones 4x4 o 3x4 para que pueda ser visible de buena manera. Esta seguro que quiere subir esta actividad?") ) 
 				return validateEmail();			
-		}else{			
-			alert('Por favor, complete todos los campos obligatorios antes de enviar. Estos son los que tienen * a su lado');			
+		}else{
+			if( $('#email').val()=='')
+				$('#email').addClass('input_error');
+			else
+				$('#email').removeClass('input_error');
+			
+			if( $('#first_name').val()=='')
+				$('#first_name').addClass('input_error');
+			else
+				$('#first_name').removeClass('input_error');
+			
+			if( $('#last_name').val()=='')
+				$('#last_name').addClass('input_error');
+			else
+				$('#last_name').removeClass('input_error');
+			
+			if( $('#description').val()=='')
+				$('#description').addClass('input_error');
+			else
+				$('#description').removeClass('input_error');
+			
+			if( $('#title').val()=='')
+				$('#title').addClass('input_error');
+			else
+				$('#title').removeClass('input_error');
+			
+						
+			alert('Por favor, complete todos los campos obligatorios antes de enviar. Estos son los que tienen * a su lado');
+						
 		}
 		return false;
 	}		
@@ -35,9 +89,11 @@
 		var email = $('#email').val();
 		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;		
 		if( reg.test(email) ){ 
+			$("#email").removeClass("input_error");
 			return true;
 		}else{
-			alert('Email incorrecto');
+			$("#email").addClass("input_error");
+			alert('Email incorrecto');			
 			return false;
 		}			
 	}	
