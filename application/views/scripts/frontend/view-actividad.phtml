@@ -18,6 +18,9 @@
     <p><?=$this->post['description'];?></p>
    <!--  <p><a href="<?=$this->post['web']?>" target="_blank"><?=$this->post['web']?></a></p>  --> 
      
+    <?php if( $this->user['phone']!=null && $this->user['phone']!=''){?>
+    	<p>tel: <?=$this->user['phone']?></p> 
+    <?php }?> 
 </div>
 <div class="modal-footer">
 </div>

@@ -174,11 +174,13 @@ class FrontendController extends Zend_Controller_Action
     	// info
     	$post 	= $post_model->find( $id )->current();    	
     	$img 	= $img_model->find( $post['image_id'] )->current();
+    	$user 	= $user_model->find( $post['user_id'])->current();
     	
     	// if the post was already approved, then i can proceed
     	if($post['approved']=='1'){	    	
 	    	$this->view->post = $post;    	
 	    	$this->view->img  = $img;
+	    	$this->view->user = $user;
     	}
     	
     }
