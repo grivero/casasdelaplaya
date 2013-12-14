@@ -17,8 +17,23 @@ body * {
 	line-height: 22px;
 }
 body.actividades .modal {
-	height: 90%;
+	height: 95%;
 	overflow-y: auto;
+}
+body.actividades .auto-size {
+	height: auto !important;	
+}
+body.actividades .modal-scroll {
+	max-height: none !important;	
+}
+body.actividades .btn {
+	position: inherit;	
+}
+body.actividades .form-horizontal .control-label {
+	width: 88px !important;	
+}
+body.actividades .form-horizontal .controls {
+	margin-left: 104px !important;	
 }
 h1{
 	font-size:30px;
@@ -522,7 +537,7 @@ footer img {
 	padding: 11px 20px 0 20px;
 }
 body.actividades .modal-body .btn {
-	margin-left:88px!important;
+	margin-left:104px!important;
 }
 .modal-body .btn:hover {
 	background-image:none;
@@ -601,8 +616,7 @@ body.actividades .modal-body .btn {
 	opacity: .9;
 	filter: alpha(opacity=90);
 }
-.modal-body input[type=text] {
-	box-shadow:none;
+.modal-body input[type=text] {	
 	border:1px solid #cccccc;
 }
 .modal-body label {
@@ -629,4 +643,9 @@ body.actividades .modal-body .btn {
 .scrollup:hover {
 	opacity:0.5;
 }
-
+/* mensaje error */
+.input_error,.input_error[placeholder]{
+	box-shadow: 0 0 5px red !important;
+	color: red;
+	border: red;
+}	

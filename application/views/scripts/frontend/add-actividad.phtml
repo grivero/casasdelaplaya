@@ -3,6 +3,8 @@
 	$('.modal').on('hidden.bs.modal', function () {
 		$('div.modal').remove();
 	});
+
+	$('.modal').addClass('auto-size');
 	
 	// function for contact form
 	function validateData(){
@@ -29,62 +31,64 @@
 </script>
 <div class="modal-header">
 	<a class="close" data-dismiss="modal">&times;</a>
-	<h1>Cargar actividad</h1>
+	<h1>cargar actividad</h1>
 </div>
-<div class="modal-body modal-scroll">
+<div class="modal-body modal-scroll" >
     <form class="form-horizontal" style="margin-top:20px;" action="<?=$this->baseUrl()?>/frontend/create-actividad" method="post" onsubmit="return validateData();" enctype="multipart/form-data" >
     	<div class="row">
-            <div class="span6 offset1">
-                <div class="control-group">
-                    <label class="control-label" for="image">Im&aacute;gen*</label>
-                    <div class="controls">
-                        <input type="file" name="image" id="image" title="Search for a file to add" class="span6" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="title">T&iacute;tulo*</label>
-                    <div class="controls">
-                        <input type="text" id="title" name="title" placeholder="Escriba t&iacute;tulo para su actividad..." class="span6" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="description">Descripci&oacute;n*</label>
-                    <div class="controls">
-                       <textarea class="span6" id="description" name="description" placeholder="Escriba descripci&oacute;n y/o ponga informaci&oacute;n para contactar su actividad como direcci&oacute;n o tel&eacute;fono..."></textarea>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="web">Web</label>
-                    <div class="controls">
-                       <input type="text" class="span6" id="web" name="web" placeholder="Escriba web de la actividad si cuenta con una..."/>
-                    </div>
-                </div>
+    		 <div class="span3">
                 <div class="control-group">
                     <label class="control-label" for="first_name">Nombre*</label>
                     <div class="controls">
-                        <input type="text" id="first_name" name="first_name" placeholder="Escriba su nombre..." class="span6" />
+                        <input type="text" id="first_name" name="first_name" placeholder="Escriba su nombre..." class="span3" />
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="last_name">Apellido*</label>
                     <div class="controls">
-                        <input type="text" id="last_name" name="last_name" class="span6" placeholder="Escriba su apellido..." />
+                        <input type="text" id="last_name" name="last_name" class="span3" placeholder="Escriba su apellido..." />
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="email">E-mail*</label>
                     <div class="controls">
-                        <input type="text" id="email" name="email" class="span6" placeholder="Escriba su email personal..." />
+                        <input type="text" id="email" name="email" class="span3" placeholder="Escriba su email personal..." />
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="telephone">Tel&eacute;fono</label>
                     <div class="controls">
-                        <input type="text" id="telephone" name="telephone" class="span6" placeholder="Escriba su telefono personal..." />
+                        <input type="text" id="telephone" name="telephone" class="span3" placeholder="Escriba su telefono personal..." />
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="web">Web</label>
+                    <div class="controls">
+                       <input type="text" class="span3" id="web" name="web" placeholder="Escriba web de la actividad si cuenta con una..."/>
+                    </div>
+                </div>               
+            </div>
+            <div class="span3 offset2">            	
+                <div class="control-group">
+                    <label class="control-label" for="image">Im&aacute;gen*</label>
+                    <div class="controls">
+                        <input type="file" name="image" id="image" title="Search for a file to add" class="span3" />
                     </div>
                 </div>
-                <input type="submit" value="Agregar actividad" class="btn" style="width:222px; bottom: -88px;">
-            </div>
+                <div class="control-group">
+                    <label class="control-label" for="title">T&iacute;tulo*</label>
+                    <div class="controls">
+                        <input type="text" id="title" name="title" placeholder="Escriba t&iacute;tulo para su actividad..." class="span3" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="description">Descripci&oacute;n*</label>
+                    <div class="controls">
+                       <textarea class="span3" id="description" name="description" placeholder="Escriba descripci&oacute;n y/o ponga informaci&oacute;n para contactar su actividad como direcci&oacute;n o tel&eacute;fono..."></textarea>
+                    </div>
+                </div>
+                <input type="submit" value="Agregar actividad" class="btn" style="width:222px;">                
+             </div>            
 		</div>
     </form>
 </div>
