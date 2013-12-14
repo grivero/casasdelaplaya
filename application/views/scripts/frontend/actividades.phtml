@@ -75,7 +75,14 @@ img {
 			            	<figure style="overflow: hidden;" >
 			            		<img class="img-responsive" src="<?=$this->baseUrl()?>/uploads/big-post/<?=$this->imgs[ $post['id'] ];?>" width="256" height="184" />
 			            	</figure>
-			                <p><?=$post['title'];?></p>
+			                <p><?php 
+			                		$title_length = strlen ($post['title']);
+			                		if( $title_length >= 55 )
+			                			echo substr($post['title'], 0, 55).'...'; 
+			                		else	
+			                			echo $post['title'];
+			                ?>
+			                </p>
 			            </article> 
             <?php 
 		          }

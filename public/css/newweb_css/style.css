@@ -6,12 +6,40 @@ html, body {
 body {
 	min-height: 600px;
 }
+p {
+	text-align:justify;
+}
 body * {
 	font-family:'Open Sans', sans-serif;
 	font-weight:300;
 	font-size: 16px;
 	color: #333;
 	line-height: 22px;
+}
+body.actividades .modal {
+	height: 95%;
+	overflow-y: auto;
+}
+body.actividades .auto-size {
+	height: auto !important;	
+}
+body.actividades .auto-size-hor {
+	height: auto !important;
+	width: 514px;
+	margin-left: -257px;
+		
+}
+body.actividades .modal-scroll {
+	max-height: none !important;	
+}
+body.actividades .btn {
+	position: inherit;	
+}
+body.actividades .form-horizontal .control-label {
+	width: 88px !important;	
+}
+body.actividades .form-horizontal .controls {
+	margin-left: 104px !important;	
 }
 h1{
 	font-size:30px;
@@ -78,6 +106,9 @@ input[type=button] {
 .caroufredsel_wrapper {
 	width: 100% !important;
 	height: 100% !important;
+}
+.la_p_carousel {
+	width:734px!important;
 }
 #carousel div {
 	width: 100%;
@@ -315,7 +346,8 @@ body.actividades .nav-pills li a:hover {
 .map .map_recorrido {
 	display:none;
 	position:absolute;
-	top:0px;
+	top: -132px;
+	left: 3px;
 	z-index:3;
 }
 /* contacto */
@@ -324,7 +356,7 @@ body.actividades .nav-pills li a:hover {
 	width:100%;
 	height:747px;
 	padding-top:15px;
-	background: url(../../images/bkg/contact_bkg.jpg) center repeat #1c9286;
+	background: url(../../../images/bkg/contact_bkg.jpg) center repeat #1c9286;
 }
 #contacto h1 {
 	color:#ffffff;
@@ -465,9 +497,10 @@ footer img {
 	margin-top:20px;
 }
 .act_img {
-	max-height:544px;
+	max-height:397px;
 	overflow:hidden;
-	background:url(../../images/bkg/activ_sin_foto.jpg) no-repeat center center #e5e5e5;
+	margin: 0;
+	/*background:url(../../images/bkg/activ_sin_foto.jpg) no-repeat center center #e5e5e5;*/
 }
 /* modal */
 .modal {
@@ -511,9 +544,7 @@ footer img {
 	padding: 11px 20px 0 20px;
 }
 body.actividades .modal-body .btn {
-	margin-left:88px!important;
-	position:relative;
-	margin:0px;
+	margin-left:104px!important;
 }
 .modal-body .btn:hover {
 	background-image:none;
@@ -592,15 +623,14 @@ body.actividades .modal-body .btn {
 	opacity: .9;
 	filter: alpha(opacity=90);
 }
-.modal-body input[type=text] {
-	box-shadow:none;
+.modal-body input[type=text] {	
 	border:1px solid #cccccc;
 }
 .modal-body label {
 	color:#666666;
 }
 .modal-scroll {
-	max-height:450px;
+	max-height:550px;
 }
 /* scroll */ 
 .scrollup {
@@ -620,4 +650,8 @@ body.actividades .modal-body .btn {
 .scrollup:hover {
 	opacity:0.5;
 }
-
+/* mensaje error */
+.input_error,.input_error[placeholder]{
+	box-shadow: 0 0 5px red !important;	
+	border: red;
+}	

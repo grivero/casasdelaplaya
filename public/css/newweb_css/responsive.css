@@ -1,0 +1,234 @@
+
+
+@media (max-width: 767px) {
+
+ul {
+	margin-left:0;
+}
+.row {
+	padding: 0 25px 0 25px;
+}
+#wrapper {
+	height: 500px;
+}
+#home_content {
+	width:auto;
+	height: auto;
+	margin: 0 0 0 0;
+	left: auto;
+}
+.mod_contacto {
+	height:195px;
+	margin-top:10px;
+}
+
+/* alojamientos*/
+.aloj_btn h2 {
+	width: 199px;
+	margin: 43px 0 20px 0;
+}	
+.aloj_serv li {
+	font-size:11px;
+}
+/*ubicacion*/
+.map {
+	background-size: 100%;
+	height: 192px;
+}
+.map .btn {
+	display:none;
+}
+.map .map_recorrido {
+	top: -73px;
+	left: 2px;
+}
+/* contacto */
+#contacto {
+	height:auto!important;
+}
+.form-horizontal .control-group {
+	margin-bottom: -3px;
+}
+.form-horizontal .controls {
+	margin-left:0;
+}
+.btn_mod_ico {
+	margin-top: 19px;
+	margin-right: -16px;
+}
+.c_mod_tel {
+	border-top: 1px dotted #619F97;
+	border-bottom: 1px dotted #619F97;
+	padding: 14px 0 0 0;
+	margin-top: -7px;
+	margin-bottom: 10px;
+}
+
+/* scoll */
+
+.scrollup {
+	right:25px;
+}
+
+/* modal */
+.modal {
+	width:auto;
+	margin-left:0;
+}
+
+.modal-body .slide {
+	width:auto;
+}
+.carousel-inner {
+	height:auto;
+}
+.modal-footer .serv_over {
+	width: 410px;
+	height: auto;
+	padding: 0;
+	background: none;
+	position: inherit;
+	bottom:none;
+	display: block;
+}
+.modal-footer .tarif_over {
+	position: inherit;
+	display: block;
+}
+.btn_servicios, .btn_tarifas  {
+	display:none;
+}
+}
+
+
+@media (max-width: 320px) {
+ul {
+	margin-left:0;
+}
+.row {
+	padding: 0 25px 0 25px;
+}
+#wrapper {
+	height: 480px;
+	background:url(../../images/bkg_carousel/002.jpg) no-repeat;
+}
+#wrapper .caroufredsel_wrapper {
+	display:none;
+}
+.nav-pills {
+	margin-top:0;
+}
+.nav-pills li a {
+	font-size:13px!important;
+}
+#home_content {
+	width:auto;
+	height: auto;
+	margin: 0 0 0 0;
+	left: auto;
+}
+.mod_contacto {
+	height:195px;
+	margin-top:-5;
+}
+.mod_contacto a {
+	font-size:14px;
+}
+.h_bkg_desc {
+	display:none;
+}
+
+/* alojamientos*/
+.aloj_btn {
+	height:150px;
+}
+.aloj_btn h2 {
+	width: 199px;
+	margin: 43px auto 20px auto;
+	float:none;
+}	
+.aloj_btn span {
+	margin:15px auto 0 auto;
+	float:none;
+}
+.aloj_more {
+	top: 55px;
+	left: 101px;
+}
+.aloj_serv li {
+	font-size:11px;
+}
+.aloj_btn img{
+	display:none;
+}
+/*ubicacion*/
+.map {
+	background-size: 100%;
+	height: 119px;
+}
+.map .btn {
+	display:none;
+}
+.map .map_recorrido {
+	top: -26px;
+	left: 2px;
+}
+/* contacto */
+#contacto {
+	height:auto!important;
+}
+.form-horizontal .control-group {
+	margin-bottom: -3px;
+}
+.form-horizontal .controls {
+	margin-left:0;
+}
+.btn_mod_ico {
+	margin-top: 19px;
+	margin-right: -16px;
+}
+.c_mod_tel {
+	border-top: 1px dotted #619F97;
+	border-bottom: 1px dotted #619F97;
+	padding: 14px 0 0 0;
+	margin-top: -7px;
+	margin-bottom: 10px;
+}
+
+/* scoll */
+
+.scrollup {
+	right:25px;
+}
+
+/* modal */
+.modal {
+	width:auto;
+	margin-left:0;
+	max-height: 430px;
+	overflow-y: auto;
+}
+
+.modal-body .slide {
+	width:auto;
+}
+.carousel-inner {
+	height:auto;
+}
+.modal-footer .serv_over {
+	width: 410px;
+	height: auto;
+	padding: 0;
+	background: none;
+	position: inherit;
+	bottom:none;
+	display: block;
+}
+.modal-footer .tarif_over {
+	position: inherit;
+	display: block;
+}
+.btn_servicios, .btn_tarifas  {
+	display:none;
+}
+}
