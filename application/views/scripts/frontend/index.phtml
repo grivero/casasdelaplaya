@@ -20,6 +20,22 @@ $(document).ready(function() {
 		yearRange: "2013:2016",
 		showAnim: "drop"
 	});
+	// set calendars for reservation and contact forms				
+	$( "#inputIn" ).datepicker({			
+		changeMonth: true,
+		changeYear: true,								
+		yearRange: "2013:2016",
+		showAnim: "drop"
+	});
+	$( "#inputOut" ).datepicker({			
+		changeMonth: true,
+		changeYear: true,								
+		yearRange: "2013:2016",
+		showAnim: "drop"
+	});
+	// clean forms
+	$("#inputOut").val("");
+	$("#inputIn").val("");
 			
 	// alojamiento img scroll up   
 	$(".top_slide").addClass("slide_marg_bottom_on");
@@ -169,7 +185,16 @@ function validateData(){
 		alert('Por favor, complete todos los campos obligatorios antes de enviar. Estos son los que tienen * a su lado');
 		return false;
 	}
-}		
+}
+
+function validateReservaData(){
+	if( $('#inputIn').val()!='' && $('#inputOut').val()!='' ){
+		return true;
+	}else{
+		alert('Por favor elija ambas fechas para comenzar su reserva');
+		return false;
+	}
+}
 
 // function for contact form
 function validateEmail(){
@@ -184,30 +209,49 @@ function validateEmail(){
 }
 
 // function for contact form
-	function send_message(){		
-	 	if( validateData() && confirm('Desea enviar mensaje?') ){
-	 		showOverlay();
-	 		$.ajax({
-				type: "POST",
-				url: "<?=$this->baseUrl();?>/frontend/send-message",
-				dataType: "json",
-				data: "email="+$('#email').val()+"&first_name="+$('#first_name').val()+"&last_name="+$('#last_name').val()
-						+"&fIngreso="+$('#fI').val()+"&fEgreso="+$('#fE').val()+"&comments="+$('#comments').val()
-						+"&pais="+$("#pais").val()+"&cant="+$("#cant").val()+"&telephone="+$("#telephone").val(),
-				success: function(data){
-							if (data.success == 'yes') {
-								$(function() {
- 								hideOverlay();
-									alert('Gracias por comunicarse con nosotros, pronto nos contactaremos con usted.');
-								});
-							} else if (data.success == 'no') {
-								hideOverlay();
-								alert('Error al mandar mensaje. Perdon pero esto no deberia de haber sucedido! Por favor, intentelo nuevamente o use los numeros telefonicos y/o email para comunicarse. Gracias');							 
-							}
-		  				}	
-			});
-	 	}		 		
-	}	
+function send_message(){		
+ 	if( validateData() && confirm('Desea enviar mensaje?') ){
+ 		showOverlay();
+ 		$.ajax({
+			type: "POST",
+			url: "<?=$this->baseUrl();?>/frontend/send-message",
+			dataType: "json",
+			data: "email="+$('#email').val()+"&first_name="+$('#first_name').val()+"&last_name="+$('#last_name').val()
+					+"&fIngreso="+$('#fI').val()+"&fEgreso="+$('#fE').val()+"&comments="+$('#comments').val()
+					+"&pais="+$("#pais").val()+"&cant="+$("#cant").val()+"&telephone="+$("#telephone").val(),
+			success: function(data){
+						if (data.success == 'yes') {
+							$(function() {
+ 							hideOverlay();
+								alert('Gracias por comunicarse con nosotros, pronto nos contactaremos con usted.');
+							});
+						} else if (data.success == 'no') {
+							hideOverlay();
+							alert('Error al mandar mensaje. Perdon pero esto no deberia de haber sucedido! Por favor, intentelo nuevamente o use los numeros telefonicos y/o email para comunicarse. Gracias');							 
+						}
+	  				}	
+		});
+ 	}		 		
+}	
+
+// global variable to handle num nights of reserva
+var numNights;
+function getNumNights(){
+	if( $("#inputOut").val()!='' && $("#inputIn").val()!='' ){
+		var hasta =	$("#inputOut").val();
+		var desde = $("#inputIn").val();
+	    var diferencia =  Math.floor(( Date.parse(hasta) - Date.parse(desde) ) / 86400000);
+	    if(diferencia < 0){
+	    	alert('Error: Fecha DESDE debe ser menor que fecha HASTA');
+	    	$("#inputOut").val("");
+	    	numNights = 0;	    		    	    
+	    }else{
+	    	numNights = diferencia;	    		     
+	    }
+	    $("#numNights").val( numNights );    
+	}		
+}
+
 </script>
 <style type="text/css">
 	#map_canvas {
@@ -252,18 +296,19 @@ function validateEmail(){
             </div>
             <section class="span5 offset7 h_mods mod_reserva">
                 <h1>reservas</h1>
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="<?=$this->baseUrl()?>/frontend/lunch-reserva" method="post" onsubmit="return validateReservaData();" enctype="multipart/form-data">
                     <label for="inputIn" class="input_res_h">desde</label>
                   	<label for="inputOut" class="input_res_h input_res_h-last">hasta</label>
                     <div class="cont_display_icon input_res_h">
                         <img src="<?=$this->baseUrl()?>/images/ico/ico_cal_b-n.png">
-                        <input type="text" id="inputIn" >
+                        <input type="text" id="inputIn" name="inputIn" onchange="getNumNights();" >
                     </div>
                     <div class="cont_display_icon input_res_h input_res_h-last">
                         <img src="<?=$this->baseUrl()?>/images/ico/ico_cal_b-n.png">
-                        <input type="text" id="inputOut" >
+                        <input type="text" id="inputOut" name="inputOut" onchange="getNumNights();" >
                     </div>
-	                <input type="button" value="reservar" class="btn pull-right">
+	                <input type="submit" value="reservar" class="btn pull-right">
+	                <input type="hidden" id="numNights" name="numNights" >
 				</form>
             </section>
             <section class="span5 offset7 h_mods">

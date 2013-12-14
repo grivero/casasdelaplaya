@@ -25,6 +25,8 @@ class FrontendController extends Zend_Controller_Action
      * Send an email message to casasdelaplaya@gmail.com
      * createas a message and user rows
      * ajax function
+     *
+     *
      */
     public function sendMessageAction()
     {
@@ -140,7 +142,7 @@ class FrontendController extends Zend_Controller_Action
     }
 
     public function addActividadAction()
- 	{
+    {
  		//to clean response page
     	$this->_helper->layout->disableLayout();	    					
     }
@@ -272,11 +274,21 @@ class FrontendController extends Zend_Controller_Action
         //to clean response page
     	$this->_helper->layout->disableLayout();
     }
-    
-  	public function mapAction()
+
+    public function mapAction()
     {
         //to clean response page
     	$this->_helper->layout->disableLayout();
+    }
+
+    public function lunchReservaAction()
+    {
+        // action body
+    }
+
+    public function createReservaAction()
+    {
+        // action body
     }
 
 

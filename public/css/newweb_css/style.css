@@ -233,8 +233,8 @@ body.actividades .nav-pills li a:hover {
 	background:url(../../images/ico/ico_tw.png) top no-repeat;
 }
 .mod_reserva {
-	margin-top:50px;
-	display:none;
+	/*margin-top:50px;*/
+	/*display:none;*/
 }
 .mod_reserva label {
 	background:none!important;
@@ -248,6 +248,16 @@ body.actividades .nav-pills li a:hover {
 	color:#ffffff;
 }
 .mod_reserva input[type=button]:hover {
+	background:#2d5c53;
+	color:#ffffff;
+}
+.mod_reserva input[type=submit] {
+	margin-top:15px;
+	width:156px;
+	background:#52b8a5;
+	color:#ffffff;
+}
+.mod_reserva input[type=submit]:hover {
 	background:#2d5c53;
 	color:#ffffff;
 }
