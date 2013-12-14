@@ -212,7 +212,8 @@ class FrontendController extends Zend_Controller_Action
 	    $last_name 		= $this->getRequest()->getParam('last_name');
 	    $name			= $first_name." ".$last_name;
 	    $email		 	= $this->getRequest()->getParam('email'); 
-	    $telephone 		= $this->getRequest()->getParam('telephone');	    						
+	    $telephone 		= $this->getRequest()->getParam('telephone');
+	    $web			= $this->getRequest()->getParam('web');	    						
 
  		//search for user in database
     	$existentEmail = $user_model->select()
@@ -237,7 +238,7 @@ class FrontendController extends Zend_Controller_Action
 							 	  
 			$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$id_user, "date_created"=>$date_created,
 									 			"ranking"=>"1", "approved"=>"0", "approver_id"=>$approver_id, "title"=>$title,
-												"description"=>$description ))->save();
+												"description"=>$description, "web"=>$web ))->save();
 
 			//update image row with post_id
 			$image_to_update = $img_model->find($image_id)->current();
@@ -277,24 +278,3 @@ class FrontendController extends Zend_Controller_Action
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

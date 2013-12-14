@@ -23,6 +23,12 @@ body.actividades .modal {
 body.actividades .auto-size {
 	height: auto !important;	
 }
+body.actividades .auto-size-hor {
+	height: auto !important;
+	width: 514px;
+	margin-left: -257px;
+		
+}
 body.actividades .modal-scroll {
 	max-height: none !important;	
 }
@@ -491,9 +497,10 @@ footer img {
 	margin-top:20px;
 }
 .act_img {
-	max-height:544px;
+	max-height:397px;
 	overflow:hidden;
-	background:url(../../images/bkg/activ_sin_foto.jpg) no-repeat center center #e5e5e5;
+	margin: 0;
+	/*background:url(../../images/bkg/activ_sin_foto.jpg) no-repeat center center #e5e5e5;*/
 }
 /* modal */
 .modal {

@@ -4,6 +4,8 @@
 		$('div.modal').remove();
 	});
 
+	$('.modal').addClass('auto-size');
+	
 	// when close modal we destroy the div
 	$('.modal').on('shown.bs.modal', function () {
 		var scrollElem2 = scrollableElement('html', 'body');

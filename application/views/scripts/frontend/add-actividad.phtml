@@ -8,10 +8,23 @@
 	
 	// function for contact form
 	function validateData(){
+		
+		if( $('#web').val()!='' ){
+			
+			if( $('#web').val().indexOf("http://")!=-1 ){
+				$("#web").addClass("input_error");
+				alert('Por favor, inicie su web con "http://". Gracias');
+				return false;
+			}else{
+				$("#web").removeClass("input_error");
+			}	
+			
+		}
+					
 		if ( $('#email').val()!='' && $('#first_name').val()!='' && $('#last_name').val()!='' && $('#description').val()!='' && $('#title').val()!='' ){
 			if( confirm("Estas por de subir una actividad a nuestro sitio. La misma sera revisada por nuestros administradores antes de hacerla publica. Verifique que la imagen tenga proporciones 4x4 o 3x4 para que pueda ser visible de buena manera. Esta seguro que quiere subir esta actividad?") ) 
 				return validateEmail();			
-		}else{
+		}else{			
 			alert('Por favor, complete todos los campos obligatorios antes de enviar. Estos son los que tienen * a su lado');			
 		}
 		return false;
