@@ -16,15 +16,19 @@
               	<td><b>Descripci&oacute;n</b></td>
             	<td><?=$this->post['description'];?></td>
             </tr>
+            <tr>
+              <td><b>Web</b></td>
+             <td><?=$this->post['web'];?></td>
+            </tr>
              <tr>
-              <td><b>Ranking</b></td>
+              <td class="bg"><b>Ranking</b></td>
              <td><?=$this->post['ranking'];?></td>
             </tr>
-             <tr class="bg">
+             <tr>
               <td><b>Aprobaci&oacute;n</b></td>
               <td><?php if ($this->post['approved'] == '1') echo 'aprobado'; else echo 'no aprobado'; ?></td>
             </tr>                        
-            <tr>
+            <tr class="bg">
               <td><b>Fecha Creacion</b></td>
               	<?php               
               		require_once('../library/utils/fecha.class.php');
@@ -33,7 +37,7 @@
            		?>
               <td><?=$fecha_obj->getFecha()->format('d/m/Y');?></td>
             </tr>
-            <tr class="bg">
+            <tr>
               <td><b>Fecha Modificacion</b></td>
               	<?php                             		
             		$fecha_obj = new Fecha();

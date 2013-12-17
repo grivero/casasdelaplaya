@@ -536,7 +536,8 @@ class BackendController extends Zend_Controller_Action{
 			$ranking		= $this->getRequest()->getParam('ranking');
 			$description	= $this->getRequest()->getParam('description');
 			$apporved		= $this->getRequest()->getParam('approved');
-			$title			= $this->getRequest()->getParam('title');			
+			$title			= $this->getRequest()->getParam('title');
+			$web			= $this->getRequest()->getParam('web');			
 			$date_created 	= date('Y-m-d H:i:s');
 			$approver_id	= '1'; 	
 			
@@ -548,7 +549,7 @@ class BackendController extends Zend_Controller_Action{
 								 	  
 				$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$user_id, "date_created"=>$date_created,
 										 			"ranking"=>$ranking, "approved"=>$apporved, "approver_id"=>$approver_id,
-													"description"=>$description, "title"=>$title ))->save();
+													"description"=>$description, "title"=>$title, "web"=>$web ))->save();
 
 				//update image row with post_id
 				$image_to_update = $img_model->find($image_id)->current();
@@ -579,7 +580,8 @@ class BackendController extends Zend_Controller_Action{
         	
         	// edit post basic info        	
         	$post->title		= trim( $this->_request->getParam('title') );    		
-    		$post->description	= trim( $this->_request->getParam('description') );    		
+    		$post->description	= trim( $this->_request->getParam('description') );
+    		$post->web			= trim( $this->_request->getParam('web') );    		
     		$post->ranking		= $this->_request->getParam('ranking');
     		$post->approved		= $this->_request->getParam('approved');
     		    		        

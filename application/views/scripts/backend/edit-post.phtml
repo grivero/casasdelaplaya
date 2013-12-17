@@ -19,7 +19,8 @@ $(document).ready(function(){
 	
 <?= $this->getAdminLayout('Posts') ?>
 <h3 class="tit">Editar Post</h3> 					
-			<p class="msg info">Cuidado, estas a punto de editar un Post</p>			
+			<p class="msg info">Cuidado, estas a punto de editar un Post</p>
+			<p class="msg info">Si agrega WEB asgurese de poner http:// para que la redireccion funcione correctamente</p>			
 			<p class="msg info">Desde esta pantalla usted pued habilitar o no un post, tambi&eacute;n lo puede calificar para que aparezca en el orden que usted quiera</p>
 			<p class="msg info">Si no desea cambiar la imagen del Post deje el campo "Cambiar Imagen" vac&iacute;o</p>
 			<?php 
@@ -37,6 +38,10 @@ $(document).ready(function(){
 						<tr>
 							<td>Descripci&oacute;n*:</td>
 							<td><textarea rows="6" cols="35" id="description" name="description"><?= $this->post['description']; ?></textarea></td>				
+						</tr>
+						<tr>
+							<td>Web:</td>
+							<td><input type="text" size="40" name="web" id="web" class="input-text" value="<?= $this->post['web']; ?>" /></td>
 						</tr>
 						<tr>
 						  	<td class="va-top">Aprobaci&oacute;n:</td>
