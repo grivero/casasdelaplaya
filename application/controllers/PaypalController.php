@@ -15,146 +15,37 @@ class PaypalController extends Zend_Controller_Action
      * Paga a PayPal mediante Payments Pro
      *
      */
-    public function indexAction()
-    {
-    				
-    	/**
-    	require '../library/paypal/paypal_adapter.php';
-    	
-    	// Create an instance of our PayPal NVP client
-		$client = new PaypalAdapter('https://api-3t.sandbox.paypal.com/nvp');
-        	
-	    if ( !isset($_REQUEST['submit']) ){
-		      		      		 
-		      $amount 				= 100.00; 
-		      $credit_card_type 	= 'Visa';
-		      $credit_card_number 	= '4681538754208624';
-		      $expiration_month 	= 10;
-		      $expiration_year 		= 2017;
-		      $cvv2 				= 666;
-		 
-		      $first_name 			= 'Gustavo';
-		      $last_name 			= 'Rivero';
-		      $address1 			= 'Mazeh 12 Pinat Lamah';
-		      $address2 			= '';
-		      $city 				= 'Tel Aviv';
-		      $state 				= 'IL';
-		      $zip 					= 12345;
-		 
-		      $country 			= 'US'; 
-		      $currency_code 	= 'USD';
-		       		 		      		      
-		      // get real ip address
-		      $ip_address 		= $client->getRealIpAddr();
-		 
-		      // Send our API request!
-		      $result = $client->doDirectPayment(
-		            $amount,
-		            $credit_card_type,
-		            $credit_card_number,
-		            $expiration_month,
-		            $expiration_year,
-		            $cvv2,
-		            $first_name,
-		            $last_name,
-		            $address1,
-		            $address2,
-		            $city,
-		            $state,
-		            $zip,
-		            $country,
-		            $currency_code,
-		            $ip_address);
-		 
-		      // Remember to store the transaction ID! You'll need it 
-		      // to lookup the transaction details. For now, let's just
-		      // display the results.		      
-		      echo urldecode($result->getBody());
-		      
-		}else{
-			$amount = 1.00; 
-		      $credit_card_type 	= $_REQUEST['credit_card_type'];
-		      $credit_card_number 	= $_REQUEST['credit_card_number'];
-		      $expiration_month 	= $_REQUEST['expiration_month'];
-		      $expiration_year 		= $_REQUEST['expiration_year'];
-		      $cvv2 				= $_REQUEST['cvv2'];
-		 
-		      $first_name 			= $_REQUEST['first_name'];
-		      $last_name 			= $_REQUEST['last_name'];
-		      $address1 			= $_REQUEST['address1'];
-		      $address2 			= $_REQUEST['address2'];
-		      $city 				= $_REQUEST['city'];
-		      $state 				= $_REQUEST['state'];
-		      $zip 					= $_REQUEST['zip'];
-		 
-		      $country 			= 'US'; // Assuming we are only accepting transactions within the United States.
-		      $currency_code 	= 'USD'; // Assuming we are using the United States Dollar
-
-		      // get real ip address
-		      $ip_address 		= $client->getRealIpAddr();
-		 		      		 
-		      // Send our API request!
-		      $result = $client->doDirectPayment(
-		            $amount,
-		            $credit_card_type,
-		            $credit_card_number,
-		            $expiration_month,
-		            $expiration_year,
-		            $cvv2,
-		            $first_name,
-		            $last_name,
-		            $address1,
-		            $address2,
-		            $city,
-		            $state,
-		            $zip,
-		            $country,
-		            $currency_code,
-		            $ip_address);
-		 
-		      // Remember to store the transaction ID! You'll need it 
-		      // to lookup the transaction details. For now, let's just
-		      // display the results.
-		      echo $result->getBody();
-		  
-			}
-			**/    	    					    	
+    public function indexAction(){
+    				    	    	    					    	
     }
 
     /**
      * Paga a PayPal mediante Express Checkout
      *
      */
-    public function payAction()
-    {
-		 		
+    public function payAction(){
+    	
+		// url template		 		
     	$url	= 'http://www.casasdelaplayadelapedrera.com'.Zend_Controller_Front::getInstance()->getBaseUrl();
-    	if( isset($_REQUEST['token']) && isset($_REQUEST['PayerID']) ){
+    	
+    	// 3 params needed: token PayerID reservation_id
+    	if( isset($_REQUEST['token']) && isset($_REQUEST['PayerID']) && isset($_REQUEST['reservation_id']) ){
     		
-    		//vars
+    		// vars from request
     		$token 			= $_REQUEST['token'];
 			$payer_id 		= $_REQUEST['PayerID'];
-			$currency_code 	= 'USD';					
+			$reservation_id = $_REQUEST['reservation_id'];
+			$currency_code 	= 'USD';
 			
-			//precio a pagar
-			$amount = 0.0;
+			// data base models
+			$reservation_model	= new Application_Model_DbTable_Reservation();
+			$user_model			= new Application_Model_DbTable_User();
 			
-			//busco reservas												
-			//$reservas_session	= new Zend_Session_Namespace('id_pendientes');
-			//lo destrabo
-			//$reservas_session->unlock();
-			//busco los datos necesarios
-			$reservas_arr		= $this->reservas_session->ID;
-			//modelo reserva pendiente
-			$reservas_pendientes_model	= new Application_Model_DbTable_ReservaPendiente();	
+			// get previously saved reservation
+			$reserva = $reservation_model->find( $reservation_id )->current();
 			
-			
-			//calculo precios a pagar
-			foreach ( $reservas_arr as $id_reserva ){
-				$reserva_pendiente = $reservas_pendientes_model->find( $id_reserva )->current();
-				$amount += (floatval($reserva_pendiente->precio));
-			}
-			$amount *= 0.1;
+			//precio a pagar	PRECIO DE TEST!!!!  Float.valueOf( $reserva->cost )		
+			$amount = 1.0;
 			$amount = round( $amount );			
 		 
 			// cobro
@@ -166,127 +57,107 @@ class PaypalController extends Zend_Controller_Action
 			//inicializo plugin email
 			$email_plugin 	= new Application_Plugin_EmailSender();
 			
-    		if ($reply->isSuccessful()) {
-						 
-				$replyData = $client->parse($reply->getBody());
+    		if( $reply->isSuccessful() ){
+
+    			// parse the response from paypal
+				$replyData = $client->parse( $reply->getBody() );
 				
 				if( $replyData->ACK == 'Success'){
 					//id transaccion
 					$transaction_id	= $replyData->TRANSACTIONID;
 					//token
-					//$token			= $replyData->TOKEN; //por ahora no se precisa
+					//$token		= $replyData->TOKEN; //por ahora no se precisa
 										
-					//detalles de transaccion
-					$reply_transaction 	= $client->ecGetTransactionDetails($transaction_id);
-					$replyData			= $client->parse($reply_transaction->getBody());
+					// get details from the transaction we just made
+					$reply_transaction 	= $client->ecGetTransactionDetails( $transaction_id );
+					// get details about the client just made the transaction
+					$replyData			= $client->parse( $reply_transaction->getBody() );
 					
-					//nombre comprador
+					// nombre comprador
 					$buyer_first_name	= $replyData->FIRSTNAME;
-					//apellido comprador
+					// apellido comprador
 					$buyer_surname		= $replyData->LASTNAME;
-					//nombre completo comprador
-					$buyer_name			= $replyData->SHIPTONAME;				
-					//email comprador
+					// nombre completo comprador
+					$buyer_name			= $replyData->SHIPTONAME;
+					$nombre_completo 	= $buyer_first_name.' '.$buyer_surname;				
+					// email comprador
 					$buyer_email		= $replyData->EMAIL;
-					//ciudad comprador
+					// ciudad comprador
 					$buyer_country		= $replyData->SHIPTOCOUNTRYNAME;
-					//pais comprador
+					// pais comprador
 					$buyer_city			= $replyData->SHIPTOCITY;
-					//fecha de pago
+					// fecha de pago
 					$date_payed			= $replyData->ORDERTIME;
-					//paypal id pagador
+					// paypal id pagador
 					$payer_paypal_id	= $replyData->PAYERID;
-					//monto
-					$amt				= $replyData->AMT;					
-												
-					//modelos
-					$compra_model				= new Application_Model_DbTable_Compra();
-					$reservas_model				= new Application_Model_DbTable_Reservas();									
-					
-					$nombre_completo = $buyer_first_name.' '.$buyer_surname;
-					//creo la compra
-					$id_compra = $compra_model->createRow(array( 
-																'nombre'				=> $buyer_first_name,
-																'apellido'				=> $buyer_surname,
-																'email'					=> $buyer_email,
-																'pais'					=> $buyer_country,
-																'ciudad'				=> $buyer_city,
-																'monto'					=> $amt,
-																'paypal_transaction_id'	=> $transaction_id,
-																'paypal_payer_id'		=> $payer_id,
-																'fecha_creacion'		=> date('Y-m-d H:i:s')
-															))->save();
-																		
-					//paso las reservas pendientes
-					foreach ( $reservas_arr as $id_reserva ){
-						$reserva_pendiente = $reservas_pendientes_model->find( $id_reserva )->current();
-						//creo reserva
-						$id_reserva_creado = $reservas_model->createRow(array(
-														'cant_camas'			=> $reserva_pendiente->cant_camas,
-														'fecha_inicio'			=> $reserva_pendiente->fecha_inicio,
-														'fecha_fin'				=> $reserva_pendiente->fecha_fin,
-														'cant_dias'				=> $reserva_pendiente->cant_dias,
-														'id_habitacion'			=> $reserva_pendiente->id_habitacion,
-														'id_compra'				=> $id_compra,
-														'nombre'				=> $nombre_completo,
-														'precio'				=> $reserva_pendiente->precio,
-														'date_created'			=> date('Y-m-d H:i:s')											
-													))->save();
-						if(!$fecha_inicio){
-							$fecha_obj = new Fecha($reserva_pendiente->fecha_inicio);
-							$fecha_inicio = $fecha_obj->getFecha()->format('d/m/Y');
-						}
-																			
-					}
+					// monto
+					$amt				= $replyData->AMT;
+					// today's date
+					$date_created 		= date('Y-m-d H:i:s');
+																																									
+					//search for user in database
+			    	$existentEmail = $user_model->select()
+			  							   ->from('user',array('email','id'))
+			  							   ->where('email = ?',$buyer_email)
+			  							   ->limit(1)
+			  							   ->query()->fetchAll();
+			  							    		  							   
+					//no user in database, create a new one  							   
+			  		if( !$existentEmail ){  			
+				        $id_user = $user_model->createRow(array(
+				        										"first_name"	=> $buyer_first_name, 
+				        										"last_name"		=> $buyer_surname, 
+				        										"name"			=> $nombre_completo, 
+			        											"email"			=> $buyer_email, 
+			        											"country"		=> $buyer_country, 
+			        											"date_created"	=> $date_created,
+				        										"city"			=> $buyer_city 
+				        					))->save();
+			  		} else {
+			  			// user already exists, get id to populate in reservation in order to confirm it
+			  			$id_user = $existentEmail[0]['id'];
+			  		}
+			  					  							
+			  		// update reservation
+			  		$reserva->user_id 				= $id_user;
+			  		$reserva->paypal_transaction_id = $transaction_id;
+			  		$reserva->paypal_user_id 		= $payer_id;
+			  		$reserva->cost 					= $amt;
+			  		$reserva->payed					= 0;
+			  		$reserva->save();			  																							
 										
-					//mando email					
-					$mail_res		= $email_plugin->sendDepositConfirmationEmail($buyer_email, $buyer_name, $fecha_inicio, $amt);
-					$mail_res2		= $email_plugin->sendDepositConfirmationEmailToClient($buyer_email, $fecha_inicio, $amt);
+					//send email to Client AND Admin about this new transaction									
+					//$mail_res		= $email_plugin->sendDepositConfirmationEmail($buyer_email, $buyer_name, $fecha_inicio, $amt);
+					//$mail_res2	= $email_plugin->sendDepositConfirmationEmailToClient($buyer_email, $fecha_inicio, $amt);
 					
 					//redirijo
-					if( isset($_GET['lan']) && $_GET['lan']=='eng'){																		
-						$this->_redirect($url.'?lan=eng&type=success&id_compra='.$id_compra);
-					}else{	
-						$this->_redirect($url.'?type=success&id_compra='.$id_compra);
-					}
+					//$this->_redirect($url.'?type=success&id_reservation='.$id_reserva);
+					echo 'DE LAS NAVES!!!  reservacion: '.$id_reserva.' USUARIO: '.$id_user;
 										
 				}else{
-					
-					//redirijo con error					
-					if( isset($_GET['lan']) && $_GET['lan']=='eng'){	
-						$email_plugin->sendPayPalError($replyData->L_LONGMESSAGE0);
-						$this->_redirect($url.'?lan=eng&type=error&msg='.$replyData->L_LONGMESSAGE0.'&monto='.$amount);
-					}else{
-						$email_plugin->sendPayPalError($replyData->L_LONGMESSAGE0);														
-						$this->_redirect($url.'?type=error&msg='.$replyData->L_LONGMESSAGE0.'&monto='.$amount);
-					}
-										
+								
+					//$email_plugin->sendPayPalError($replyData->L_LONGMESSAGE0);														
+					$this->_redirect($url.'?type=error&msg='.$replyData->L_LONGMESSAGE0.'&monto='.$amount);
+												
 				}
  									 										 						        
 			}else{
-				//redirijo con error					
-				if( isset($_GET['lan']) && $_GET['lan']=='eng'){
-					$email_plugin->sendPayPalError('en url - '.$url.'?lan=eng&type=error&msg=express_checkout_response_not_successful');																		
-					$this->_redirect($url.'?lan=eng&type=error&msg=express_checkout_response_not_successful');
-				}else{
-					$email_plugin->sendPayPalError('en url - '.$url.'?lan=eng&type=error&msg=express_checkout_response_not_successful');														
-					$this->_redirect($url.'?type=error&msg=express_checkout_response_not_successful');
-				}								
+				
+				//$email_plugin->sendPayPalError('en url - '.$url.'?lan=eng&type=error&msg=express_checkout_response_not_successful');														
+				$this->_redirect($url.'?type=error&msg=express_checkout_response_not_successful');
+										
 			}
 
     	}else{
-    		//redirijo con error					
-			if( isset($_GET['lan']) && $_GET['lan']=='eng'){																		
-				$this->_redirect($url.'?type=error&msg=required_params_missing&lan=eng');
-			}else{														
-				$this->_redirect($url.'?type=error&msg=required_params_missing');
-			}    		
+    		    															
+    		// PayerID and/or Token params are missing, can't do nothing
+			$this->_redirect($url.'?type=error&msg=required_params_missing');
+						    		
     	}
 		
     }
 
-    public function setexpresscheckoutAction()
-    {
+    public function setexpresscheckoutAction(){
     	            		
     	//if( isset($_POST['amt']) && $_POST['amt']!='' ){
          if( true ){ // ESTO ES UNA PRUEBA
@@ -295,36 +166,93 @@ class PaypalController extends Zend_Controller_Action
     		//$amount = (float)$_POST['amt'];
     		$amount = 1.0;    		
 	        require '../library/paypal/paypal_adapter.php';
-	        $url	= 'https://www.casasdelaplayadelapedrera.com'.Zend_Controller_Front::getInstance()->getBaseUrl();
+	        $url	= 'http://www.casasdelaplayadelapedrera.com'.Zend_Controller_Front::getInstance()->getBaseUrl();
 	        							
 	        try{
-	        	//consigo link para autorizar compra
-	        	$client = new PaypalAdapter();
-	        	$reply 	= $client->ecSetExpressCheckout($amount, $url.'/frontend/create-reserva?status=ok', $url.'/frontend/create-reserva?status=cancel', 'USD', $payment_action = 'Authorization');
 	        	
+	        	// params for temporary reservation
+	        	$house_id 			= $this->getRequest()->getParam('house_id');
+	        	$checkin			= $this->getRequest()->getParam('checkin');
+	        	$checkout			= $this->getRequest()->getParam('checkout');
+	        	// this is the total cost, the reservation is 50% of the cost
+	        	$cost				= $this->getRequest()->getParam('cost');	
+	        	$special_request	= $this->getRequest()->getParam('special_request');
+	        	$how_many_people	= $this->getRequest()->getParam('how_many_people');	        		        			        	
+	        	$date_created 		= date('Y-m-d H:i:s');
+	        	
+	        	//date calculations
+				require_once('../library/utils/fecha.class.php');
+				$fecha_obj = new Fecha($checkin);		
+				$checkin = $fecha_obj->getFecha()->format('Y-m-d');
+				$fecha_obj = new Fecha($checkout);
+				$checkout = $fecha_obj->getFecha()->format('Y-m-d');
+				
+				// math calculations
+				$how_many_nights = floor(abs(( strtotime($checkin) - strtotime($checkout)  )/86400));
+	        	
+	        	// db model
+	        	$reservation_model = new Application_Model_DbTable_Reservation();
+	        	// reservation
+	        	$reservation_id    = $reservation_model->createRow(array(
+	        										"house_id"			=> $house_id,
+	        										"checkin"			=> $checkin,
+	        										"checkout"			=> $checkout,
+	        										"cost"				=> $cost,
+	        										"special_request" 	=> $special_request,
+	        										"payed"				=> "1",
+	        										"date_created"		=> $date_created,
+	        										"howManyPeople"		=> $how_many_people,
+	        										"howManyNights"		=> $how_many_nights
+	        									))->save();
+	        					 	        	
+	        	// get link to pay the reservation from pay pal api
+	        	$client = new PaypalAdapter();
+	        	$reply 	= $client->ecSetExpressCheckout($amount, $url.'/paypal/pay?status=ok&reservation_id='.$reservation_id, $url.'/frontend/create-reserva?status=cancel&reservation_id='.$reservation_id, 'USD', $payment_action = 'Authorization');
+	        	
+	        	// reply successful (maybe with error but connection with api successful)
 		        if( $reply->isSuccessful() ){
-		        			        			        			        
+					
+					// parse into array the paypal reply data 							        			        			        			        
 		        	$replyData 	= $client->parse( $reply->getBody() );
-
+					
+		        	// no errors
 		        	if( $replyData->ACK == 'Success' ){
-						$token 		= $replyData->TOKEN;											        	               	        						
-						$link = urlencode( $client->api_expresscheckout_uri . '?&cmd=_express-checkout&token=' . $token );
+
+		        		// needed token
+						$token 	= $replyData->TOKEN;
+						// get link to pay											        	               	        						
+						$link 	= urlencode( $client->api_expresscheckout_uri . '?&cmd=_express-checkout&token=' . $token );
+						// create output
 						$output = '{ "success": "yes", "link": "'.$link.'" }';
-		        	}else{
-		        		$output = '{ "success": "no", "msg": "'.$replyData->L_LONGMESSAGE0.'" }';
+						
+		        	}else{		        		
+		        		// delete reservation    	
+    					$reservation_model->delete( array('id = ?' => $reservation_id) );
+		        		// response		        		
+		        		$output = '{ "success": "no", "msg": "'.$replyData->L_LONGMESSAGE0.'" }';		        		
 		        	}
 		        	
-		        }else{
-		        	$output = '{ "success": "no", "msg": "replay_not_success"  }';
-		        }		       
-	        }catch(Exception $e){ 
-	        	$output = '{ "success": "no", "msg": "'.$e->getMessage().'"  }';
+		        }else{		        	
+	        		// delete reservation    	
+    				$reservation_model->delete( array('id = ?' => $reservation_id) );
+	        		// response		        	 
+		        	$output = '{ "success": "no", "msg": "replay_not_success"  }';		        	
+		        }		      
+		         
+	        }catch(Exception $e){ 	        	
+        		// delete reservation
+        		if($reservation_id!=null && $reservation_id!="")    	
+    				$reservation_model->delete( array('id = ?' => $reservation_id) );
+        		// response
+	        	$output = '{ "success": "no", "msg": "'.$e->getMessage().'"  }';	        	
 	        }
 	        
-    	}else{
-    		$output = '{ "success": "no", "msg": "required_param_missing"  }';
+    	}else{    		
+    		// nothing happened, no parameters to perform action
+    		$output = '{ "success": "no", "msg": "required_param_missing"  }';    		
     	}
     	
+    	// return response to ajax call
     	echo $output;
 	            	
     }

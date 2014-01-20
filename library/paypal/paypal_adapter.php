@@ -4,7 +4,7 @@ class PaypalAdapter extends Zend_Http_Client{
       private $_api_version 	= '86.0';
       private $_api_username 	= 'casasdelaplaya_api1.gmail.com';
       //private $_api_password 	= 'TSSCMRXW9AEAM4HT';
-      //private $_api_signature 	= 'AFcWxV21C7fd0v3bYYYRCpSSRl31Ab7UHFUG5vt8id3D4Upy-FZUkjf5';
+      //private $_api_signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31Ab7UHFUG5vt8id3D4Upy-FZUkjf5';
       private $_api_password 	= '1390198640';
       private $_api_signature 	= 'AOBtmmlmHYGA-dSGm48FcijrxNpdAh40SnwoCXYV-xv.iN-FhNT1NrWz';
       private $_maxamt			= 5000;

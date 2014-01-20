@@ -1,4 +1,4 @@
-<?php
+f<?php
 
 class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 	
@@ -169,9 +169,9 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 	    $email_message	.= "Monto de pago:".trim($monto_pago)."<br/>";	  
 
 	     // Asunto y Direccion
-	    $email_to 		= "reservas@larubiahostel.com";
-	    $email_subject 	= "[La Rubia Hostel - Deposito Reserva - Web]";
-	    $email_name		= "La Rubia - Web";
+	    $email_to 		= "casasdelaplaya@gmail.com";
+	    $email_subject 	= "[Casas de la Playa - Nuevo Deposito Reserva - Web]";
+	    $email_name		= "Casas de la Playa - Web";
 									
 		//inicializo zend_mail
 		$this->init();
@@ -200,18 +200,18 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 		$fecha = date("F j, Y, g:i a", $fecha );
 		 
 	    // Cuerpo del Email
-		$email_message 		= "Datos de reserva en HOSTEL LA RUBIA: <br/><br/>";
+		$email_message 		= "Datos de reserva en Casas de la Playa: <br/><br/>";
 		$email_message 		.= "Fecha de envio: ".$fecha."<br/>";		    
 	    $email_message		.= "Fecha inicio estadia:".trim($fecha_inicio)."<br/>";	   
 	    $email_message		.= "Check in: 1:00pm <br/>";
-	    $email_message		.= "Email Contacto: reservas@larubiahostel.com <br/>"; 
-	    $email_message		.= "Tel Contacto: +(598) 94 451 544 <br/>";
+	    $email_message		.= "Email Contacto: casasdelaplaya@gmail.com <br/>"; 
+	    $email_message		.= "Tel Contacto: +(598) 98 805 930 <br/>";
 	    $email_message		.= "Monto de pago:".trim($monto_pago)."<br/>";	  
 
 	     // Asunto y Direccion
 	    $email_to 		= $email_to;
-	    $email_subject 	= "La Rubia Hostel - Confrima De Reserva";
-	    $email_name		= "La Rubia Hostel";
+	    $email_subject 	= "Casas de la Playa - Confrima De Reserva";
+	    $email_name		= "Casas de la Playa";
 									
 		//inicializo zend_mail
 		$this->init();
@@ -253,8 +253,8 @@ class Application_Plugin_EmailSender extends Zend_Controller_Plugin_Abstract{
 		
 	    // Asunto y Direccion
 	    $email_to 		= "gus.rivero.rodriguez@gmail.com";
-	    $email_subject 	= "[La Rubia Hostel - Error en Paypal]";
-	    $email_name		= "La Rubia - Error en Paypal";
+	    $email_subject 	= "[Casas de la Playa - Error en Paypal]";
+	    $email_name		= "Casas de la Playa - Error en Paypal";
 									
 		//inicializo zend_mail
 		$this->init();
