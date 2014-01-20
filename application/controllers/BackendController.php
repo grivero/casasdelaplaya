@@ -1,14 +1,16 @@
 <?php
 /**
- * 
  * Backend system controller
  * @author gustavo rivero
  * @date 1/10/2013
  * @email gus.rivero.rodriguez@gmail.com
+ *
  */
-class BackendController extends Zend_Controller_Action{
+class BackendController extends Zend_Controller_Action
+{
 
-    public function init(){
+    public function init()
+    {
     	    	
        	//i ask if was already loged
     	if( !Zend_Auth::getInstance()->hasIdentity() && $this->getRequest()->getActionName()!='login' ){			    	
@@ -19,15 +21,18 @@ class BackendController extends Zend_Controller_Action{
     	
     }
 
-    public function indexAction(){
+    public function indexAction()
+    {
         // action body
     }
 
-    public function loginAction(){
+    public function loginAction()
+    {
         // action body
     }
 
-    public function houseListAction(){
+    public function houseListAction()
+    {
     	
     	// action body
         $hab_model = new Application_Model_DbTable_House();
@@ -41,13 +46,26 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function userListAction(){
+    public function userListAction()
+    {
+    	
+    	// param
+    	$letter = $this->getRequest()->getParam('letter');
     	
         // action body
         $user_model = new Application_Model_DbTable_User();
-        $users = $user_model->select()->from('user')
+        
+        if( $letter!=null && strlen($letter)==1 ){
+        	$users = $user_model->select()->from('user')
+        								->where('last_name LIKE ?', $letter.'%')										
+										->order('name DESC')																								
+										->query()->fetchAll();
+        }else{        	        	
+        	$users = $user_model->select()->from('user')        													
 										->order('name DESC')															
-										->query()->fetchAll();	
+										->query()->fetchAll();        	
+        }
+        	
 		$this->view->users = $users;	
 		if ($this->_request->getParam('deleted') == 'ok'){
 			$this->view->msg = 'Mensaje fue borrado';
@@ -55,7 +73,8 @@ class BackendController extends Zend_Controller_Action{
 			
     }
 
-    public function messageListAction(){
+    public function messageListAction()
+    {
     	
     	// action body
         $message_model = new Application_Model_DbTable_Message();
@@ -69,7 +88,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function seasonListAction(){
+    public function seasonListAction()
+    {
     	
     	// models    	
     	$season_model = new Application_Model_DbTable_Season();    	
@@ -83,8 +103,9 @@ class BackendController extends Zend_Controller_Action{
 		}
 		
     }
-    
-	public function editSeasonAction(){    	
+
+    public function editSeasonAction()
+    {
     	//vars
     	$id 			= $_GET['id'];    	
     	$season_model 	= new Application_Model_DbTable_Season();
@@ -111,10 +132,13 @@ class BackendController extends Zend_Controller_Action{
         }else{
 			//show season info	        	
 			$this->view->season = $season;
+		
         }
-	}
-    
-    public function reservationListAction(){
+        
+    }
+
+    public function reservationListAction()
+    {
     	    
     	// models    	
     	$res_model 		= new Application_Model_DbTable_Reservation();    	
@@ -129,7 +153,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function deleteHouseAction(){
+    public function deleteHouseAction()
+    {
     	
          // action body
          $id_habitacion = $_GET['id'];
@@ -139,7 +164,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-    public function viewHouseAction(){
+    public function viewHouseAction()
+    {
         // action body
         $id = $_GET['id'];    
         $hab_model = new Application_Model_DbTable_House();
@@ -151,7 +177,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function editHouseAction(){    	
+    public function editHouseAction()
+    {
     	//vars
     	$id 		= $_GET['id'];    	
     	$hab_model 	= new Application_Model_DbTable_House();
@@ -165,6 +192,7 @@ class BackendController extends Zend_Controller_Action{
     		$house_edit->low_price		= trim( $this->_request->getParam('low_price') );
     		$house_edit->medium_price	= trim( $this->_request->getParam('medium_price') );
     		$house_edit->special_price  = trim( $this->_request->getParam('special_price') );
+    		$house_edit->carnival_price  = trim( $this->_request->getParam('carnival_price') );
 			$house_edit->save();    		  		    		
         	$this->_forward('view-house','backend','default',array("edited"=>"ok","id"=>$id));
         }else{
@@ -178,7 +206,8 @@ class BackendController extends Zend_Controller_Action{
         
     }
 
-    public function addHouseAction(){
+    public function addHouseAction()
+    {
 				
     	if($this->getRequest()->getParam('add')=='true'){
 	    	//vars    	    	
@@ -190,9 +219,10 @@ class BackendController extends Zend_Controller_Action{
 	    	$low_price		= trim( $this->_request->getParam('low_price') );
 	    	$medium_price	= trim( $this->_request->getParam('medium_price') );
 	    	$special_price  = trim( $this->_request->getParam('special_price') );		
+	    	$carnival_price  = trim( $this->_request->getParam('carnival_price') );
 			$date_created 	= date('Y-m-d H:i:s');
 			
-			$id = $hab_model->createRow(array("name"=>$name, "description"=>$description, "high_price"=>$high_price, 
+			$id = $hab_model->createRow(array("carnival_price"=>$carnival_price, "name"=>$name, "description"=>$description, "high_price"=>$high_price, 
 		        								"low_price"=>$low_price, "medium_price"=>$medium_price, "special_price"=>$special_price, "date_created"=>$date_created )) 	        										
 			        	  			 ->save();
         	$this->_forward('house-list','backend','default',array("added"=>"ok","id"=>$id));
@@ -200,7 +230,8 @@ class BackendController extends Zend_Controller_Action{
         
     }
 
-    public function deleteMessageAction(){
+    public function deleteMessageAction()
+    {
     	
          // action body
          $id_message = $_GET['id'];
@@ -210,7 +241,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-    public function editUserAction(){
+    public function editUserAction()
+    {
     	
     	//vars
     	$id 		= $_GET['id'];    	
@@ -247,9 +279,11 @@ class BackendController extends Zend_Controller_Action{
 											->query()->fetchAll();	
 			$this->view->user = $users[0];
         }
+        
     }
 
-    public function addUserAction(){
+    public function addUserAction()
+    {
         
     	// vars
     	$id 			= $_GET['id'];    	
@@ -288,8 +322,9 @@ class BackendController extends Zend_Controller_Action{
         }
         
     }
-    
-	public function deleteUserAction(){
+
+    public function deleteUserAction()
+    {
          
 		// vars
          $id_user = $_GET['id'];
@@ -310,7 +345,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-    public function viewUserAction(){
+    public function viewUserAction()
+    {
     	
 		//vars
     	$id 			= $_GET['id'];    	
@@ -342,7 +378,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function viewReservationAction(){
+    public function viewReservationAction()
+    {
     	
     	// vars
     	$id 			= $_GET['id'];
@@ -369,7 +406,8 @@ class BackendController extends Zend_Controller_Action{
 				
     }
 
-	public function addReservationAction(){
+    public function addReservationAction()
+    {
 		
     	// models    	
     	$user_model = new Application_Model_DbTable_User();
@@ -417,8 +455,9 @@ class BackendController extends Zend_Controller_Action{
     	}
     	
     }
-    
-	public function editReservationAction(){
+
+    public function editReservationAction()
+    {
     	
 		// models    	
     	$user_model = new Application_Model_DbTable_User();
@@ -454,7 +493,8 @@ class BackendController extends Zend_Controller_Action{
     	    	
     }
 
-	public function deleteReservationAction(){
+    public function deleteReservationAction()
+    {
 		
 		// vars
     	$id 			= $_GET['id'];
@@ -469,7 +509,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-	public function postListAction(){
+    public function postListAction()
+    {
 		
 		// model
     	$post_model = new Application_Model_DbTable_Post();
@@ -502,8 +543,9 @@ class BackendController extends Zend_Controller_Action{
     	$this->view->posts = $posts;
     	
     }
-    
-    public function addPostAction(){
+
+    public function addPostAction()
+    {
     	
     	// model
     	$post_model = new Application_Model_DbTable_Post();
@@ -567,8 +609,9 @@ class BackendController extends Zend_Controller_Action{
     	}
 				    	
     }
-    
-	public function editPostAction(){
+
+    public function editPostAction()
+    {
 		
 		// vars
     	$id 			= $_GET['id'];    	
@@ -624,8 +667,9 @@ class BackendController extends Zend_Controller_Action{
         $this->view->post = $post;
             	
     }
-    
-	public function viewPostAction(){
+
+    public function viewPostAction()
+    {
     	
 		// vars
 		$id = $this->getRequest()->getParam('id');
@@ -646,8 +690,9 @@ class BackendController extends Zend_Controller_Action{
     	$this->view->img  = $img;
     	
     }
-    
-    public function deletePostAction(){
+
+    public function deletePostAction()
+    {
     	
     	// action body
         $id_post = $_GET['id'];
@@ -656,8 +701,9 @@ class BackendController extends Zend_Controller_Action{
      	$this->_forward('post-list','backend','default',array("deleted"=>'ok'));
      	
     }
-    
- 	public function viewCalendarAction(){
+
+    public function viewCalendarAction()
+    {
     	
  		//get current month
  		
@@ -668,6 +714,57 @@ class BackendController extends Zend_Controller_Action{
  		//create map to easly track information
  		
     }
+	
+	public function calendarAction(){
+		
+		// remove standard admin layout
+		$this->_helper->layout->disableLayout();
+    	
+		// needed params
+		$fecha_ini = '2014-1-1';
+		$fecha_fin = '2014-1-31'; 
+		
+    	 // model		
+		$user_model 		= new Application_Model_DbTable_User();
+		$reservation_model	= new Application_Model_DbTable_Reservation();
+		$house_model		= new Application_Model_DbTable_House();
+
+		// get reservations between two dates
+		$reservations = $reservation_model->select()->from('reservation')
+    										->where("checkin >= $fecha_ini")    										    																																				    										
+											->query()->fetchAll();
+											/**
+											 * MEJORAR QUERY para que no me traiga reservas innecesarias
+											 */
+		
+		// create event json array
+		$out = array();
+		foreach($reservations as $row) {
+			
+			$user 	= $user_model->find( $row['user_id'] )->current();
+			$house 	= $house_model->find( $row['house_id'] )->current();
+			
+		    $out[] = array(
+		        'id' => $row['id'],
+		        'title' => $house->name,
+		    	'house_name' => $house->name,
+		    	'user_name' => $user->name,
+		        'reservation_url' => $this->baseUrl.'/backend/view-reservation?id='.$row['id'],
+		    	'user_url' => $this->baseUrl.'/backend/view-user?id='.$row['user_id'],
+		    	'house_url' => $this->baseUrl.'/backend/view-house?id='.$row['house_id'],
+		        'start' => strtotime($row['checkin']) . '000',
+		    	'end' => strtotime($row['checkout']) . '000'
+		    );
+		}
+		
+		// pass jason array into the view
+		$this->view->events = json_encode($out);			
+    	
+		// calculator plugin test
+		$calc = new Application_Plugin_ReservationCalculator();
+		$price = $calc->getPrecioReserva("4","2014-2-1","2014-2-28");
+		$this->view->price = $price;
+				                                                                   
+    }
 
 }
-

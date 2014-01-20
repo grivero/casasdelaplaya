@@ -287,13 +287,15 @@ class PaypalController extends Zend_Controller_Action
 
     public function setexpresscheckoutAction()
     {
-            		
-    	if( isset($_POST['amt']) && $_POST['amt']!='' ){
-    		
+    	            		
+    	//if( isset($_POST['amt']) && $_POST['amt']!='' ){
+         if( true ){ // ESTO ES UNA PRUEBA
+            				
     		//vars
-    		$amount = (float)$_POST['amt'];    		
+    		//$amount = (float)$_POST['amt'];
+    		$amount = 1.0;    		
 	        require '../library/paypal/paypal_adapter.php';
-	        $url	= 'http://www.casasdelaplayadelapedrera.com'.Zend_Controller_Front::getInstance()->getBaseUrl();
+	        $url	= 'https://www.casasdelaplayadelapedrera.com'.Zend_Controller_Front::getInstance()->getBaseUrl();
 	        							
 	        try{
 	        	//consigo link para autorizar compra

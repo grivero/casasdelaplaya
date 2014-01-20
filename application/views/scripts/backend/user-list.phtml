@@ -1,6 +1,39 @@
  <?= $this->getAdminLayout('Usuarios') ?>	   
       <h3 class="tit">Listado de Usuarios</h3>
-      <?php 
+      
+      <div class="pagLetras"> 
+      	<a href="<?=$this->baseUrl()?>/backend/user-list?letter=A">A</a>
+        <a href="<?=$this->baseUrl()?>/backend/user-list?letter=B">B</a>
+        <a href="<?=$this->baseUrl()?>/backend/user-list?letter=C">C</a>
+        <a href="<?=$this->baseUrl()?>/backend/user-list?letter=D">D</a>
+        <a href="<?=$this->baseUrl()?>/backend/user-list?letter=E">E</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=F" >F</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=G" >G</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=H" >H</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=I" >I</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=J" >J</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=K" >K</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=L" >L</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=M" >M</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=N" >N</a>                  
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=O" >O</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=P" >P</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=Q" >Q</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=R" >R</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=S" >S</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=T" >T</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=U" >U</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=V" >V</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=W" >W</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=X" >X</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=Y" >Y</a>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list?letter=Z" >Z</a>
+                  <br/><br/>
+                  <a href="<?=$this->baseUrl()?>/backend/user-list" >Ver Todos</a>
+                  <br/><br/>
+              </div>
+      
+      <?php
 	if ($_GET['edited']=='ok') { 
 		echo '<p class="msg done">Se ha editado la Usuario con &eacute;xito!</p>'; 
  	}else if ($_GET['status']=='fail') { 
