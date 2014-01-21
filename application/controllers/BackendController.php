@@ -722,7 +722,11 @@ class BackendController extends Zend_Controller_Action
     	
 		// needed params
 		$fecha_ini = '2014-1-1';
-		$fecha_fin = '2014-1-31'; 
+		$fecha_fin = '2014-1-31';
+
+		//  https://github.com/Serhioromano/bootstrap-calendar/pull/182 - Sent by calendar automatically to set events correctly			
+		$start = $_REQUEST['from'] / 1000;
+		$end   = $_REQUEST['to'] / 1000;
 		
     	 // model		
 		$user_model 		= new Application_Model_DbTable_User();
@@ -745,16 +749,17 @@ class BackendController extends Zend_Controller_Action
 			$house 	= $house_model->find( $row['house_id'] )->current();
 			
 		    $out[] = array(
-		        'id' => $row['id'],
-		        'title' => $house->name,
-		    	'house_name' => $house->name,
-		    	'user_name' => $user->name,
-		        'reservation_url' => $this->baseUrl.'/backend/view-reservation?id='.$row['id'],
-		    	'user_url' => $this->baseUrl.'/backend/view-user?id='.$row['user_id'],
-		    	'house_url' => $this->baseUrl.'/backend/view-house?id='.$row['house_id'],
-		        'start' => strtotime($row['checkin']) . '000',
-		    	'end' => strtotime($row['checkout']) . '000'
+		        'id' 				=> $row['id'],
+		        'title' 			=> $house->name,
+		    	'house_name' 		=> $house->name,
+		    	'user_name' 		=> $user->name,
+		        'reservation_url' 	=> $this->baseUrl.'/backend/view-reservation?id='.$row['id'],
+		    	'user_url' 			=> $this->baseUrl.'/backend/view-user?id='.$row['user_id'],
+		    	'house_url' 		=> $this->baseUrl.'/backend/view-house?id='.$row['house_id'],
+		        'start' 			=> strtotime($row['checkin']) . '000',
+		    	'end' 				=> strtotime($row['checkout']) . '000'
 		    );
+		    		   
 		}
 		
 		// pass jason array into the view
@@ -763,7 +768,8 @@ class BackendController extends Zend_Controller_Action
 		// calculator plugin test
 		$calc = new Application_Plugin_ReservationCalculator();
 		$price = $calc->getPrecioReserva("4","2014-2-1","2014-2-28");
-		$this->view->price = $price;
+		$this->view->cost = $price;
+		$this->view->price = $price*0.5;
 				                                                                   
     }
 

@@ -272,7 +272,7 @@ class Application_View_Helper_GetAdminLayout extends Zend_View_Helper_Abstract{
 	   			   		
    			}else{
    				$mid_content =	'<li><a href="'.$baseUrl.'/backend/house-list"><span>Casas</span></a></li>'.
-   								'<li><a href="'.$baseUrl.'/backend/calendar"><span>Calendario<span></a></li>'.     
+   								'<li><a href="'.$baseUrl.'/backend/calendar"><span>Calendario</span></a></li>'.    
 							'<li><a href="'.$baseUrl.'/backend/message-list"><span>Mensajes</span></a></li>'.                		
 							'<li><a href="'.$baseUrl.'/backend/post-list"><span>Posts</span></a></li>'.
 				            '<li><a href="'.$baseUrl.'/backend/reservation-list"><span>Reservas</span></a></li>'.
