@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function validateForm(){
-	if( $('#name').val()=='' || $('#high_price').val()=='' || $('#medium_price').val()=='' || 
+	if( $('#name').val()=='' || $('#high_price').val()=='' || $('#medium_price').val()=='' || $('#type').val()=='' || 
 			$('#low_price').val()=='' || $('#special_price').val()=='' ){
 		alert('Complete todos los campos');
 		return false;
@@ -24,6 +24,16 @@ function validateForm(){
 						<tr>
 							<td>Nombre:</td>
 							<td><input type="text" size="40" name="name" id="name" class="input-text" value="<?= $this->house['name']; ?>" /></td>
+						</tr>
+						<tr>
+							<td>Cantidad de personas:</td>
+							<td>
+								<select name="type" id="type">  								
+	  								<option value="<?=$this->house['type']?>"><?=$this->house['type']?></option>
+	  								<option value="4">4</option>  
+	  								<option value="6">6</option>
+								</select>
+							</td>
 						</tr>	                    
 	                    <tr>
 							<td>Precio Temporada Alta:</td>

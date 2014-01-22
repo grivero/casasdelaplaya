@@ -193,6 +193,7 @@ class BackendController extends Zend_Controller_Action
     		$house_edit->medium_price	= trim( $this->_request->getParam('medium_price') );
     		$house_edit->special_price  = trim( $this->_request->getParam('special_price') );
     		$house_edit->carnival_price  = trim( $this->_request->getParam('carnival_price') );
+    		$house_edit->type			= trim( $this->_request->getParam('type') );
 			$house_edit->save();    		  		    		
         	$this->_forward('view-house','backend','default',array("edited"=>"ok","id"=>$id));
         }else{
@@ -220,10 +221,11 @@ class BackendController extends Zend_Controller_Action
 	    	$medium_price	= trim( $this->_request->getParam('medium_price') );
 	    	$special_price  = trim( $this->_request->getParam('special_price') );		
 	    	$carnival_price  = trim( $this->_request->getParam('carnival_price') );
+	    	$type			=  trim( $this->_request->getParam('type') );
 			$date_created 	= date('Y-m-d H:i:s');
 			
 			$id = $hab_model->createRow(array("carnival_price"=>$carnival_price, "name"=>$name, "description"=>$description, "high_price"=>$high_price, 
-		        								"low_price"=>$low_price, "medium_price"=>$medium_price, "special_price"=>$special_price, "date_created"=>$date_created )) 	        										
+		        								"low_price"=>$low_price, "medium_price"=>$medium_price, "special_price"=>$special_price, "date_created"=>$date_created, "type"=>$type )) 	        										
 			        	  			 ->save();
         	$this->_forward('house-list','backend','default',array("added"=>"ok","id"=>$id));
     	}
@@ -299,7 +301,7 @@ class BackendController extends Zend_Controller_Action
     		$country		= trim( $this->_request->getParam('country') );
     		$city			= trim( $this->_request->getParam('city') );
     		$phone  		= trim( $this->_request->getParam('phone') );
-    		$email  		= trim( $this->_request->getParam('email') );
+    		$email  		= trim( $this->_request->getParam('email') );    		
     		$date_created   = date('Y-m-d H:i:s');
     		
     		// date calculations
