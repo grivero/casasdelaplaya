@@ -4,3 +4,9 @@ README.txt
 demos/
 extras/documentation
 
+library/Zend/
+public/uploads/
+library/ZendX/
+library/paypal/.svn/all-wcprops
+library/paypal/.svn/entries
+library/paypal/.svn/text-base/paypal_adapter.php.svn-base
