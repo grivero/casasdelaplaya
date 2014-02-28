@@ -337,5 +337,10 @@ class FrontendController extends Zend_Controller_Action
         // action body
     }
 
-
+  	public function cancelacionAction()
+    {
+        //to clean response page
+    	$this->_helper->layout->disableLayout();
+    }
+    
 }
