@@ -1,14 +1,16 @@
 <?php
 /**
- * 
  * Backend system controller
  * @author gustavo rivero
  * @date 1/10/2013
  * @email gus.rivero.rodriguez@gmail.com
+ *
  */
-class BackendController extends Zend_Controller_Action{
+class BackendController extends Zend_Controller_Action
+{
 
-    public function init(){
+    public function init()
+    {
     	    	
        	//i ask if was already loged
     	if( !Zend_Auth::getInstance()->hasIdentity() && $this->getRequest()->getActionName()!='login' ){			    	
@@ -19,15 +21,18 @@ class BackendController extends Zend_Controller_Action{
     	
     }
 
-    public function indexAction(){
+    public function indexAction()
+    {
         // action body
     }
 
-    public function loginAction(){
+    public function loginAction()
+    {
         // action body
     }
 
-    public function houseListAction(){
+    public function houseListAction()
+    {
     	
     	// action body
         $hab_model = new Application_Model_DbTable_House();
@@ -41,13 +46,26 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function userListAction(){
+    public function userListAction()
+    {
+    	
+    	// param
+    	$letter = $this->getRequest()->getParam('letter');
     	
         // action body
         $user_model = new Application_Model_DbTable_User();
-        $users = $user_model->select()->from('user')
+        
+        if( $letter!=null && strlen($letter)==1 ){
+        	$users = $user_model->select()->from('user')
+        								->where('last_name LIKE ?', $letter.'%')										
+										->order('name DESC')																								
+										->query()->fetchAll();
+        }else{        	        	
+        	$users = $user_model->select()->from('user')        													
 										->order('name DESC')															
-										->query()->fetchAll();	
+										->query()->fetchAll();        	
+        }
+        	
 		$this->view->users = $users;	
 		if ($this->_request->getParam('deleted') == 'ok'){
 			$this->view->msg = 'Mensaje fue borrado';
@@ -55,7 +73,8 @@ class BackendController extends Zend_Controller_Action{
 			
     }
 
-    public function messageListAction(){
+    public function messageListAction()
+    {
     	
     	// action body
         $message_model = new Application_Model_DbTable_Message();
@@ -69,7 +88,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function seasonListAction(){
+    public function seasonListAction()
+    {
     	
     	// models    	
     	$season_model = new Application_Model_DbTable_Season();    	
@@ -83,8 +103,9 @@ class BackendController extends Zend_Controller_Action{
 		}
 		
     }
-    
-	public function editSeasonAction(){    	
+
+    public function editSeasonAction()
+    {
     	//vars
     	$id 			= $_GET['id'];    	
     	$season_model 	= new Application_Model_DbTable_Season();
@@ -111,10 +132,13 @@ class BackendController extends Zend_Controller_Action{
         }else{
 			//show season info	        	
 			$this->view->season = $season;
+		
         }
-	}
-    
-    public function reservationListAction(){
+        
+    }
+
+    public function reservationListAction()
+    {
     	    
     	// models    	
     	$res_model 		= new Application_Model_DbTable_Reservation();    	
@@ -129,7 +153,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function deleteHouseAction(){
+    public function deleteHouseAction()
+    {
     	
          // action body
          $id_habitacion = $_GET['id'];
@@ -139,7 +164,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-    public function viewHouseAction(){
+    public function viewHouseAction()
+    {
         // action body
         $id = $_GET['id'];    
         $hab_model = new Application_Model_DbTable_House();
@@ -151,7 +177,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function editHouseAction(){    	
+    public function editHouseAction()
+    {
     	//vars
     	$id 		= $_GET['id'];    	
     	$hab_model 	= new Application_Model_DbTable_House();
@@ -165,6 +192,8 @@ class BackendController extends Zend_Controller_Action{
     		$house_edit->low_price		= trim( $this->_request->getParam('low_price') );
     		$house_edit->medium_price	= trim( $this->_request->getParam('medium_price') );
     		$house_edit->special_price  = trim( $this->_request->getParam('special_price') );
+    		$house_edit->carnival_price  = trim( $this->_request->getParam('carnival_price') );
+    		$house_edit->type			= trim( $this->_request->getParam('type') );
 			$house_edit->save();    		  		    		
         	$this->_forward('view-house','backend','default',array("edited"=>"ok","id"=>$id));
         }else{
@@ -178,7 +207,8 @@ class BackendController extends Zend_Controller_Action{
         
     }
 
-    public function addHouseAction(){
+    public function addHouseAction()
+    {
 				
     	if($this->getRequest()->getParam('add')=='true'){
 	    	//vars    	    	
@@ -190,17 +220,20 @@ class BackendController extends Zend_Controller_Action{
 	    	$low_price		= trim( $this->_request->getParam('low_price') );
 	    	$medium_price	= trim( $this->_request->getParam('medium_price') );
 	    	$special_price  = trim( $this->_request->getParam('special_price') );		
+	    	$carnival_price  = trim( $this->_request->getParam('carnival_price') );
+	    	$type			=  trim( $this->_request->getParam('type') );
 			$date_created 	= date('Y-m-d H:i:s');
 			
-			$id = $hab_model->createRow(array("name"=>$name, "description"=>$description, "high_price"=>$high_price, 
-		        								"low_price"=>$low_price, "medium_price"=>$medium_price, "special_price"=>$special_price, "date_created"=>$date_created )) 	        										
+			$id = $hab_model->createRow(array("carnival_price"=>$carnival_price, "name"=>$name, "description"=>$description, "high_price"=>$high_price, 
+		        								"low_price"=>$low_price, "medium_price"=>$medium_price, "special_price"=>$special_price, "date_created"=>$date_created, "type"=>$type )) 	        										
 			        	  			 ->save();
         	$this->_forward('house-list','backend','default',array("added"=>"ok","id"=>$id));
     	}
         
     }
 
-    public function deleteMessageAction(){
+    public function deleteMessageAction()
+    {
     	
          // action body
          $id_message = $_GET['id'];
@@ -210,7 +243,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-    public function editUserAction(){
+    public function editUserAction()
+    {
     	
     	//vars
     	$id 		= $_GET['id'];    	
@@ -247,9 +281,11 @@ class BackendController extends Zend_Controller_Action{
 											->query()->fetchAll();	
 			$this->view->user = $users[0];
         }
+        
     }
 
-    public function addUserAction(){
+    public function addUserAction()
+    {
         
     	// vars
     	$id 			= $_GET['id'];    	
@@ -265,7 +301,7 @@ class BackendController extends Zend_Controller_Action{
     		$country		= trim( $this->_request->getParam('country') );
     		$city			= trim( $this->_request->getParam('city') );
     		$phone  		= trim( $this->_request->getParam('phone') );
-    		$email  		= trim( $this->_request->getParam('email') );
+    		$email  		= trim( $this->_request->getParam('email') );    		
     		$date_created   = date('Y-m-d H:i:s');
     		
     		// date calculations
@@ -288,8 +324,9 @@ class BackendController extends Zend_Controller_Action{
         }
         
     }
-    
-	public function deleteUserAction(){
+
+    public function deleteUserAction()
+    {
          
 		// vars
          $id_user = $_GET['id'];
@@ -310,7 +347,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-    public function viewUserAction(){
+    public function viewUserAction()
+    {
     	
 		//vars
     	$id 			= $_GET['id'];    	
@@ -342,7 +380,8 @@ class BackendController extends Zend_Controller_Action{
 		
     }
 
-    public function viewReservationAction(){
+    public function viewReservationAction()
+    {
     	
     	// vars
     	$id 			= $_GET['id'];
@@ -369,7 +408,8 @@ class BackendController extends Zend_Controller_Action{
 				
     }
 
-	public function addReservationAction(){
+    public function addReservationAction()
+    {
 		
     	// models    	
     	$user_model = new Application_Model_DbTable_User();
@@ -382,9 +422,9 @@ class BackendController extends Zend_Controller_Action{
     		$users 	= $user_model->fetchAll()->toArray();
     		$houses = $house_model->fetchAll()->toArray();
     		
-			//data to view		
-			$this->view->users 	= $users;
-			$this->view->houses	= $houses;
+			//data to view					
+			$this->view->orderHouses = $this->orderArray ($houses, "name");
+			$this->view->orderUsers = $this->orderArray ($users, "name");			
 											
     	}else{
     		
@@ -417,8 +457,9 @@ class BackendController extends Zend_Controller_Action{
     	}
     	
     }
-    
-	public function editReservationAction(){
+
+    public function editReservationAction()
+    {
     	
 		// models    	
     	$user_model = new Application_Model_DbTable_User();
@@ -433,6 +474,31 @@ class BackendController extends Zend_Controller_Action{
     	
     	if($this->getRequest()->getParam('edit')=='true'){
     		
+    		// vars to save
+    		$checkin			= trim( $this->getRequest()->getParam('checkin') );
+    		$checkout			= trim( $this->getRequest()->getParam('checkout') );    		
+    		$house_id			= trim( $this->getRequest()->getParam('house_id') );
+    		$payed				= trim( $this->getRequest()->getParam('payed') );
+    		$special_request 	= trim( $this->getRequest()->getParam('special_request') );
+    		$cost				= trim( $this->getRequest()->getParam('cost') );
+    		$howManyPeople		= trim( $this->getRequest()->getParam('howManyPeople') );    		
+    		
+    		// date manipulations    		
+			require_once('../library/utils/fecha.class.php');
+			$fecha 		= new Fecha($checkin);		
+			$checkin 	= $fecha->getFecha()->format('Y-m-d');
+			$fecha		= new Fecha($checkout);
+			$checkout 	= $fecha->getFecha()->format('Y-m-d');
+			
+			$reservation = $res_model->find($id)->current();
+			$reservation->checkin = $checkin;
+			$reservation->checkout = $checkin;
+			$reservation->house_id = $house_id;
+			$reservation->payed		= $payed;
+			$reservation->special_request = $special_request;
+			$reservation->cost		= $cost;
+			$reservation->howManyPeople = $howManyPeople;
+			
     	}else{
     		    	    	
 			// data    	    	    									
@@ -448,13 +514,14 @@ class BackendController extends Zend_Controller_Action{
 			$this->view->guests			= $guests;
 			$this->view->user			= $user;
 			$this->view->house			= $house;
-			$this->view->houses			= $houses;
+			$this->view->houses			= $this->orderArray ($houses, "name");
 			
     	}
     	    	
     }
 
-	public function deleteReservationAction(){
+    public function deleteReservationAction()
+    {
 		
 		// vars
     	$id 			= $_GET['id'];
@@ -469,7 +536,8 @@ class BackendController extends Zend_Controller_Action{
 	     
     }
 
-	public function postListAction(){
+    public function postListAction()
+    {
 		
 		// model
     	$post_model = new Application_Model_DbTable_Post();
@@ -502,8 +570,9 @@ class BackendController extends Zend_Controller_Action{
     	$this->view->posts = $posts;
     	
     }
-    
-    public function addPostAction(){
+
+    public function addPostAction()
+    {
     	
     	// model
     	$post_model = new Application_Model_DbTable_Post();
@@ -515,7 +584,7 @@ class BackendController extends Zend_Controller_Action{
 	    	//get all users
 	    	$users 	= $user_model->fetchAll()->toArray();    		    		
 			//data to view		
-			$this->view->users 	= $users;
+			$this->view->users 	= $this->orderArray ($users, "name");
 					
     	}else if( $this->getRequest()->getParam('add')=='true' ){
     		
@@ -536,7 +605,8 @@ class BackendController extends Zend_Controller_Action{
 			$ranking		= $this->getRequest()->getParam('ranking');
 			$description	= $this->getRequest()->getParam('description');
 			$apporved		= $this->getRequest()->getParam('approved');
-			$title			= $this->getRequest()->getParam('title');			
+			$title			= $this->getRequest()->getParam('title');
+			$web			= $this->getRequest()->getParam('web');			
 			$date_created 	= date('Y-m-d H:i:s');
 			$approver_id	= '1'; 	
 			
@@ -548,7 +618,7 @@ class BackendController extends Zend_Controller_Action{
 								 	  
 				$post_id = $post_model->createRow(array("image_id"=>$image_id, "user_id"=>$user_id, "date_created"=>$date_created,
 										 			"ranking"=>$ranking, "approved"=>$apporved, "approver_id"=>$approver_id,
-													"description"=>$description, "title"=>$title ))->save();
+													"description"=>$description, "title"=>$title, "web"=>$web ))->save();
 
 				//update image row with post_id
 				$image_to_update = $img_model->find($image_id)->current();
@@ -566,8 +636,9 @@ class BackendController extends Zend_Controller_Action{
     	}
 				    	
     }
-    
-	public function editPostAction(){
+
+    public function editPostAction()
+    {
 		
 		// vars
     	$id 			= $_GET['id'];    	
@@ -579,7 +650,8 @@ class BackendController extends Zend_Controller_Action{
         	
         	// edit post basic info        	
         	$post->title		= trim( $this->_request->getParam('title') );    		
-    		$post->description	= trim( $this->_request->getParam('description') );    		
+    		$post->description	= trim( $this->_request->getParam('description') );
+    		$post->web			= trim( $this->_request->getParam('web') );    		
     		$post->ranking		= $this->_request->getParam('ranking');
     		$post->approved		= $this->_request->getParam('approved');
     		    		        
@@ -622,8 +694,9 @@ class BackendController extends Zend_Controller_Action{
         $this->view->post = $post;
             	
     }
-    
-	public function viewPostAction(){
+
+    public function viewPostAction()
+    {
     	
 		// vars
 		$id = $this->getRequest()->getParam('id');
@@ -644,8 +717,9 @@ class BackendController extends Zend_Controller_Action{
     	$this->view->img  = $img;
     	
     }
-    
-    public function deletePostAction(){
+
+    public function deletePostAction()
+    {
     	
     	// action body
         $id_post = $_GET['id'];
@@ -654,8 +728,9 @@ class BackendController extends Zend_Controller_Action{
      	$this->_forward('post-list','backend','default',array("deleted"=>'ok'));
      	
     }
-    
- 	public function viewCalendarAction(){
+
+    public function viewCalendarAction()
+    {
     	
  		//get current month
  		
@@ -666,6 +741,87 @@ class BackendController extends Zend_Controller_Action{
  		//create map to easly track information
  		
     }
+	
+	public function calendarAction(){
+		
+		// remove standard admin layout
+		$this->_helper->layout->disableLayout();
+    	
+		// needed params
+		$fecha_ini = '2014-1-1';
+		$fecha_fin = '2014-1-31';
+
+		//  https://github.com/Serhioromano/bootstrap-calendar/pull/182 - Sent by calendar automatically to set events correctly			
+		$start = $_REQUEST['from'] / 1000;
+		$end   = $_REQUEST['to'] / 1000;
+		
+    	 // model		
+		$user_model 		= new Application_Model_DbTable_User();
+		$reservation_model	= new Application_Model_DbTable_Reservation();
+		$house_model		= new Application_Model_DbTable_House();
+
+		// get reservations between two dates
+		$reservations = $reservation_model->select()->from('reservation')
+    										->where("checkin >= $fecha_ini")    										    																																				    										
+											->query()->fetchAll();
+											/**
+											 * MEJORAR QUERY para que no me traiga reservas innecesarias
+											 */
+		
+		// create event json array
+		$out = array();
+		foreach($reservations as $row) {
+			
+			$user 	= $user_model->find( $row['user_id'] )->current();
+			$house 	= $house_model->find( $row['house_id'] )->current();
+			
+		    $out[] = array(
+		        'id' 				=> $row['id'],
+		    	'class'				=> ( $house->type=='4' ) ? 'event-warning' : 'event-info',
+		        'title' 			=> 'Casa: '.$house->name.'<br/>&nbsp;Inquilino: '.$user->name,		    	
+		        'url' 				=> $this->view->baseUrl().'/backend/view-reservation?id='.$row['id'],		    	
+		        'start' 			=> strtotime($row['checkin']) . '000',
+		    	'end' 				=> strtotime($row['checkout']) . '000'
+		    );
+		    		   
+		}
+		
+		// pass jason array into the view
+		$this->view->events = json_encode($out);			
+    	
+		// calculator plugin test
+		$calc = new Application_Plugin_ReservationCalculator();
+		$price = $calc->getPrecioReserva("4","2014-2-1","2014-2-28");
+		$this->view->cost = $price;
+		$this->view->price = $price*0.5;
+				                                                                   
+    }
+    
+    /**
+     * 
+     * Order multidimension arrays using one field ...
+     * @param $toOrderArray, the multidimension array to order
+     * @param $field, field to use to order, example "name"
+     * @param $inverse, false to desc, true to asc
+     */
+	private function orderArray ($toOrderArray, $field, $inverse = false) {  
+	    $position = array();  
+	    $newRow = array();  
+	    foreach ($toOrderArray as $key => $row) {  
+	            $position[$key]  = $row[$field];  
+	            $newRow[$key] = $row;  
+	    }  
+	    if ($inverse) {  
+	        arsort($position);  
+	    }  
+	    else {  
+	        asort($position);  
+	    }  
+	    $returnArray = array();  
+	    foreach ($position as $key => $pos) {       
+	        $returnArray[] = $newRow[$key];  
+	    }  
+	    return $returnArray;  
+	}
 
 }
-

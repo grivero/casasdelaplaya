@@ -1,0 +1,115 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		call_paypal();
+		
+		// Support for AJAX loaded modal window.
+		// Focuses on first input textbox after it loads the window.
+/**		$('[data-toggle="modal"]').click(function(e) {
+			e.preventDefault();
+			var url = $(this).attr('href');
+			if (url.indexOf('#') == 0) {
+				$(url).modal('open');
+			} else {
+				$.get(url, function(data) { 
+					$('<div class="modal hide fade span10">' + data + '</div>').modal();
+				}).success(function() { $('input:text:visible:first').focus(); });
+			}
+		}); **/	
+
+			
+		$("body").addClass("actividades");
+
+		<?php 
+			if(isset( $_GET['status'] )){
+				if( $_GET['status']=='ok' && $_GET['action']=='addPost' ){
+		?>
+					alert('Muchas gracias por agregar su actividad, la misma sera supervisada por nuestros administradores antes de ser publicada en nuestro sitio.');
+		<?php		
+				}else if( $_GET['status']=='fail' ){
+		?>
+					alert('Algo ha salido mal, por favor intentelo nuevamente o contacte al administrador.');
+		<?php		
+				}			
+			}	
+		?>		
+	});
+
+	/**
+ 	 * funcion encargada de elminar un comentario en un post o en lightbox
+ 	 */
+ 	function call_paypal(){		
+ 	 	
+  		$.ajax({
+ 			type: "POST",
+ 			url: "<?=$this->baseUrl();?>/paypal/setexpresscheckout",
+ 			dataType: "json",
+ 			data: "house_id=2&checkin=2014-1-1&checkout=2014-1-2&cost=1.0&special_request=&how_many_people=4",
+ 			success: function(data){
+ 						if (data.success == 'yes') { 							
+ 							$('#pplink').val(decodeURIComponent(data.link));
+ 						} else if (data.success == 'no') {
+ 							alert('error al eliminar');							 
+ 						}
+ 	  				}	
+ 		});
+ 		 	 			 		
+ 	}
+
+	function authenticatePayPal(){
+	 	window.top.location.href = $('#pplink').val();	
+	 }
+</script>
+
+
+    <div class="h_int">
+        <header class="container">
+            <div class="row">
+                <div class="span3">
+                	<a href="<?=$this->baseUrl()?>/frontend/index">
+                    	<img src="<?=$this->baseUrl()?>/images/h_logo.png">
+                    </a>
+                </div>
+                <div class="span9">
+                    <ul class="nav nav-pills pull-right">
+                        <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/quienessomos">qui&eacute;nes somos</a></li>
+                        <li><a data-toggle="modal" href="<?=$this->baseUrl()?>/frontend/lapedrera">la pedrera</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend#alojamientos">alojamientos</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend#ubicacion">ubicaci&oacute;n</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend/actividades">actividades</a></li>
+                        <li><a href="<?=$this->baseUrl()?>/frontend#contacto">contacto</a></li>
+                    </ul>            
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <h1>reserva</h1>
+            </div>
+            <div class="span4">
+               
+               
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px;">
+        	
+        	<?php 
+        	 // ACA CONTENIDO PRUEBA
+        	?>
+        	
+        	 <!-- PayPal authorization -->        
+            <div id="ppbox" >	            
+	            <a href="#" onclick="javascript:authenticatePayPal();" title="Autentificate en PayPal antes de realizar pago">
+	            	<img src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif" border="0" align="left" style="margin-right:7px;">
+	    		</a>
+    			<input type="hidden" id="pplink" value="" />	           
+			</div>				       	        	
+        	
+        	<?php 
+        	
+        	?>
+        	
+        </div>
+    </div>

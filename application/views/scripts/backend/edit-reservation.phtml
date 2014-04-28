@@ -6,6 +6,18 @@ $(function() {
 			changeYear: true,								
 			yearRange: "1920:2000"
 	});		
+	$( "#checkin" ).datepicker({
+		minDate: -999*99,
+		changeMonth: true,
+		changeYear: true,								
+		yearRange: "2013:2018"
+	});
+	$( "#checkout" ).datepicker({
+		minDate: -999*99,
+		changeMonth: true,
+		changeYear: true,								
+		yearRange: "2013:2018"
+	});	
 });
 
 function check_empty(){

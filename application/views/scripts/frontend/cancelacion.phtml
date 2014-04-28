@@ -1,0 +1,52 @@
+<script type="text/javascript">
+	//when close modal we destroy the div
+	$('.modal').on('hidden.bs.modal', function () {
+		$('div.modal').remove();
+	});
+	
+	// when close modal we destroy the div
+	$('.modal').on('shown.bs.modal', function () {
+		var scrollElem2 = scrollableElement('html', 'body');
+		$(scrollElem2).animate({scrollTop: 638}, 800, function() {
+			location.hash = 'contacto';
+		});	
+	});	
+
+	// use the first element that is "scrollable"
+	function scrollableElement(els) {
+		for (var i = 0, argLength = arguments.length; i <argLength; i++) {
+		  var el = arguments[i],
+			  $scrollElement = $(el);
+		  if ($scrollElement.scrollTop()> 0) {
+			return el;
+		  } else {
+			$scrollElement.scrollTop(1);
+			var isScrollable = $scrollElement.scrollTop()> 0;
+			$scrollElement.scrollTop(0);
+			if (isScrollable) {
+			  return el;
+			}
+		  }
+		}
+		return [];
+	}
+</script>
+
+<div class="modal-header">
+	<a class="close" data-dismiss="modal">&times;</a>
+	<h1>pol&iacute;ticas de cancelaci&oacute;n</h1>
+</div>
+<div class="modal-body">
+	<div class="row">
+					 
+		<p class="span5">
+			1) Hasta 15 d&iacute;as antes del ingreso - 10%  <br/>         
+			2) Entre 14 y 10 d&iacute;as antes del ingreso - 15% <br/>           
+			3) Entre 9 y 5 d&iacute;as antes del ingreso - 30%   <br/>        
+			4) Entre 4 d&iacute;as y el d&iacute;a del ingreso - 50%
+		</p> 
+	</div>
+</div>
+<div class="modal-footer">
+</div>
+

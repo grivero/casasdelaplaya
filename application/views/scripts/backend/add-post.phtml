@@ -12,6 +12,7 @@ function validateForm(){
 <?= $this->getAdminLayout('Posts') ?>
 <h3 class="tit">Crear Post</h3> 					
 			<p class="msg info">Por favor, llene todos los campos obligatorios</p>
+			<p class="msg info">Si agrega WEB asgurese de poner http:// para que la redireccion funcione correctamente</p>
 			<p class="msg info">El usuario debe ser creado anteriormente</p>
 			<p class="msg info">La puntuaci&oacute;n sirve para dar mayor o menor revelacia a los posts que se muestran en la web</p>
 			<p class="msg info">en la web mostramos los post en orden descendiente tomando como referencia la puntuaci&oacute;n y fecha de modificaci&oacute;n</p>			
@@ -41,6 +42,10 @@ function validateForm(){
 						<tr>
 							<td>Descrtipci&oacute;n:</td>
 							<td><textarea name="description" id="description" class="input-text" rows="3" cols="38"></textarea></td>
+						</tr>
+						<tr>
+							<td>Web:</td>
+							<td><input type="text" name="web" id="web" class="input-text"></td>
 						</tr>
 						<tr>
 						  	<td class="va-top">Aprobaci&oacute;n:</td>

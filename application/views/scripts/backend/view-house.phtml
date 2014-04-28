@@ -10,11 +10,16 @@ if ($_GET['edited']=='ok') {
       
 <p class="msg info">Detalle de la Casa</p>	   
    <table width="50%">
-   		<tbody>
-            <tr>
+   		<tbody>   			
+            <tr class="bg">
               <td><b>Nombre</b></td>
               <td><?=$this->house['name'];?></td>
             </tr>
+            <tr>
+              <td><b>Cantidad de personas</b></td>
+            <td><?=$this->house['type'];?></td>
+            </tr>
+            <tr>
              <tr class="bg">
               <td><b>Detalles</b></td>
             <td><?=$this->house['description'];?></td>
@@ -34,6 +39,10 @@ if ($_GET['edited']=='ok') {
             <tr class="bg">
               <td><b>Precio Especial</b></td>
                <td><?=$this->house['special_price'];?></td>
+            </tr>
+            <tr>
+              <td><b>Precio Carnaval</b></td>
+               <td><?=$this->house['carnival_price'];?></td>
             </tr>            
             <tr>
               <td><b>Fecha Creacion</b></td>

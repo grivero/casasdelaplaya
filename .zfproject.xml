@@ -47,6 +47,9 @@
           <actionMethod actionName="editPost"/>
           <actionMethod actionName="editReservation"/>
           <actionMethod actionName="viewPost"/>
+          <actionMethod actionName="deletePost"/>
+          <actionMethod actionName="viewCalendar"/>
+          <actionMethod actionName="calendar"/>
         </controllerFile>
         <controllerFile controllerName="Frontend">
           <actionMethod actionName="index"/>
@@ -61,11 +64,18 @@
           <actionMethod actionName="quienessomos"/>
           <actionMethod actionName="lapedrera"/>
           <actionMethod actionName="map"/>
+          <actionMethod actionName="lunchReserva"/>
+          <actionMethod actionName="createReserva"/>
         </controllerFile>
         <controllerFile controllerName="Authentication">
           <actionMethod actionName="index"/>
           <actionMethod actionName="login"/>
           <actionMethod actionName="logout"/>
+        </controllerFile>
+        <controllerFile controllerName="Paypal">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="pay"/>
+          <actionMethod actionName="setexpresscheckout"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
@@ -224,6 +234,30 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Frontend">
             <viewScriptFile forActionName="map"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="deletePost"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="viewCalendar"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Paypal">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Paypal">
+            <viewScriptFile forActionName="pay"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Paypal">
+            <viewScriptFile forActionName="setexpresscheckout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Frontend">
+            <viewScriptFile forActionName="lunchReserva"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Frontend">
+            <viewScriptFile forActionName="createReserva"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Backend">
+            <viewScriptFile forActionName="calendar"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

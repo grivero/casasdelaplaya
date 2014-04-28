@@ -110,6 +110,9 @@ input[type=button] {
 .la_p_carousel {
 	width:734px!important;
 }
+.la_p_carousel_responsive {
+	display:none;
+}
 #carousel div {
 	width: 100%;
 	height: 100%;
@@ -194,6 +197,7 @@ body.actividades .nav-pills li a:hover {
 	color:#cccccc;
 }
 .h_mods {
+	height: 190px;
 	background: rgba(255,255,255,0.9);
 	padding:25px;
 	box-sizing:border-box;
@@ -233,8 +237,8 @@ body.actividades .nav-pills li a:hover {
 	background:url(../../images/ico/ico_tw.png) top no-repeat;
 }
 .mod_reserva {
-	margin-top:50px;
-	display:none;
+	/*margin-top:50px;*/
+	/*display:none;*/
 }
 .mod_reserva label {
 	background:none!important;
@@ -248,6 +252,16 @@ body.actividades .nav-pills li a:hover {
 	color:#ffffff;
 }
 .mod_reserva input[type=button]:hover {
+	background:#2d5c53;
+	color:#ffffff;
+}
+.mod_reserva input[type=submit] {
+	margin-top:15px;
+	width:156px;
+	background:#52b8a5;
+	color:#ffffff;
+}
+.mod_reserva input[type=submit]:hover {
 	background:#2d5c53;
 	color:#ffffff;
 }
@@ -356,7 +370,7 @@ body.actividades .nav-pills li a:hover {
 	width:100%;
 	height:747px;
 	padding-top:15px;
-	background: url(../../../images/bkg/contact_bkg.jpg) center repeat #1c9286;
+	background: url(../../images/bkg/contact_bkg.jpg) center repeat #1c9286;
 }
 #contacto h1 {
 	color:#ffffff;
@@ -654,4 +668,4 @@ body.actividades .modal-body .btn {
 .input_error,.input_error[placeholder]{
 	box-shadow: 0 0 5px red !important;	
 	border: red;
-}	
+}
