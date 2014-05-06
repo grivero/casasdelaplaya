@@ -47,8 +47,8 @@ $(function() {
 							<td>
 								<select name="house_id" id="house_id">
 									<option></option>
-								<?php 																
-								foreach ($this->orderHouses as $house){
+								<?php 
+								foreach ($this->houses as $house){
 								?>
 									<option value="<?=$house['id']?>"><?=$house['name']?></option>
 								<?php	
@@ -63,9 +63,9 @@ $(function() {
 								<select name="user_id" id="user_id">
 									<option></option>
 								<?php 
-								foreach ($this->orderUsers as $user){
+								foreach ($this->users as $user){
 								?>
-									<option value="<?=$user['id']?>"><?=$user['name']?> - <?=$user['email']?></option>
+									<option value="<?=$user['id']?>"><?=$user['email']?> - <?=$user['name']?></option>
 								<?php	
 								}
 								?>

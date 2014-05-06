@@ -1,6 +1,7 @@
 
 
 @media (max-width: 767px) {
+
 ul {
 	margin-left:0;
 }
@@ -8,17 +9,7 @@ ul {
 	padding: 0 25px 0 25px;
 }
 #wrapper {
-	height: 480px;
-	background:url(../../images/bkg_carousel/002.jpg) no-repeat;
-}
-#wrapper .caroufredsel_wrapper {
-	display:none;
-}
-.nav-pills {
-	margin-top:0;
-}
-.nav-pills li a {
-	font-size:13px!important;
+	height: 500px;
 }
 #home_content {
 	width:auto;
@@ -28,48 +19,27 @@ ul {
 }
 .mod_contacto {
 	height:195px;
-	margin-top:-5;
-}
-.mod_contacto a {
-	font-size:14px;
-}
-.h_bkg_desc {
-	display:none;
+	margin-top:10px;
 }
 
 /* alojamientos*/
-.aloj_btn {
-	height:150px;
-}
 .aloj_btn h2 {
 	width: 199px;
-	margin: 43px auto 20px auto;
-	float:none;
+	margin: 43px 0 20px 0;
 }	
-.aloj_btn span {
-	margin:15px auto 0 auto;
-	float:none;
-}
-.aloj_more {
-	top: 55px;
-	left: 101px;
-}
 .aloj_serv li {
 	font-size:11px;
-}
-.aloj_btn img{
-	display:none;
 }
 /*ubicacion*/
 .map {
 	background-size: 100%;
-	height: 213px;
+	height: 192px;
 }
 .map .btn {
 	display:none;
 }
 .map .map_recorrido {
-	top: -65px;
+	top: -73px;
 	left: 2px;
 }
 /* contacto */
@@ -104,8 +74,6 @@ ul {
 .modal {
 	width:auto;
 	margin-left:0;
-	max-height: 430px;
-	overflow-y: auto;
 }
 
 .modal-body .slide {
@@ -129,20 +97,6 @@ ul {
 }
 .btn_servicios, .btn_tarifas  {
 	display:none;
-}
-.la_p_carousel {
-	display:none;
-}
-.la_p_carousel_responsive {
-	display:block;
-}	
-.p_la_pedrera_responsive{
-	margin:auto;
-	width:76%;
-	font-size: 13px !important;
-}
-.quienes_somos_responsive{
-	display: none;
 }
 }
 
@@ -210,13 +164,13 @@ ul {
 /*ubicacion*/
 .map {
 	background-size: 100%;
-	height: 213px;
+	height: 119px;
 }
 .map .btn {
 	display:none;
 }
 .map .map_recorrido {
-	top: -65px;
+	top: -26px;
 	left: 2px;
 }
 /* contacto */
@@ -277,19 +231,4 @@ ul {
 .btn_servicios, .btn_tarifas  {
 	display:none;
 }
-.la_p_carousel {
-	display:none;
-}
-.la_p_carousel_responsive {
-	display:block;
-}	
-.p_la_pedrera_responsive{
-	margin:auto;
-	width:76%;
-	font-size: 13px !important;
-}
-.quienes_somos_responsive{
-	display: none;
-}
-	
 }

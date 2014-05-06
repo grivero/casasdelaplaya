@@ -422,9 +422,9 @@ class BackendController extends Zend_Controller_Action
     		$users 	= $user_model->fetchAll()->toArray();
     		$houses = $house_model->fetchAll()->toArray();
     		
-			//data to view					
-			$this->view->orderHouses = $this->orderArray ($houses, "name");
-			$this->view->orderUsers = $this->orderArray ($users, "name");			
+			//data to view		
+			$this->view->users 	= $users;
+			$this->view->houses	= $houses;
 											
     	}else{
     		
@@ -474,31 +474,6 @@ class BackendController extends Zend_Controller_Action
     	
     	if($this->getRequest()->getParam('edit')=='true'){
     		
-    		// vars to save
-    		$checkin			= trim( $this->getRequest()->getParam('checkin') );
-    		$checkout			= trim( $this->getRequest()->getParam('checkout') );    		
-    		$house_id			= trim( $this->getRequest()->getParam('house_id') );
-    		$payed				= trim( $this->getRequest()->getParam('payed') );
-    		$special_request 	= trim( $this->getRequest()->getParam('special_request') );
-    		$cost				= trim( $this->getRequest()->getParam('cost') );
-    		$howManyPeople		= trim( $this->getRequest()->getParam('howManyPeople') );    		
-    		
-    		// date manipulations    		
-			require_once('../library/utils/fecha.class.php');
-			$fecha 		= new Fecha($checkin);		
-			$checkin 	= $fecha->getFecha()->format('Y-m-d');
-			$fecha		= new Fecha($checkout);
-			$checkout 	= $fecha->getFecha()->format('Y-m-d');
-			
-			$reservation = $res_model->find($id)->current();
-			$reservation->checkin = $checkin;
-			$reservation->checkout = $checkin;
-			$reservation->house_id = $house_id;
-			$reservation->payed		= $payed;
-			$reservation->special_request = $special_request;
-			$reservation->cost		= $cost;
-			$reservation->howManyPeople = $howManyPeople;
-			
     	}else{
     		    	    	
 			// data    	    	    									
@@ -514,7 +489,7 @@ class BackendController extends Zend_Controller_Action
 			$this->view->guests			= $guests;
 			$this->view->user			= $user;
 			$this->view->house			= $house;
-			$this->view->houses			= $this->orderArray ($houses, "name");
+			$this->view->houses			= $houses;
 			
     	}
     	    	
@@ -584,7 +559,7 @@ class BackendController extends Zend_Controller_Action
 	    	//get all users
 	    	$users 	= $user_model->fetchAll()->toArray();    		    		
 			//data to view		
-			$this->view->users 	= $this->orderArray ($users, "name");
+			$this->view->users 	= $users;
 					
     	}else if( $this->getRequest()->getParam('add')=='true' ){
     		
@@ -777,9 +752,12 @@ class BackendController extends Zend_Controller_Action
 			
 		    $out[] = array(
 		        'id' 				=> $row['id'],
-		    	'class'				=> ( $house->type=='4' ) ? 'event-warning' : 'event-info',
-		        'title' 			=> 'Casa: '.$house->name.'<br/>&nbsp;Inquilino: '.$user->name,		    	
-		        'url' 				=> $this->view->baseUrl().'/backend/view-reservation?id='.$row['id'],		    	
+		        'title' 			=> $house->name,
+		    	'house_name' 		=> $house->name,
+		    	'user_name' 		=> $user->name,
+		        'reservation_url' 	=> $this->baseUrl.'/backend/view-reservation?id='.$row['id'],
+		    	'user_url' 			=> $this->baseUrl.'/backend/view-user?id='.$row['user_id'],
+		    	'house_url' 		=> $this->baseUrl.'/backend/view-house?id='.$row['house_id'],
 		        'start' 			=> strtotime($row['checkin']) . '000',
 		    	'end' 				=> strtotime($row['checkout']) . '000'
 		    );
@@ -796,32 +774,5 @@ class BackendController extends Zend_Controller_Action
 		$this->view->price = $price*0.5;
 				                                                                   
     }
-    
-    /**
-     * 
-     * Order multidimension arrays using one field ...
-     * @param $toOrderArray, the multidimension array to order
-     * @param $field, field to use to order, example "name"
-     * @param $inverse, false to desc, true to asc
-     */
-	private function orderArray ($toOrderArray, $field, $inverse = false) {  
-	    $position = array();  
-	    $newRow = array();  
-	    foreach ($toOrderArray as $key => $row) {  
-	            $position[$key]  = $row[$field];  
-	            $newRow[$key] = $row;  
-	    }  
-	    if ($inverse) {  
-	        arsort($position);  
-	    }  
-	    else {  
-	        asort($position);  
-	    }  
-	    $returnArray = array();  
-	    foreach ($position as $key => $pos) {       
-	        $returnArray[] = $newRow[$key];  
-	    }  
-	    return $returnArray;  
-	}
 
 }

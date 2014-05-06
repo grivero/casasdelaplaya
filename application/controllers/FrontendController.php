@@ -282,54 +282,7 @@ class FrontendController extends Zend_Controller_Action
 
     public function lunchReservaAction()
     {
-        // view params
-        $checkin 	= $this->getRequest()->getParam('checkin');
-        $checkout 	= $this->getRequest()->getParam('checkout');
-        
-        $checkin = '2014/01/02';
-        $checkout = '2014/01/22';
-        
-        // modals
-        $house_model 		= new Application_Model_DbTable_House();
-        $reservation_model 	= new Application_Model_DbTable_Reservation();
-        
-        // get reservations
-        $rentedList = $reservation_model->select()->from('reservation',array('id','house_id','checkin','checkout'))  							   
-  				   						->where("$checkin < checkin AND $checkout > checkin")
-    									->orWhere("$checkin < checkout AND $checkout > checkout ")
-    									->orWhere("$checkin < checkin AND $checkout > checkout")
-    									->orWhere(" ($checkin < checkin AND checkin < $checkout) AND ($checkin < checkout AND checkout < $checkout)")  							   							    												
-  				   						->query()->fetchAll();  							   						        	
-        
-		// get house ids  				   						
-		$rented_house_id;
-		$i = -1;  							   						
-		foreach($rentedList as $rent)
-			$rented_house_id[ $i++ ] = $rent['house_id'];
-            	
-        // came from index or from house type
-        if( $this->getRequest()->getParam('house_type')!='' ){        	
-			
-        	// get availables
-        	$type = $this->getRequest()->getParam('house_type');        	
-			$available = $house_model->select()->from('house')
-											   ->where("id NOT IN (?)", $rented_house_id)
-											   ->where("type = ?", $type)
-											   ->query()->fetchAll();
-        	
-        }else{
-
-        	// get availables
-			$available = $house_model->select()->from('house')
-											   ->where("id NOT IN (?)", $rented_house_id)
-											   ->query()->fetchAll();
-							
-        	
-        }
-        
-        // array with all the rooms available during those dates
-        $this->view->available = $rentedList;         
-    	
+        // action body
     }
 
     public function createReservaAction()
@@ -337,10 +290,5 @@ class FrontendController extends Zend_Controller_Action
         // action body
     }
 
-  	public function cancelacionAction()
-    {
-        //to clean response page
-    	$this->_helper->layout->disableLayout();
-    }
-    
+
 }
